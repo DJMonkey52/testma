@@ -906,7 +906,14 @@
     </div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynrQv1QhyEFkuU4bPA1RnQS9D8JDyCOkwaW-ubivYZkbiMYKzVghlnCuP-mKMVUUJ1/exec';
+        // ВАЖНО: ЭТОТ КОД РАБОТАЕТ ТОЛЬКО КОГДА ЗАГРУЖЕН ВНУТРИ GOOGLE APPS SCRIPT
+        // ДЛЯ ЭТОГО НУЖНО:
+        // 1. Создать новый Google Apps Script проект
+        // 2. Скопировать туда этот HTML код в файл Index.html
+        // 3. Скопировать Google Apps Script код (который будет ниже) в файл Code.gs
+        // 4. Нажать "Развернуть" -> "Новое развертывание" -> "Веб-приложение"
+        // 5. Выполнять от: "Я", Доступ: "Все"
+        // 6. Открыть полученную ссылку
         
         const WEBHOOKS = {
             КМБ: {
@@ -980,23 +987,6 @@
             } catch(e) { console.error('Discord error:', e); return false; }
         }
         
-        async function saveToSheet(type, dept, action, data) {
-            if (!GOOGLE_SCRIPT_URL) return false;
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type, department: dept, actionType: action, ...data })
-                });
-                console.log('Sheet response sent');
-                return true;
-            } catch(e) { 
-                console.error('Sheet error:', e); 
-                return false;
-            }
-        }
-        
         function showAlert(container, msg, type) {
             const c = document.getElementById(container);
             if (!c) return;
@@ -1007,41 +997,25 @@
             setTimeout(() => div.remove(), 5000);
         }
         
-        async function doLogin(login, pass) {
+        function doLogin(login, pass) {
             const alertContainer = 'loginAlert';
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'auth', login: login, password: pass })
-                });
-                
-                const text = await response.text();
-                let data;
-                try {
-                    data = JSON.parse(text);
-                } catch(e) {
-                    console.error('Parse error:', text);
-                    showAlert(alertContainer, 'Ошибка ответа сервера', 'error');
-                    return false;
-                }
-                
-                if (data.success) {
-                    currentUser = data.user;
-                    localStorage.setItem('deltaUser', JSON.stringify(currentUser));
-                    updateAdminUI();
-                    document.getElementById('loginModal').style.display = 'none';
-                    showAlert(alertContainer, 'Вход выполнен!', 'success');
-                    return true;
-                } else {
-                    showAlert(alertContainer, data.error || 'Ошибка входа', 'error');
-                    return false;
-                }
-            } catch(e) {
-                console.error('Login error:', e);
-                showAlert(alertContainer, 'Ошибка соединения с сервером: ' + e.message, 'error');
-                return false;
-            }
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    if (data.success) {
+                        currentUser = data.user;
+                        localStorage.setItem('deltaUser', JSON.stringify(currentUser));
+                        updateAdminUI();
+                        document.getElementById('loginModal').style.display = 'none';
+                        showAlert(alertContainer, 'Вход выполнен!', 'success');
+                    } else {
+                        showAlert(alertContainer, data.error || 'Ошибка входа', 'error');
+                    }
+                })
+                .withFailureHandler(function(error) {
+                    console.error('Login error:', error);
+                    showAlert(alertContainer, 'Ошибка соединения с сервером: ' + error.message, 'error');
+                })
+                .handleAuth({ login: login, password: pass });
         }
         
         function logout() {
@@ -1342,7 +1316,7 @@
             updateTotalDisplay();
         }
         
-        async function submitForm() {
+        function submitForm() {
             const alertId = 'formAlert';
             if (currentAction === 'weekly') {
                 const nick = document.getElementById('fNickname')?.value.trim();
@@ -1357,17 +1331,31 @@
                     acts += `**${i+1}. ${a.type || 'Не выбран'}** x${a.count||1} = ${pts} баллов\n`;
                     if (a.proofs?.length) acts += `Доказательства: ${a.proofs.filter(p=>p).join(', ')}\n`;
                 });
-                const fields = [
-                    { name: "Никнейм", value: nick, inline: true },
-                    { name: "Ранг", value: rank, inline: true },
-                    { name: "Период", value: `${formatDate(start)} - ${formatDate(end)}`, inline: true },
-                    { name: "Действия", value: acts.substring(0,1024) || "Нет" },
-                    { name: "Баллы", value: `${total}`, inline: true }
-                ];
-                await sendDiscord(WEBHOOKS.MA.weekly, "Еженедельный отчёт (MA)", fields, 0x4CAF50, TAGS.MA.weekly);
-                await saveToSheet('report', 'MA', 'weekly', { nickname: nick, rank, periodStart: start, periodEnd: end, actions: acts, totalPoints: total });
-                showAlert(alertId, 'Отчёт отправлен!', 'success');
-                resetForm();
+                
+                const reportData = { 
+                    nickname: nick, rank: rank, 
+                    periodStart: start, periodEnd: end, 
+                    actions: acts, totalPoints: total,
+                    department: 'MA', actionType: 'weekly'
+                };
+                
+                google.script.run
+                    .withSuccessHandler(function() {
+                        sendDiscord(WEBHOOKS.MA.weekly, "Еженедельный отчёт (MA)", [
+                            { name: "Никнейм", value: nick, inline: true },
+                            { name: "Ранг", value: rank, inline: true },
+                            { name: "Период", value: `${formatDate(start)} - ${formatDate(end)}`, inline: true },
+                            { name: "Действия", value: acts.substring(0,1024) || "Нет" },
+                            { name: "Баллы", value: `${total}`, inline: true }
+                        ], 0x4CAF50, TAGS.MA.weekly);
+                        showAlert(alertId, 'Отчёт отправлен!', 'success');
+                        resetForm();
+                    })
+                    .withFailureHandler(function(err) {
+                        showAlert(alertId, 'Ошибка: ' + err.message, 'error');
+                    })
+                    .saveReport(reportData);
+                    
             } else if (currentAction === 'promotion') {
                 const nick = document.getElementById('fNickname')?.value.trim();
                 if (!nick) { showAlert(alertId, 'Введите никнейм', 'error'); return; }
@@ -1380,37 +1368,67 @@
                     total += pts;
                     acts += `**${i+1}. ${a.type || 'Не выбран'}** x${a.count||1} = ${pts} баллов\n`;
                 });
-                const fields = [
-                    { name: "Никнейм", value: nick, inline: true },
-                    { name: "Текущий ранг", value: curRank, inline: true },
-                    { name: "Желаемый ранг", value: desRank, inline: true },
-                    { name: "Последнее повышение", value: formatDate(lastProm) || "Не указано", inline: true },
-                    { name: "Достижения", value: acts.substring(0,1024) || "Нет" },
-                    { name: "Баллы", value: `${total}`, inline: true }
-                ];
-                const webhook = WEBHOOKS[currentDept]?.promotion;
-                if (webhook) await sendDiscord(webhook, `Запрос на повышение (${currentDept})`, fields, 0x4CAF50, TAGS[currentDept]?.promotion);
-                await saveToSheet('report', currentDept, 'promotion', { nickname: nick, currentRank: curRank, desiredRank: desRank, lastPromotion: lastProm, actions: acts, totalPoints: total });
-                showAlert(alertId, 'Запрос отправлен!', 'success');
-                resetForm();
+                
+                const reportData = {
+                    nickname: nick, currentRank: curRank, desiredRank: desRank,
+                    lastPromotion: lastProm, actions: acts, totalPoints: total,
+                    department: currentDept, actionType: 'promotion'
+                };
+                
+                google.script.run
+                    .withSuccessHandler(function() {
+                        const webhook = WEBHOOKS[currentDept]?.promotion;
+                        if (webhook) sendDiscord(webhook, `Запрос на повышение (${currentDept})`, [
+                            { name: "Никнейм", value: nick, inline: true },
+                            { name: "Текущий ранг", value: curRank, inline: true },
+                            { name: "Желаемый ранг", value: desRank, inline: true },
+                            { name: "Последнее повышение", value: formatDate(lastProm) || "Не указано", inline: true },
+                            { name: "Достижения", value: acts.substring(0,1024) || "Нет" },
+                            { name: "Баллы", value: `${total}`, inline: true }
+                        ], 0x4CAF50, TAGS[currentDept]?.promotion);
+                        showAlert(alertId, 'Запрос отправлен!', 'success');
+                        resetForm();
+                    })
+                    .withFailureHandler(function(err) {
+                        showAlert(alertId, 'Ошибка: ' + err.message, 'error');
+                    })
+                    .saveReport(reportData);
+                    
             } else if (currentAction === 'exam') {
                 const fullName = document.getElementById('fFullName')?.value.trim();
                 if (!fullName) { showAlert(alertId, 'Введите имя и фамилию', 'error'); return; }
                 const examType = document.getElementById('fExamType')?.value || '';
                 const discord = document.getElementById('fDiscord')?.value.trim() || '';
                 const time = document.getElementById('fTime')?.value.trim() || '';
-                const fields = [
-                    { name: "Имя", value: fullName, inline: true },
-                    { name: "Экзамен", value: examType, inline: true },
-                    { name: "Discord", value: discord, inline: true },
-                    { name: "Время", value: time, inline: true }
-                ];
-                const webhook = WEBHOOKS[currentDept]?.exam;
-                if (webhook) await sendDiscord(webhook, `Запись на экзамен (${currentDept})`, fields, 0x4CAF50, TAGS[currentDept]?.exam);
-                await sendDiscord(ADDITIONAL_EXAM_WEBHOOK, `Запись на экзамен (${currentDept})`, fields, 0x4CAF50);
-                await saveToSheet('report', currentDept, 'exam', { fullName, examType, discordTag: discord, examTime: time });
-                showAlert(alertId, 'Заявка отправлена!', 'success');
-                resetForm();
+                
+                const reportData = {
+                    fullName: fullName, examType: examType,
+                    discordTag: discord, examTime: time,
+                    department: currentDept, actionType: 'exam'
+                };
+                
+                google.script.run
+                    .withSuccessHandler(function() {
+                        const webhook = WEBHOOKS[currentDept]?.exam;
+                        if (webhook) sendDiscord(webhook, `Запись на экзамен (${currentDept})`, [
+                            { name: "Имя", value: fullName, inline: true },
+                            { name: "Экзамен", value: examType, inline: true },
+                            { name: "Discord", value: discord, inline: true },
+                            { name: "Время", value: time, inline: true }
+                        ], 0x4CAF50, TAGS[currentDept]?.exam);
+                        sendDiscord(ADDITIONAL_EXAM_WEBHOOK, `Запись на экзамен (${currentDept})`, [
+                            { name: "Имя", value: fullName, inline: true },
+                            { name: "Экзамен", value: examType, inline: true },
+                            { name: "Discord", value: discord, inline: true },
+                            { name: "Время", value: time, inline: true }
+                        ], 0x4CAF50);
+                        showAlert(alertId, 'Заявка отправлена!', 'success');
+                        resetForm();
+                    })
+                    .withFailureHandler(function(err) {
+                        showAlert(alertId, 'Ошибка: ' + err.message, 'error');
+                    })
+                    .saveReport(reportData);
             }
         }
         
@@ -1435,158 +1453,175 @@
             }
         }
         
-        async function showAdminPage() {
+        function showAdminPage() {
             if (!hasPerm('admin')) {
                 showAlert('deptsPage', 'Нет доступа к админке', 'error');
                 return;
             }
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             document.getElementById('adminPage').style.display = 'block';
-            await loadExams();
-            await loadPromotions();
-            if (hasPerm('accounts')) await loadAccounts();
-            if (hasPerm('settings')) await loadSettings();
+            loadExams();
+            loadPromotions();
+            if (hasPerm('accounts')) loadAccounts();
+            if (hasPerm('settings')) loadSettings();
             
             document.getElementById('accountsTab').style.display = hasPerm('accounts') ? 'inline-block' : 'none';
             document.getElementById('settingsTab').style.display = hasPerm('settings') ? 'inline-block' : 'none';
         }
         
-        async function loadExams() {
+        function loadExams() {
             const container = document.getElementById('examsList');
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getExams' }) });
-                const data = await res.json();
-                if (data.exams && data.exams.length > 0) {
-                    container.innerHTML = data.exams.map((e, i) => `
-                        <div class="exam-item">
-                            <div><strong>${e.fullName}</strong> | ${e.examType} | ${e.department}</div>
-                            <div>Discord: ${e.discordTag} | Время: ${e.examTime}</div>
-                            <div>Статус: <span class="status-badge status-${e.status==='Пройдено'?'passed':e.status==='Отклонено'?'failed':'waiting'}">${e.status||'Ожидание'}</span></div>
-                            <select class="exam-status" data-name="${e.fullName}" data-date="${e.date}" data-dept="${e.department}">
-                                <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>Ожидание</option>
-                                <option value="Пройдено" ${e.status==='Пройдено'?'selected':''}>Пройдено</option>
-                                <option value="Отклонено" ${e.status==='Отклонено'?'selected':''}>Отклонено</option>
-                            </select>
-                            <div class="exam-form" style="display:none; margin-top:10px;">
-                                <input type="text" placeholder="Принимавший" class="examiner" style="padding:5px; margin:3px;">
-                                <input type="number" placeholder="Балл" class="score" style="padding:5px; margin:3px; width:80px;">
-                                <select class="result" style="padding:5px; margin:3px;"><option>Сдал</option><option>Не сдал</option></select>
-                                <button class="confirm-exam" style="padding:5px 10px; background:var(--accent); color:white; border:none; border-radius:8px;">Подтвердить</button>
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    if (data.exams && data.exams.length > 0) {
+                        container.innerHTML = data.exams.map((e, i) => `
+                            <div class="exam-item">
+                                <div><strong>${e.fullName}</strong> | ${e.examType} | ${e.department}</div>
+                                <div>Discord: ${e.discordTag} | Время: ${e.examTime}</div>
+                                <div>Статус: <span class="status-badge status-${e.status==='Пройдено'?'passed':e.status==='Отклонено'?'failed':'waiting'}">${e.status||'Ожидание'}</span></div>
+                                <select class="exam-status" data-name="${e.fullName}" data-date="${e.date}" data-dept="${e.department}">
+                                    <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>Ожидание</option>
+                                    <option value="Пройдено" ${e.status==='Пройдено'?'selected':''}>Пройдено</option>
+                                    <option value="Отклонено" ${e.status==='Отклонено'?'selected':''}>Отклонено</option>
+                                </select>
+                                <div class="exam-form" style="display:none; margin-top:10px;">
+                                    <input type="text" placeholder="Принимавший" class="examiner" style="padding:5px; margin:3px;">
+                                    <input type="number" placeholder="Балл" class="score" style="padding:5px; margin:3px; width:80px;">
+                                    <select class="result" style="padding:5px; margin:3px;"><option>Сдал</option><option>Не сдал</option></select>
+                                    <button class="confirm-exam" style="padding:5px 10px; background:var(--accent); color:white; border:none; border-radius:8px;">Подтвердить</button>
+                                </div>
                             </div>
-                        </div>
-                    `).join('');
-                    
-                    document.querySelectorAll('.exam-status').forEach(sel => {
-                        sel.onchange = () => {
-                            const div = sel.parentElement.querySelector('.exam-form');
-                            if (sel.value === 'Пройдено') div.style.display = 'block';
-                            else { div.style.display = 'none'; updateExamStatus(sel.dataset.name, sel.dataset.date, sel.value, '', '', '', sel.dataset.dept); }
-                        };
-                    });
-                    document.querySelectorAll('.confirm-exam').forEach(btn => {
-                        btn.onclick = () => {
-                            const div = btn.parentElement;
-                            const sel = div.parentElement.querySelector('.exam-status');
-                            const examiner = div.querySelector('.examiner')?.value || '';
-                            const score = div.querySelector('.score')?.value || '';
-                            const result = div.querySelector('.result')?.value || 'Сдал';
-                            updateExamStatus(sel.dataset.name, sel.dataset.date, 'Пройдено', examiner, score, result, sel.dataset.dept);
-                            div.style.display = 'none';
-                            setTimeout(() => loadExams(), 1000);
-                        };
-                    });
-                } else {
-                    container.innerHTML = '<div class="empty-state">Нет записей на экзамен</div>';
-                }
-            } catch(e) { container.innerHTML = '<div class="empty-state">Ошибка загрузки экзаменов</div>'; }
+                        `).join('');
+                        
+                        document.querySelectorAll('.exam-status').forEach(sel => {
+                            sel.onchange = () => {
+                                const div = sel.parentElement.querySelector('.exam-form');
+                                if (sel.value === 'Пройдено') div.style.display = 'block';
+                                else { 
+                                    div.style.display = 'none'; 
+                                    updateExamStatus(sel.dataset.name, sel.dataset.date, sel.value, '', '', '', sel.dataset.dept); 
+                                }
+                            };
+                        });
+                        document.querySelectorAll('.confirm-exam').forEach(btn => {
+                            btn.onclick = () => {
+                                const div = btn.parentElement;
+                                const sel = div.parentElement.querySelector('.exam-status');
+                                const examiner = div.querySelector('.examiner')?.value || '';
+                                const score = div.querySelector('.score')?.value || '';
+                                const result = div.querySelector('.result')?.value || 'Сдал';
+                                updateExamStatus(sel.dataset.name, sel.dataset.date, 'Пройдено', examiner, score, result, sel.dataset.dept);
+                                div.style.display = 'none';
+                                setTimeout(() => loadExams(), 1000);
+                            };
+                        });
+                    } else {
+                        container.innerHTML = '<div class="empty-state">Нет записей на экзамен</div>';
+                    }
+                })
+                .withFailureHandler(function() {
+                    container.innerHTML = '<div class="empty-state">Ошибка загрузки экзаменов</div>';
+                })
+                .getExams();
         }
         
-        async function updateExamStatus(name, date, status, examiner, score, result, dept) {
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'examStatus', fullName: name, date, status, examinerName: examiner, score, result, department: dept }) });
-                const webhook = STATUS_WEBHOOKS[dept] || STATUS_WEBHOOKS.MA;
-                await sendDiscord(webhook, `Результат экзамена (${dept})`, [
-                    { name: "Участник", value: name }, { name: "Статус", value: status },
-                    { name: "Принимавший", value: examiner || '-' }, { name: "Результат", value: result }
-                ], status === 'Пройдено' ? 0x10b981 : 0xef4444);
-            } catch(e) { console.error(e); }
+        function updateExamStatus(name, date, status, examiner, score, result, dept) {
+            google.script.run
+                .withSuccessHandler(function() {
+                    const webhook = STATUS_WEBHOOKS[dept] || STATUS_WEBHOOKS.MA;
+                    sendDiscord(webhook, `Результат экзамена (${dept})`, [
+                        { name: "Участник", value: name }, { name: "Статус", value: status },
+                        { name: "Принимавший", value: examiner || '-' }, { name: "Результат", value: result }
+                    ], status === 'Пройдено' ? 0x10b981 : 0xef4444);
+                })
+                .updateExamStatus({ fullName: name, date: date.split('T')[0], status: status, examinerName: examiner, score: score, result: result, department: dept });
         }
         
-        async function loadPromotions() {
+        function loadPromotions() {
             const c = document.getElementById('promotionsList');
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getPromotionLists' }) });
-                const data = await res.json();
-                if (data.lists && data.lists.length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th><th>Отдел</th></tr></thead><tbody>
-                        ${data.lists.map(l => `<tr><td>${l.number}</td><td>${new Date(l.date).toLocaleString()}</td><td>${l.senderName}</td><td>${l.promotedName}</td><td><a href="${l.reportLink}" target="_blank">Открыть</a></td><td>${l.department}</td></tr>`).join('')}
-                    </tbody></table></div>`;
-                } else c.innerHTML = '<div class="empty-state">Нет списков на повышение</div>';
-            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка загрузки списков</div>'; }
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    if (data.lists && data.lists.length > 0) {
+                        c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th><th>Отдел</th></tr></thead><tbody>
+                            ${data.lists.map(l => `<tr><td>${l.number}</td><td>${new Date(l.date).toLocaleString()}</td><td>${l.senderName}</td><td>${l.promotedName}</td><td><a href="${l.reportLink}" target="_blank">Открыть</a></td><td>${l.department}</td></tr>`).join('')}
+                        </tbody></table></div>`;
+                    } else c.innerHTML = '<div class="empty-state">Нет списков на повышение</div>';
+                })
+                .getPromotionLists();
         }
         
-        async function loadAccounts() {
+        function loadAccounts() {
             const c = document.getElementById('accountsList');
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getAccounts' }) });
-                const data = await res.json();
-                if (data.accounts && data.accounts.length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th></tr></thead><tbody>
-                        ${data.accounts.map(a => `<tr><td>${a.login}</td><td>${a.role}</td><td>${a.firstName||''}</td><td>${a.lastName||''}</td></tr>`).join('')}
-                    </tbody></table></div>`;
-                } else c.innerHTML = '<div class="empty-state">Нет аккаунтов</div>';
-            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка загрузки аккаунтов</div>'; }
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    if (data.accounts && data.accounts.length > 0) {
+                        c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th></tr></thead><tbody>
+                            ${data.accounts.map(a => `<tr><td>${a.login}</td><td>${a.role}</td><td>${a.firstName||''}</td><td>${a.lastName||''}</td></tr>`).join('')}
+                        </tbody></table></div>`;
+                    } else c.innerHTML = '<div class="empty-state">Нет аккаунтов</div>';
+                })
+                .getAccounts();
         }
         
-        async function loadSettings() {
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getSettings' }) });
-                const data = await res.json();
-                settings = data.settings || {};
-                document.getElementById('settingWaiting').value = settings.exam_waiting_text || '';
-                document.getElementById('settingPassed').value = settings.exam_passed_text || '';
-                document.getElementById('settingFailed').value = settings.exam_failed_text || '';
-            } catch(e) {}
+        function loadSettings() {
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    settings = data.settings || {};
+                    document.getElementById('settingWaiting').value = settings.exam_waiting_text || '';
+                    document.getElementById('settingPassed').value = settings.exam_passed_text || '';
+                    document.getElementById('settingFailed').value = settings.exam_failed_text || '';
+                })
+                .getSettings();
         }
         
-        async function saveSettings() {
+        function saveSettings() {
             const newSet = {
                 exam_waiting_text: document.getElementById('settingWaiting').value,
                 exam_passed_text: document.getElementById('settingPassed').value,
                 exam_failed_text: document.getElementById('settingFailed').value
             };
-            await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'saveSettings', settings: newSet }) });
-            showAlert('settingsTabContent', 'Настройки сохранены', 'success');
+            google.script.run
+                .withSuccessHandler(function() {
+                    showAlert('settingsTabContent', 'Настройки сохранены', 'success');
+                })
+                .saveSettings({ settings: newSet });
         }
         
-        async function createAccount() {
+        function createAccount() {
             const login = document.getElementById('newLogin')?.value;
             const pass = document.getElementById('newPassword')?.value;
             if (!login || !pass) { showAlert('accountsTabContent', 'Заполните логин и пароль', 'error'); return; }
-            await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-                type: 'createAccount', login, password: pass, role: document.getElementById('newRole').value,
-                firstName: document.getElementById('newFirstName').value, lastName: document.getElementById('newLastName').value
-            }) });
-            showAlert('accountsTabContent', 'Аккаунт создан', 'success');
-            document.querySelectorAll('#newLogin, #newPassword, #newFirstName, #newLastName').forEach(i => i.value = '');
-            loadAccounts();
+            google.script.run
+                .withSuccessHandler(function() {
+                    showAlert('accountsTabContent', 'Аккаунт создан', 'success');
+                    document.querySelectorAll('#newLogin, #newPassword, #newFirstName, #newLastName').forEach(i => i.value = '');
+                    loadAccounts();
+                })
+                .createAccount({ 
+                    login: login, password: pass, 
+                    role: document.getElementById('newRole').value,
+                    firstName: document.getElementById('newFirstName').value, 
+                    lastName: document.getElementById('newLastName').value 
+                });
         }
         
-        async function sendPromotionList() {
+        function sendPromotionList() {
             const sender = document.getElementById('listSender')?.value;
             const promoted = document.getElementById('listPromoted')?.value;
             const link = document.getElementById('listLink')?.value;
             const dept = document.getElementById('listDept')?.value;
             if (!sender || !promoted || !link) { showAlert('sendListTab', 'Заполните все поля', 'error'); return; }
-            const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'promotionList', senderName: sender, promotedName: promoted, reportLink: link, department: dept }) });
-            const data = await res.json();
-            await sendDiscord(PROMOTION_LIST_WEBHOOK, `Список на повышение #${data.listNumber}`, [
-                { name: "Отправитель", value: sender }, { name: "Повышаемый", value: promoted },
-                { name: "Ссылка", value: link }, { name: "Отдел", value: dept }
-            ], 0x4CAF50, '<@&793440128906821672><@&792080799062556672>');
-            showAlert('sendListTab', `Список #${data.listNumber} отправлен`, 'success');
-            document.querySelectorAll('#listSender, #listPromoted, #listLink').forEach(i => i.value = '');
-            loadPromotions();
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    sendDiscord(PROMOTION_LIST_WEBHOOK, `Список на повышение #${data.listNumber}`, [
+                        { name: "Отправитель", value: sender }, { name: "Повышаемый", value: promoted },
+                        { name: "Ссылка", value: link }, { name: "Отдел", value: dept }
+                    ], 0x4CAF50, '<@&793440128906821672><@&792080799062556672>');
+                    showAlert('sendListTab', `Список #${data.listNumber} отправлен`, 'success');
+                    document.querySelectorAll('#listSender, #listPromoted, #listLink').forEach(i => i.value = '');
+                    loadPromotions();
+                })
+                .savePromotionList({ senderName: sender, promotedName: promoted, reportLink: link, department: dept });
         }
         
         document.addEventListener('DOMContentLoaded', () => {
