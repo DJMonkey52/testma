@@ -17,7 +17,7 @@
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #0a0f0a 0%, #0d2e0d 50%, #0a2a0a 100%);
             min-height: 100vh;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         body.light {
@@ -66,20 +66,14 @@
 
         .header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 180px;
             margin-top: 10px;
             animation: fadeInDown 0.8s ease;
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo {
@@ -104,15 +98,8 @@
         }
 
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         .logo h1 {
@@ -153,14 +140,8 @@
         }
 
         @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .btn-icon {
@@ -176,13 +157,13 @@
             color: var(--text-primary);
             font-weight: 500;
             font-size: 0.85rem;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .btn-icon:hover {
             border-color: var(--accent);
-            transform: scale(1.03);
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 25px rgba(76, 175, 80, 0.4);
         }
 
         .btn-admin {
@@ -219,134 +200,161 @@
 
         .page {
             display: none;
-            animation: fadeInUp 0.5s ease;
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             margin-top: 80px;
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Кнопки КМБ, ACD, MA - смещены на 100px ниже */
         .depts-grid {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 45px;
             flex-wrap: wrap;
-            margin-top: 100px;
+            margin-top: 0;
         }
 
         .dept-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 35px 40px;
-            width: 280px;
+            border-radius: 32px;
+            padding: 38px 42px;
+            width: 290px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             cursor: pointer;
             box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .dept-card:hover::before {
+            left: 100%;
         }
 
         .dept-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-12px) scale(1.03);
             border-color: var(--accent);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
         }
 
         .dept-icon {
-            width: 70px;
-            height: 70px;
+            width: 75px;
+            height: 75px;
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.25), rgba(46, 125, 50, 0.15));
-            border-radius: 25px;
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 34px;
+            margin: 0 auto 18px;
+            font-size: 36px;
             color: var(--accent);
-            transition: transform 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .dept-card:hover .dept-icon {
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(5deg);
         }
 
         .dept-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .dept-card p {
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .actions-grid {
             display: flex;
             justify-content: center;
-            gap: 35px;
+            gap: 40px;
             flex-wrap: wrap;
-            margin-top: 40px;
+            margin-top: 45px;
         }
 
         .action-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 38px 32px;
-            width: 290px;
+            border-radius: 32px;
+            padding: 40px 35px;
+            width: 300px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .action-card:hover::before {
+            left: 100%;
         }
 
         .action-card:hover {
-            transform: translateY(-6px) scale(1.02);
+            transform: translateY(-8px) scale(1.02);
             border-color: var(--accent);
             box-shadow: var(--shadow-md);
         }
 
         .action-icon {
-            width: 65px;
-            height: 65px;
+            width: 70px;
+            height: 70px;
             background: rgba(76, 175, 80, 0.15);
-            border-radius: 22px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 32px;
+            margin: 0 auto 18px;
+            font-size: 34px;
             color: var(--accent);
-            transition: transform 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .action-card:hover .action-icon {
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(5deg);
         }
 
         .action-card h4 {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .action-card p {
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .back-btn {
@@ -362,26 +370,26 @@
             font-weight: 500;
             cursor: pointer;
             margin-bottom: 25px;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .back-btn:hover {
             border-color: var(--accent);
-            transform: translateX(-6px);
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);
+            transform: translateX(-8px);
+            box-shadow: 0 0 25px rgba(76, 175, 80, 0.3);
         }
 
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
-            border-radius: 30px;
+            border-radius: 32px;
             border: 1px solid var(--glass-border);
             overflow: hidden;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .glass-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-md);
         }
 
@@ -396,8 +404,7 @@
             gap: 15px;
         }
 
-        .card-header h2,
-        .card-header h3 {
+        .card-header h2, .card-header h3 {
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-primary);
@@ -418,13 +425,13 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .take-report-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-2px);
             filter: brightness(1.1);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
         }
 
         .card-body {
@@ -448,9 +455,7 @@
             margin-right: 8px;
         }
 
-        .input-group input,
-        .input-group select,
-        .input-group textarea {
+        .input-group input, .input-group select, .input-group textarea {
             width: 100%;
             padding: 14px 16px;
             background: var(--input-bg);
@@ -459,15 +464,14 @@
             font-size: 0.9rem;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
-        .input-group input:focus,
-        .input-group select:focus,
-        .input-group textarea:focus {
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(76, 175, 80, 0.2);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            transform: scale(1.01);
         }
 
         .period-row {
@@ -488,16 +492,28 @@
 
         .action-item {
             background: var(--card-hover);
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 16px;
             margin-bottom: 14px;
             border: 1px solid var(--border-light);
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            animation: actionAppear 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        @keyframes actionAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .action-item:hover {
             border-color: var(--accent);
-            transform: translateX(5px);
+            transform: translateX(6px);
         }
 
         .action-header {
@@ -522,7 +538,7 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 0.7rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .remove-action:hover {
@@ -550,14 +566,19 @@
             color: var(--accent-glow);
         }
 
-        .action-field select,
-        .action-field input {
+        .action-field select, .action-field input {
             padding: 10px 14px;
             background: var(--input-bg);
             border: 1px solid var(--border-light);
             border-radius: 12px;
             font-size: 0.85rem;
             color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .action-field select:focus, .action-field input:focus {
+            border-color: var(--accent);
+            outline: none;
         }
 
         .proofs-section {
@@ -585,9 +606,21 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 10px;
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0,0,0,0.25);
             border-radius: 12px;
             padding: 8px 12px;
+            animation: proofAppear 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        @keyframes proofAppear {
+            from {
+                opacity: 0;
+                transform: translateX(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .proof-item input {
@@ -607,11 +640,12 @@
             cursor: pointer;
             padding: 8px 12px;
             border-radius: 10px;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
         }
 
         .remove-proof:hover {
             background: rgba(239, 68, 68, 0.3);
+            transform: scale(1.05);
         }
 
         .add-proof-btn {
@@ -626,12 +660,12 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .add-proof-btn:hover {
             background: rgba(76, 175, 80, 0.3);
-            transform: scale(1.02);
+            transform: translateY(-2px);
         }
 
         .points-row {
@@ -674,12 +708,12 @@
             justify-content: center;
             gap: 10px;
             margin: 16px 0;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         .add-btn:hover {
             background: rgba(76, 175, 80, 0.25);
-            transform: scale(1.01);
+            transform: scale(1.02);
         }
 
         .empty-state {
@@ -698,6 +732,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s ease;
         }
 
         .total-points-label {
@@ -712,9 +747,9 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            transition: all 0.3s ease;
         }
 
-        /* Анимация отправки */
         .submit-btn {
             width: 100%;
             background: linear-gradient(105deg, var(--accent), var(--accent-dark));
@@ -729,7 +764,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             position: relative;
             overflow: hidden;
         }
@@ -741,8 +776,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         .submit-btn:hover::before {
@@ -752,64 +787,13 @@
         .submit-btn:hover {
             transform: translateY(-3px);
             filter: brightness(1.05);
-            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.5);
         }
 
-        .submit-btn.loading {
-            pointer-events: none;
-            opacity: 0.8;
-            transform: scale(0.98);
-        }
-
-        .submit-btn.loading i {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Анимация для алертов */
-        .alert {
-            padding: 14px 18px;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            display: none;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-            font-size: 0.85rem;
-            animation: slideInRight 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .alert.success {
-            background: rgba(16, 185, 129, 0.15);
-            border-left: 4px solid #10b981;
-            color: #10b981;
-            display: flex;
-        }
-
-        .alert.error {
-            background: rgba(239, 68, 68, 0.12);
-            border-left: 4px solid #ef4444;
-            color: #f87171;
-            display: flex;
+        .submit-btn:disabled {
+            opacity: 0.6;
+            transform: none;
+            cursor: not-allowed;
         }
 
         .footer-signature {
@@ -833,6 +817,37 @@
             margin: 0 5px;
         }
 
+        .alert {
+            padding: 14px 18px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            animation: slideInRight 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .alert.success {
+            background: rgba(16, 185, 129, 0.15);
+            border-left: 4px solid #10b981;
+            color: #10b981;
+            display: flex;
+        }
+
+        .alert.error {
+            background: rgba(239, 68, 68, 0.12);
+            border-left: 4px solid #ef4444;
+            color: #f87171;
+            display: flex;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -848,29 +863,19 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
             max-width: 450px;
             width: 90%;
-            animation: zoomIn 0.3s ease;
+            animation: zoomIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
         @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .admin-tabs {
@@ -887,7 +892,7 @@
             padding: 10px 24px;
             cursor: pointer;
             color: var(--text-primary);
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             font-size: 0.9rem;
             font-weight: 500;
             display: flex;
@@ -897,7 +902,7 @@
 
         .admin-tab:hover {
             background: rgba(76, 175, 80, 0.25);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
         .admin-tab.active {
@@ -908,7 +913,7 @@
 
         .admin-tab-content {
             display: none;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         .admin-tab-content:first-of-type {
@@ -927,13 +932,13 @@
             padding: 16px;
             margin-bottom: 12px;
             border: 1px solid var(--border-light);
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             color: var(--text-primary);
         }
 
         .exam-item:hover {
             border-color: var(--accent);
-            transform: translateX(5px);
+            transform: translateX(6px);
         }
 
         .status-badge {
@@ -944,25 +949,10 @@
             font-weight: 600;
         }
 
-        .status-waiting {
-            background: rgba(245, 158, 11, 0.2);
-            color: #f59e0b;
-        }
-
-        .status-passed {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-        }
-
-        .status-failed {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-
-        .status-inprogress {
-            background: rgba(59, 130, 246, 0.2);
-            color: #3b82f6;
-        }
+        .status-waiting { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .status-passed { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .status-failed { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .status-inprogress { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
 
         .exam-actions {
             display: flex;
@@ -979,6 +969,11 @@
             color: var(--text-primary);
             cursor: pointer;
             font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .exam-status-select:hover {
+            border-color: var(--accent);
         }
 
         .exam-confirm-btn {
@@ -990,12 +985,12 @@
             cursor: pointer;
             font-size: 0.8rem;
             font-weight: 500;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .exam-confirm-btn:hover {
-            transform: scale(1.02);
-            filter: brightness(1.05);
+            transform: scale(1.05);
+            filter: brightness(1.1);
         }
 
         table {
@@ -1003,8 +998,7 @@
             border-collapse: collapse;
         }
 
-        th,
-        td {
+        th, td {
             padding: 12px 10px;
             text-align: left;
             border-bottom: 1px solid var(--border-light);
@@ -1017,22 +1011,20 @@
             font-size: 0.8rem;
         }
 
-        .account-actions,
-        .setting-actions {
+        .account-actions, .setting-actions {
             display: flex;
             gap: 8px;
             margin-top: 8px;
         }
 
-        .edit-btn,
-        .delete-btn {
+        .edit-btn, .delete-btn {
             padding: 5px 12px;
             border-radius: 8px;
             border: none;
             cursor: pointer;
             font-size: 0.75rem;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
         }
 
         .edit-btn {
@@ -1045,34 +1037,43 @@
             color: white;
         }
 
-        .edit-btn:hover,
-        .delete-btn:hover {
-            transform: scale(1.02);
-            filter: brightness(1.05);
+        .edit-btn:hover, .delete-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .submit-btn.loading {
+            animation: pulse 1.5s ease infinite;
         }
 
         @media (max-width: 850px) {
-            .depts-grid {
-                margin-top: 60px;
-            }
-
-            .actions-grid {
+            .depts-grid, .actions-grid {
                 flex-direction: column;
                 align-items: center;
             }
-
             .action-fields {
                 grid-template-columns: 1fr;
             }
-
             .proofs-section {
                 grid-column: span 1;
             }
-
             .period-row {
                 grid-template-columns: 1fr;
             }
-
             .top-bar {
                 position: relative;
                 margin-bottom: 20px;
@@ -1080,18 +1081,18 @@
                 flex-direction: column;
                 align-items: center;
             }
-
-            .top-bar-left,
-            .top-bar-right {
+            .top-bar-left, .top-bar-right {
                 justify-content: center;
             }
-
             .page {
                 margin-top: 20px;
             }
-
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+            }
             .header {
-                margin-bottom: 60px;
+                margin-bottom: 100px;
             }
         }
     </style>
@@ -1211,7 +1212,7 @@
                         <div class="admin-tab" data-tab="settings" id="settingsTab">⚙️ Настройки</div>
                         <div class="admin-tab" data-tab="sendList">📤 Отправить список</div>
                     </div>
-
+                    
                     <div id="examsTab" class="admin-tab-content">
                         <div class="card-header" style="padding: 15px 20px;">
                             <h3>Управление экзаменами</h3>
@@ -1219,17 +1220,17 @@
                         </div>
                         <div id="examsList" style="padding: 15px;"></div>
                     </div>
-
+                    
                     <div id="reportsTab" class="admin-tab-content" style="display: none;">
                         <h3>Все отчеты</h3>
                         <div id="reportsList"></div>
                     </div>
-
+                    
                     <div id="promotionsTab" class="admin-tab-content" style="display: none;">
                         <h3>Списки на повышение</h3>
                         <div id="promotionsList"></div>
                     </div>
-
+                    
                     <div id="accountsTabContent" class="admin-tab-content" style="display: none;">
                         <h3>Управление аккаунтами</h3>
                         <div id="accountsList"></div>
@@ -1253,7 +1254,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div id="settingsTabContent" class="admin-tab-content" style="display: none;">
                         <h3>Настройки системы</h3>
                         <div id="settingsList"></div>
@@ -1266,7 +1267,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div id="sendListTab" class="admin-tab-content" style="display: none;">
                         <h3>Отправить список на повышение</h3>
                         <div class="input-group"><label><i class="fas fa-user"></i> Отправитель</label><input type="text" id="listSender" placeholder="Введите имя отправителя"></div>
@@ -1302,8 +1303,8 @@
     </div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoFQWYJspO_vHROyBig1VUgmxnS2sxXbDkVyAZju8rsgs9eUe_s-_JVEZq2a16g27S/exec';
-
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynrQv1QhyEFkuU4bPA1RnQS9D8JDyCOkwaW-ubivYZkbiMYKzVghlnCuP-mKMVUUJ1/exec';
+        
         const WEBHOOKS = {
             КМБ: {
                 promotion: 'https://discord.com/api/webhooks/1505219072755896422/gqH9WV9rFf1BlpfITuxcduTT5GCqCZmgwhw2k8XL5_pDbXTceM5Z2QdZDRPbga3XOca9',
@@ -1319,25 +1320,25 @@
                 exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX'
             }
         };
-
+        
         const ADDITIONAL_EXAM_WEBHOOK = 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX';
-
+        
         const STATUS_WEBHOOKS = {
             MA: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX',
             ACD: 'https://discord.com/api/webhooks/1505067583173558304/8JbLzqSvnvboSpQJfZ5MTsjXupymcnLpRS0Je_JA_HYenE-ydruK1ucGOyNxLKnZU7Gu',
             КМБ: 'https://discord.com/api/webhooks/1505218938319929417/BwOepAI1PdcyxpTaD02asQ57VwM1qfKWAGSr0sSBfsWbV1pJeftsPihR5Ayif7DhpQGX'
         };
-
+        
         const PROMOTION_LIST_WEBHOOK = 'https://discord.com/api/webhooks/1505217723175796858/TVPMTOvOiJA_oWcEWiA3ftoi2ShAII_nCLkI_mvRFK6eihqLVTzxd1viBVz4yaiaQp6B';
-
+        
         const WEBHOOK_AVATAR = 'https://i.yapx.ru/dogYP.png';
-
+        
         const TAGS = {
             КМБ: { promotion: '<@&793440128906821672><@&792080799062556672>', exam: '<@&713076174112161836>' },
             ACD: { promotion: '<@&713076174112161836>', exam: '<@&713076174112161836>' },
             MA: { weekly: '<@&793440128906821672><@&792080799062556672>', promotion: '<@&793440128906821672><@&792080799062556672>', exam: '<@&792077657469747220> <@&792080799062556672> <@&793440128906821672>' }
         };
-
+        
         const ACTIVITY_TYPES_MA = [
             { name: "Принятие экзамена", points: 4 },
             { name: "Проверка отчетов на повышение", points: 2 },
@@ -1363,13 +1364,13 @@
             { name: "Участие в захвате Черного рынка", points: 5 },
             { name: "Отбитие ФЗ/ФТ", points: 8 }
         ];
-
+        
         const ACTIVITY_TYPES_KMB_PROMOTION = [
             { name: "Пост", points: 0 },
             { name: "РП задания", points: 0 },
             { name: "Виды деятельности", points: 0 }
         ];
-
+        
         const ACTIVITY_TYPES_ACD_PROMOTION = [
             { name: "Участие в тренировках (1 тренировка = 1 ссылка)", points: 0 },
             { name: "Лекция (1 лекция - 1 ссылка)", points: 0 },
@@ -1379,15 +1380,15 @@
             { name: "Наличие боди-камеры (ссылка)", points: 0 },
             { name: "Ссылка на сдачу экзамена (ссылка на сообщение Discord)", points: 0 }
         ];
-
+        
         const EXAM_TYPES_KMB = ["УНГ", "УСП", "УКС", "ПК", "УК", "Закон о З.О.Т.", "Закон о неприкосновенности должностных лиц", "Конституции (1-2 главы)", "тен-коды"];
         const EXAM_TYPES_ACD = ["С 1-2 ранг", "С 2-3 ранг"];
         const EXAM_TYPES_MA = ["УК", "ПК", "ТК", "ЭК", "УКС", "УСП", "УНГ", "Закон о неприкосновенности должностных лиц", "Конституция"];
-
+        
         const RANKS_KMB = ["Рекрут (1)", "Рядовой (2)", "Специалист (3)", "Капрал (4)", "Сержант (5)"];
         const RANKS_ACD = ["Рекрут (1)", "Рядовой (2)", "Специалист (3)"];
         const RANKS_MA = ["Специалист (3)", "Капрал (4)", "Сержант (5)", "Штаб-сержант (6)", "Уорент-офицер (7)", "Старший Уорент-офицер (8)", "Лейтенант (9)", "Капитан (10)", "Майор (11)", "Подполковник (12)"];
-
+        
         const ROLE_PERMS = {
             Admin: ['all', 'admin', 'accounts', 'settings', 'exams', 'sendList', 'reports'],
             Командир: ['all', 'admin', 'accounts', 'settings', 'exams', 'sendList', 'reports'],
@@ -1395,74 +1396,70 @@
             'Инструктор МА': ['exams', 'reports'],
             'Сотрудник МА': ['exams', 'reports']
         };
-
+        
         let currentUser = null;
         let currentDept = null;
         let currentAction = null;
         let currentActions = [];
         let settings = {};
-
-        function escapeHtml(s) {
-            if (!s) return '';
-            return s.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
-        }
-
-        function formatDate(d) {
-            if (!d) return '';
-            return new Date(d).toLocaleDateString('ru-RU');
-        }
-
-        function calcPoints(a) {
-            return (a.points || 0) * (parseInt(a.count) || 1);
-        }
-
-        function totalPoints() {
-            return currentActions.reduce((s, a) => s + calcPoints(a), 0);
-        }
-
+        
+        function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+        function formatDate(d) { if (!d) return ''; return new Date(d).toLocaleDateString('ru-RU'); }
+        function calcPoints(a) { return (a.points || 0) * (parseInt(a.count) || 1); }
+        function totalPoints() { return currentActions.reduce((s,a) => s + calcPoints(a), 0); }
+        
         async function sendDiscord(webhook, title, fields, color = 0x4CAF50, content = '', isTextOnly = false) {
             try {
-                const res = await fetch(webhook, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        content: content,
-                        avatar_url: WEBHOOK_AVATAR,
-                        embeds: isTextOnly ? undefined : [{ title, color, fields, footer: { text: "ARMY" }, timestamp: new Date().toISOString() }]
-                    })
-                });
-                return res.ok;
-            } catch (e) {
-                console.error('Discord error:', e);
-                return false;
-            }
+                if (isTextOnly) {
+                    const res = await fetch(webhook, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            content: content,
+                            avatar_url: WEBHOOK_AVATAR
+                        })
+                    });
+                    return res.ok;
+                } else {
+                    const res = await fetch(webhook, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            content: content,
+                            avatar_url: WEBHOOK_AVATAR,
+                            embeds: [{ title, color, fields, footer: { text: "ARMY" }, timestamp: new Date().toISOString() }] 
+                        })
+                    });
+                    return res.ok;
+                }
+            } catch(e) { console.error('Discord error:', e); return false; }
         }
-
+        
         function callGoogleScript(action, data) {
             return new Promise((resolve, reject) => {
                 const callbackName = 'callback_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
                 const script = document.createElement('script');
-
-                window[callbackName] = function (response) {
+                
+                window[callbackName] = function(response) {
                     delete window[callbackName];
                     document.body.removeChild(script);
                     resolve(response);
                 };
-
+                
                 const params = new URLSearchParams();
                 params.append('action', action);
                 params.append('data', JSON.stringify(data));
                 params.append('callback', callbackName);
-
+                
                 script.src = `${GOOGLE_SCRIPT_URL}?${params.toString()}`;
                 script.onerror = () => {
                     delete window[callbackName];
                     document.body.removeChild(script);
                     reject(new Error('Ошибка соединения с сервером'));
                 };
-
+                
                 document.body.appendChild(script);
-
+                
                 setTimeout(() => {
                     if (window[callbackName]) {
                         delete window[callbackName];
@@ -1472,7 +1469,7 @@
                 }, 30000);
             });
         }
-
+        
         function showAlert(container, msg, type) {
             const c = document.getElementById(container);
             if (!c) return;
@@ -1482,7 +1479,7 @@
             c.appendChild(div);
             setTimeout(() => div.remove(), 5000);
         }
-
+        
         async function doLogin(login, pass) {
             const alertContainer = 'loginAlert';
             try {
@@ -1498,19 +1495,19 @@
                     showAlert(alertContainer, result.error || 'Ошибка входа', 'error');
                     return false;
                 }
-            } catch (e) {
+            } catch(e) {
                 showAlert(alertContainer, 'Ошибка соединения: ' + e.message, 'error');
                 return false;
             }
         }
-
+        
         function logout() {
             currentUser = null;
             localStorage.removeItem('deltaUser');
             updateAdminUI();
             showDeptsPage();
         }
-
+        
         function updateAdminUI() {
             if (currentUser) {
                 document.getElementById('adminLoginBtn').style.display = 'none';
@@ -1526,23 +1523,23 @@
                 document.getElementById('logoutBtn').style.display = 'none';
             }
         }
-
+        
         function hasPerm(perm) {
             if (!currentUser) return false;
             const perms = ROLE_PERMS[currentUser.role] || [];
             return perms.includes('all') || perms.includes(perm);
         }
-
+        
         function showDeptsPage() {
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             document.getElementById('deptsPage').style.display = 'block';
         }
-
+        
         function showActionsPage(dept) {
             currentDept = dept;
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             document.getElementById('actionsPage').style.display = 'block';
-
+            
             let actions = [];
             if (dept === 'MA') {
                 actions = [
@@ -1556,7 +1553,7 @@
                     { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
                 ];
             }
-
+            
             const grid = document.getElementById('actionsGrid');
             grid.innerHTML = actions.map(a => `
                 <div class="action-card" data-action="${a.id}">
@@ -1565,24 +1562,24 @@
                     <p>${a.desc}</p>
                 </div>
             `).join('');
-
+            
             document.querySelectorAll('.action-card').forEach(card => {
                 card.onclick = () => showFormPage(card.dataset.action);
             });
         }
-
+        
         function showFormPage(action) {
             currentAction = action;
             currentActions = [];
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             document.getElementById('formPage').style.display = 'block';
-
+            
             let title = '';
             if (action === 'weekly') title = '📊 Еженедельный отчёт';
             else if (action === 'promotion') title = '⬆️ Отчёт на повышение';
             else title = '📝 Запись на экзамен';
             document.getElementById('formTitle').innerHTML = `<i class="fas ${action === 'weekly' ? 'fa-calendar-week' : action === 'promotion' ? 'fa-arrow-up' : 'fa-pen-clip'}"></i> ${title} (${currentDept})`;
-
+            
             const fieldsDiv = document.getElementById('formFields');
             if (action === 'weekly') {
                 fieldsDiv.innerHTML = `
@@ -1610,7 +1607,7 @@
                     rankOptions = RANKS_MA.map(r => `<option>${r}</option>`).join('');
                     activityOptions = ACTIVITY_TYPES_MA.map(t => `<option value="${t.name}" data-points="${t.points}">${t.name}</option>`).join('');
                 }
-
+                
                 fieldsDiv.innerHTML = `
                     <div class="input-group"><label><i class="fas fa-user"></i> ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="fNickname" placeholder="Введите ваш никнейм"></div>
                     <div class="input-group"><label><i class="fas fa-arrow-down"></i> ТЕКУЩИЙ РАНГ</label><select id="fCurrentRank">${rankOptions}</select></div>
@@ -1620,7 +1617,7 @@
                 `;
                 document.getElementById('actionsSection').style.display = 'block';
                 document.getElementById('totalPointsBar').style.display = 'flex';
-
+                
                 window.activityOptionsHtml = activityOptions;
             } else {
                 let examOptions = '';
@@ -1631,7 +1628,7 @@
                 } else {
                     examOptions = EXAM_TYPES_MA.map(e => `<option>${e}</option>`).join('');
                 }
-
+                
                 fieldsDiv.innerHTML = `
                     <div class="input-group"><label><i class="fas fa-user"></i> ИМЯ И ФАМИЛИЯ</label><input type="text" id="fFullName" placeholder="Введите имя и фамилию"></div>
                     <div class="input-group"><label><i class="fas fa-graduation-cap"></i> ТИП ЭКЗАМЕНА</label><select id="fExamType">${examOptions}</select></div>
@@ -1641,10 +1638,10 @@
                 document.getElementById('actionsSection').style.display = 'none';
                 document.getElementById('totalPointsBar').style.display = 'none';
             }
-
+            
             renderActionsList();
             updateTotalDisplay();
-
+            
             if (action === 'weekly') {
                 document.getElementById('fStart').addEventListener('change', updatePeriod);
                 document.getElementById('fEnd').addEventListener('change', updatePeriod);
@@ -1653,7 +1650,7 @@
                 document.getElementById('fLastProm').addEventListener('change', updatePromoInfo);
             }
         }
-
+        
         function setDefaultDates() {
             const today = new Date();
             const monday = new Date(today);
@@ -1668,7 +1665,7 @@
                 updatePeriod();
             }
         }
-
+        
         function updatePeriod() {
             const start = document.getElementById('fStart')?.value;
             const end = document.getElementById('fEnd')?.value;
@@ -1678,7 +1675,7 @@
                 info.innerHTML = `📅 ${formatDate(start)} – ${formatDate(end)} (${days} дн.)`;
             }
         }
-
+        
         function updatePromoInfo() {
             const date = document.getElementById('fLastProm')?.value;
             const info = document.getElementById('promoInfo');
@@ -1687,7 +1684,7 @@
                 info.innerHTML = `📅 Последнее повышение: ${formatDate(date)} (прошло ${months} мес.)`;
             }
         }
-
+        
         function renderActionsList() {
             const container = document.getElementById('actionsList');
             const empty = document.getElementById('emptyActions');
@@ -1698,13 +1695,13 @@
                 return;
             }
             empty.style.display = 'none';
-
+            
             let activityOptions = window.activityOptionsHtml || ACTIVITY_TYPES_MA.map(t => `<option value="${t.name}" data-points="${t.points}">${t.name}</option>`).join('');
-
+            
             container.innerHTML = currentActions.map((a, i) => `
                 <div class="action-item" data-idx="${i}">
                     <div class="action-header">
-                        <div class="action-title">🎯 ДЕЙСТВИЕ #${i + 1}</div>
+                        <div class="action-title">🎯 ДЕЙСТВИЕ #${i+1}</div>
                         <button class="remove-action" data-idx="${i}"><i class="fas fa-trash"></i> Удалить</button>
                     </div>
                     <div class="action-fields">
@@ -1738,13 +1735,9 @@
                     </div>
                 </div>
             `).join('');
-
+            
             document.querySelectorAll('.remove-action').forEach(btn => {
-                btn.onclick = () => {
-                    currentActions.splice(parseInt(btn.dataset.idx), 1);
-                    renderActionsList();
-                    updateTotalDisplay();
-                };
+                btn.onclick = () => { currentActions.splice(parseInt(btn.dataset.idx), 1); renderActionsList(); updateTotalDisplay(); };
             });
             document.querySelectorAll('.action-type').forEach(sel => {
                 sel.onchange = () => {
@@ -1789,7 +1782,7 @@
                 };
             });
         }
-
+        
         function updateActionDisplay(idx) {
             const items = document.querySelectorAll('.action-item');
             if (items[idx]) {
@@ -1799,120 +1792,105 @@
                 if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> Баллы: ${calcPoints(currentActions[idx])}`;
             }
         }
-
+        
         function updateTotalDisplay() {
             const span = document.getElementById('totalPoints');
             if (span) span.textContent = totalPoints();
         }
-
+        
         function addAction() {
             currentActions.push({ type: '', points: 0, count: 1, proofs: [''] });
             renderActionsList();
             updateTotalDisplay();
         }
-
+        
         async function submitForm() {
             const alertId = 'formAlert';
             const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerHTML;
-
-            // Анимация загрузки
+            btn.disabled = true;
+            const originalHTML = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> ОТПРАВКА...';
             btn.classList.add('loading');
-
-            try {
-                if (currentAction === 'weekly') {
-                    const nick = document.getElementById('fNickname')?.value.trim();
-                    if (!nick) {
-                        showAlert(alertId, 'Введите никнейм', 'error');
-                        return;
-                    }
-                    const rank = document.getElementById('fRank')?.value || '';
-                    const start = document.getElementById('fStart')?.value || '';
-                    const end = document.getElementById('fEnd')?.value || '';
-                    let acts = '',
-                        total = 0;
-                    currentActions.forEach((a, i) => {
-                        const pts = calcPoints(a);
-                        total += pts;
-                        acts += `${i + 1}. ${a.type || 'Не выбран'} x${a.count || 1} = ${pts} баллов\n`;
-                        if (a.proofs?.length) acts += `Доказательства: ${a.proofs.filter(p => p).join(', ')}\n`;
+            
+            if (currentAction === 'weekly') {
+                const nick = document.getElementById('fNickname')?.value.trim();
+                if (!nick) { showAlert(alertId, 'Введите никнейм', 'error'); resetButton(); return; }
+                const rank = document.getElementById('fRank')?.value || '';
+                const start = document.getElementById('fStart')?.value || '';
+                const end = document.getElementById('fEnd')?.value || '';
+                let acts = '', total = 0;
+                currentActions.forEach((a,i) => {
+                    const pts = calcPoints(a);
+                    total += pts;
+                    acts += `${i+1}. ${a.type || 'Не выбран'} x${a.count||1} = ${pts} баллов\n`;
+                    if (a.proofs?.length) acts += `Доказательства: ${a.proofs.filter(p=>p).join(', ')}\n`;
+                });
+                
+                try {
+                    await callGoogleScript('saveReport', { 
+                        department: 'MA', actionType: 'weekly',
+                        nickname: nick, rank: rank, periodStart: start, periodEnd: end, 
+                        actions: acts, totalPoints: total 
                     });
-
-                    await callGoogleScript('saveReport', {
-                        department: 'MA',
-                        actionType: 'weekly',
-                        nickname: nick,
-                        rank: rank,
-                        periodStart: start,
-                        periodEnd: end,
-                        actions: acts,
-                        totalPoints: total
-                    });
-                    sendDiscord(WEBHOOKS.MA.weekly, "Еженедельный отчёт (MA)", [
+                    await sendDiscord(WEBHOOKS.MA.weekly, "Еженедельный отчёт (MA)", [
                         { name: "Никнейм", value: nick, inline: true },
                         { name: "Ранг", value: rank, inline: true },
                         { name: "Период", value: `${formatDate(start)} - ${formatDate(end)}`, inline: true },
-                        { name: "Действия", value: acts.substring(0, 1024) || "Нет" },
+                        { name: "Действия", value: acts.substring(0,1024) || "Нет" },
                         { name: "Баллы", value: `${total}`, inline: true }
                     ], 0x4CAF50, TAGS.MA.weekly);
-                    showAlert(alertId, '✅ Отчёт успешно отправлен!', 'success');
+                    showAlert(alertId, 'Отчёт отправлен!', 'success');
                     resetForm();
-                } else if (currentAction === 'promotion') {
-                    const nick = document.getElementById('fNickname')?.value.trim();
-                    if (!nick) {
-                        showAlert(alertId, 'Введите никнейм', 'error');
-                        return;
-                    }
-                    const curRank = document.getElementById('fCurrentRank')?.value || '';
-                    const desRank = document.getElementById('fDesiredRank')?.value || '';
-                    const lastProm = document.getElementById('fLastProm')?.value || '';
-                    let acts = '',
-                        total = 0;
-                    currentActions.forEach((a, i) => {
-                        const pts = calcPoints(a);
-                        total += pts;
-                        acts += `${i + 1}. ${a.type || 'Не выбран'} x${a.count || 1} = ${pts} баллов\n`;
-                    });
-
+                } catch(e) {
+                    showAlert(alertId, 'Ошибка отправки: ' + e.message, 'error');
+                }
+                
+            } else if (currentAction === 'promotion') {
+                const nick = document.getElementById('fNickname')?.value.trim();
+                if (!nick) { showAlert(alertId, 'Введите никнейм', 'error'); resetButton(); return; }
+                const curRank = document.getElementById('fCurrentRank')?.value || '';
+                const desRank = document.getElementById('fDesiredRank')?.value || '';
+                const lastProm = document.getElementById('fLastProm')?.value || '';
+                let acts = '', total = 0;
+                currentActions.forEach((a,i) => {
+                    const pts = calcPoints(a);
+                    total += pts;
+                    acts += `${i+1}. ${a.type || 'Не выбран'} x${a.count||1} = ${pts} баллов\n`;
+                });
+                
+                try {
                     await callGoogleScript('saveReport', {
-                        department: currentDept,
-                        actionType: 'promotion',
-                        nickname: nick,
-                        currentRank: curRank,
-                        desiredRank: desRank,
-                        lastPromotion: lastProm,
-                        actions: acts,
-                        totalPoints: total
+                        department: currentDept, actionType: 'promotion',
+                        nickname: nick, currentRank: curRank, desiredRank: desRank,
+                        lastPromotion: lastProm, actions: acts, totalPoints: total
                     });
                     const webhook = WEBHOOKS[currentDept]?.promotion;
-                    if (webhook) sendDiscord(webhook, `Запрос на повышение (${currentDept})`, [
+                    if (webhook) await sendDiscord(webhook, `Запрос на повышение (${currentDept})`, [
                         { name: "Никнейм", value: nick, inline: true },
                         { name: "Текущий ранг", value: curRank, inline: true },
                         { name: "Желаемый ранг", value: desRank, inline: true },
                         { name: "Последнее повышение", value: formatDate(lastProm) || "Не указано", inline: true },
-                        { name: "Достижения", value: acts.substring(0, 1024) || "Нет" },
+                        { name: "Достижения", value: acts.substring(0,1024) || "Нет" },
                         { name: "Баллы", value: `${total}`, inline: true }
                     ], 0x4CAF50, TAGS[currentDept]?.promotion);
-                    showAlert(alertId, '✅ Запрос на повышение отправлен!', 'success');
+                    showAlert(alertId, 'Запрос отправлен!', 'success');
                     resetForm();
-                } else if (currentAction === 'exam') {
-                    const fullName = document.getElementById('fFullName')?.value.trim();
-                    if (!fullName) {
-                        showAlert(alertId, 'Введите имя и фамилию', 'error');
-                        return;
-                    }
-                    const examType = document.getElementById('fExamType')?.value || '';
-                    const discord = document.getElementById('fDiscord')?.value.trim() || '';
-                    const time = document.getElementById('fTime')?.value.trim() || '';
-
+                } catch(e) {
+                    showAlert(alertId, 'Ошибка отправки: ' + e.message, 'error');
+                }
+                
+            } else if (currentAction === 'exam') {
+                const fullName = document.getElementById('fFullName')?.value.trim();
+                if (!fullName) { showAlert(alertId, 'Введите имя и фамилию', 'error'); resetButton(); return; }
+                const examType = document.getElementById('fExamType')?.value || '';
+                const discord = document.getElementById('fDiscord')?.value.trim() || '';
+                const time = document.getElementById('fTime')?.value.trim() || '';
+                
+                try {
                     await callGoogleScript('saveReport', {
-                        department: currentDept,
-                        actionType: 'exam',
-                        fullName: fullName,
-                        examType: examType,
-                        discordTag: discord,
-                        examTime: time
+                        department: currentDept, actionType: 'exam',
+                        fullName: fullName, examType: examType,
+                        discordTag: discord, examTime: time
                     });
                     const webhook = WEBHOOKS[currentDept]?.exam;
                     if (webhook) {
@@ -1929,17 +1907,21 @@
                         { name: "Discord", value: discord, inline: true },
                         { name: "Время", value: time, inline: true }
                     ], 0x4CAF50, '');
-                    showAlert(alertId, '✅ Заявка на экзамен отправлена!', 'success');
+                    showAlert(alertId, 'Заявка отправлена!', 'success');
                     resetForm();
+                } catch(e) {
+                    showAlert(alertId, 'Ошибка отправки: ' + e.message, 'error');
                 }
-            } catch (e) {
-                showAlert(alertId, '❌ Ошибка отправки: ' + e.message, 'error');
-            } finally {
-                btn.innerHTML = originalText;
+            }
+            
+            function resetButton() {
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
                 btn.classList.remove('loading');
             }
+            resetButton();
         }
-
+        
         function resetForm() {
             currentActions = [];
             renderActionsList();
@@ -1960,7 +1942,7 @@
                 document.getElementById('fTime') && (document.getElementById('fTime').value = '');
             }
         }
-
+        
         async function showAdminPage() {
             if (!hasPerm('admin')) {
                 showAlert('deptsPage', 'Нет доступа к админке', 'error');
@@ -1974,7 +1956,7 @@
             await loadAccounts();
             await loadSettingsList();
         }
-
+        
         async function loadExams() {
             const container = document.getElementById('examsList');
             try {
@@ -1984,19 +1966,19 @@
                         <div class="exam-item">
                             <div><strong>👤 ${escapeHtml(e.fullName)}</strong> | 📝 ${escapeHtml(e.examType)} | 🏢 ${escapeHtml(e.department)}</div>
                             <div>💬 Discord: ${escapeHtml(e.discordTag)} | ⏰ Время: ${escapeHtml(e.examTime)} | 📅 Дата: ${e.date}</div>
-                            <div>📊 Статус: <span class="status-badge status-${e.status === 'Принят' ? 'passed' : e.status === 'Отклонен' ? 'failed' : e.status === 'Проводится' ? 'inprogress' : 'waiting'}">${e.status || 'Ожидание'}</span></div>
+                            <div>📊 Статус: <span class="status-badge status-${e.status==='Принят'?'passed':e.status==='Отклонен'?'failed':e.status==='Проводится'?'inprogress':'waiting'}">${e.status || 'Ожидание'}</span></div>
                             <div class="exam-actions">
                                 <select class="exam-status-select" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}">
-                                    <option value="Ожидание" ${e.status === 'Ожидание' ? 'selected' : ''}>⏳ Ожидание</option>
-                                    <option value="Проводится" ${e.status === 'Проводится' ? 'selected' : ''}>🔄 Проводится</option>
-                                    <option value="Принят" ${e.status === 'Принят' ? 'selected' : ''}>✅ Принят</option>
-                                    <option value="Отклонен" ${e.status === 'Отклонен' ? 'selected' : ''}>❌ Отклонен</option>
+                                    <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>⏳ Ожидание</option>
+                                    <option value="Проводится" ${e.status==='Проводится'?'selected':''}>🔄 Проводится</option>
+                                    <option value="Принят" ${e.status==='Принят'?'selected':''}>✅ Принят</option>
+                                    <option value="Отклонен" ${e.status==='Отклонен'?'selected':''}>❌ Отклонен</option>
                                 </select>
                                 <button class="exam-confirm-btn" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}"><i class="fas fa-save"></i> Сохранить</button>
                             </div>
                         </div>
                     `).join('');
-
+                    
                     document.querySelectorAll('.exam-confirm-btn').forEach(btn => {
                         btn.onclick = async () => {
                             const name = btn.dataset.name;
@@ -2012,24 +1994,19 @@
                 } else {
                     container.innerHTML = '<div class="empty-state">📭 Нет записей на экзамен</div>';
                 }
-            } catch (e) {
+            } catch(e) { 
                 container.innerHTML = '<div class="empty-state">❌ Ошибка загрузки экзаменов</div>';
                 console.error(e);
             }
         }
-
+        
         async function updateExamStatus(name, date, status, dept) {
             try {
-                await callGoogleScript('updateExamStatus', {
-                    fullName: name,
-                    date: date,
-                    status: status,
-                    examinerName: '',
-                    score: '',
-                    result: '',
-                    department: dept
+                await callGoogleScript('updateExamStatus', { 
+                    fullName: name, date: date, status: status, 
+                    examinerName: '', score: '', result: '', department: dept 
                 });
-
+                
                 let message = '';
                 if (status === 'Принят') {
                     message = '✅ Поздравляем! Вы успешно сдали экзамен!';
@@ -2040,24 +2017,24 @@
                 } else {
                     message = '⏳ Ваша заявка на экзамен принята! Ожидайте ответа.';
                 }
-
+                
                 const webhook = STATUS_WEBHOOKS[dept];
                 if (webhook && status !== 'Проводится') {
                     await fetch(webhook, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
+                        body: JSON.stringify({ 
                             content: message,
                             avatar_url: WEBHOOK_AVATAR,
-                            embeds: [{
-                                title: `Результат экзамена (${dept})`,
-                                color: status === 'Принят' ? 0x10b981 : (status === 'Отклонен' ? 0xef4444 : 0xf59e0b),
+                            embeds: [{ 
+                                title: `Результат экзамена (${dept})`, 
+                                color: status === 'Принят' ? 0x10b981 : (status === 'Отклонен' ? 0xef4444 : 0xf59e0b), 
                                 fields: [
-                                    { name: "👤 Участник", value: name, inline: true },
+                                    { name: "👤 Участник", value: name, inline: true }, 
                                     { name: "📊 Статус", value: status, inline: true }
                                 ],
-                                footer: { text: "ARMY" },
-                                timestamp: new Date().toISOString()
+                                footer: { text: "ARMY" }, 
+                                timestamp: new Date().toISOString() 
                             }]
                         })
                     });
@@ -2065,17 +2042,15 @@
                     await fetch(webhook, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
+                        body: JSON.stringify({ 
                             content: message,
                             avatar_url: WEBHOOK_AVATAR
                         })
                     });
                 }
-            } catch (e) {
-                console.error(e);
-            }
+            } catch(e) { console.error(e); }
         }
-
+        
         async function loadReports() {
             const container = document.getElementById('reportsList');
             try {
@@ -2083,9 +2058,9 @@
                     callGoogleScript('getWeeklyReports', {}),
                     callGoogleScript('getPromotionReports', {})
                 ]);
-
+                
                 let allReports = [];
-
+                
                 if (weeklyReports.reports && weeklyReports.reports.length > 0) {
                     weeklyReports.reports.forEach(r => {
                         allReports.push({
@@ -2099,7 +2074,7 @@
                         });
                     });
                 }
-
+                
                 if (promotionReports.reports && promotionReports.reports.length > 0) {
                     promotionReports.reports.forEach(r => {
                         allReports.push({
@@ -2113,75 +2088,69 @@
                         });
                     });
                 }
-
+                
                 allReports.sort((a, b) => new Date(b.date) - new Date(a.date));
-
+                
                 if (allReports.length > 0) {
-                    container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead>
-                        <tr><th>Тип</th><th>Дата</th><th>Пользователь</th><th>Детали</th><th>Баллы</th><th>Отдел</th></tr>
-                        </thead><tbody>
+                    container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
+                        <th>Тип</th><th>Дата</th><th>Пользователь</th><th>Детали</th><th>Баллы</th><th>Отдел</th>
+                    </tr></thead><tbody>
                         ${allReports.map(r => `
-                             <tr>
-                                 <td>${r.type}</td>
-                                 <td>${new Date(r.date).toLocaleString()}</td>
-                                 <td>${r.nickname || '-'}</td>
-                                 <td>${r.rank ? `Ранг: ${r.rank}` : r.currentRank ? `${r.currentRank} → ${r.desiredRank}` : '-'}</td>
-                                 <td>${r.points || 0}</td>
-                                 <td>${r.department || '-'}</td>
-                             </tr>
+                            <tr>
+                                <td>${r.type}</td>
+                                <td>${new Date(r.date).toLocaleString()}</td>
+                                <td>${r.nickname || '-'}</td>
+                                <td>${r.rank ? `Ранг: ${r.rank}` : r.currentRank ? `${r.currentRank} → ${r.desiredRank}` : '-'}</td>
+                                <td>${r.points || 0}</td>
+                                <td>${r.department || '-'}</td>
+                            </tr>
                         `).join('')}
                     </tbody></table></div>`;
                 } else {
                     container.innerHTML = '<div class="empty-state">📭 Нет отчетов</div>';
                 }
-            } catch (e) {
+            } catch(e) { 
                 container.innerHTML = '<div class="empty-state">❌ Ошибка загрузки отчетов</div>';
             }
         }
-
+        
         async function loadPromotions() {
             const c = document.getElementById('promotionsList');
             try {
                 const result = await callGoogleScript('getPromotionLists', {});
                 if (result.lists && result.lists.length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead>
-                        <tr><th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th></tr>
-                        </thead><tbody>
-                        ${result.lists.map(l => `
-                             <tr>
-                                 <td>${l.number}</td>
-                                 <td>${new Date(l.date).toLocaleString()}</td>
-                                 <td>${escapeHtml(l.senderName)}</td>
-                                 <td>${escapeHtml(l.promotedName)}</td>
-                                 <td><a href="${l.reportLink}" target="_blank">Открыть</a></td>
-                             </tr>
-                        `).join('')}
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
+                        <th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th>
+                    </tr></thead><tbody>
+                        ${result.lists.map(l => `<tr>
+                            <td>${l.number}</td>
+                            <td>${new Date(l.date).toLocaleString()}</td>
+                            <td>${escapeHtml(l.senderName)}</td>
+                            <td>${escapeHtml(l.promotedName)}</td>
+                            <td><a href="${l.reportLink}" target="_blank">Открыть</a></td>
+                        </tr>`).join('')}
                     </tbody></table></div>`;
                 } else c.innerHTML = '<div class="empty-state">📭 Нет списков на повышение</div>';
-            } catch (e) {
-                c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки списков</div>';
-            }
+            } catch(e) { c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки списков</div>'; }
         }
-
+        
         async function loadAccounts() {
             const c = document.getElementById('accountsList');
             try {
                 const result = await callGoogleScript('getAccounts', {});
                 if (result.accounts && result.accounts.length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead>
-                        <tr><th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th><th>Действия</th></tr>
-                        </thead><tbody>
-                        ${result.accounts.map(a => `
-                             <tr>
-                                 <td>${escapeHtml(a.login)}</td>
-                                 <td>${escapeHtml(a.role)}</td>
-                                 <td>${escapeHtml(a.firstName || '')}</td>
-                                 <td>${escapeHtml(a.lastName || '')}</td>
-                                 <td><div class="account-actions"><button class="edit-btn" data-login="${escapeHtml(a.login)}">✏️ Ред.</button><button class="delete-btn" data-login="${escapeHtml(a.login)}">🗑️ Удал.</button></div></td>
-                             </tr>
-                        `).join('')}
-                    </tbody></table></div>`;
-
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
+                        <th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th><th>Действия</th>
+                    </table></thead><tbody>
+                        ${result.accounts.map(a => `<tr>
+                            <td>${escapeHtml(a.login)}</td>
+                            <td>${escapeHtml(a.role)}</td>
+                            <td>${escapeHtml(a.firstName || '')}</td>
+                            <td>${escapeHtml(a.lastName || '')}</td>
+                            <td><div class="account-actions"><button class="edit-btn" data-login="${escapeHtml(a.login)}">✏️ Ред.</button><button class="delete-btn" data-login="${escapeHtml(a.login)}">🗑️ Удал.</button></div></td>
+                        </tr>`).join('')}
+                    </tbody><table></div>`;
+                    
                     document.querySelectorAll('.delete-btn').forEach(btn => {
                         btn.onclick = async () => {
                             if (confirm('Удалить аккаунт?')) {
@@ -2194,29 +2163,27 @@
                 } else {
                     c.innerHTML = '<div class="empty-state">📭 Нет аккаунтов</div>';
                 }
-            } catch (e) {
+            } catch(e) { 
                 c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки аккаунтов</div>';
             }
         }
-
+        
         async function loadSettingsList() {
             const c = document.getElementById('settingsList');
             try {
                 const result = await callGoogleScript('getSettings', {});
                 settings = result.settings || {};
                 if (Object.keys(settings).length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead>
-                        <tr><th>Ключ</th><th>Значение</th><th>Действия</th></tr>
-                        </thead><tbody>
-                        ${Object.entries(settings).map(([key, value]) => `
-                             <tr>
-                                 <td>${escapeHtml(key)}</td>
-                                 <td>${escapeHtml(value)}</td>
-                                 <td><div class="setting-actions"><button class="edit-setting" data-key="${escapeHtml(key)}" data-value="${escapeHtml(value)}">✏️ Ред.</button><button class="delete-setting" data-key="${escapeHtml(key)}">🗑️ Удал.</button></div></td>
-                             </tr>
-                        `).join('')}
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
+                        <th>Ключ</th><th>Значение</th><th>Действия</th>
+                    </tr></thead><tbody>
+                        ${Object.entries(settings).map(([key, value]) => `<tr>
+                            <td>${escapeHtml(key)}</td>
+                            <td>${escapeHtml(value)}</td>
+                            <td><div class="setting-actions"><button class="edit-setting" data-key="${escapeHtml(key)}" data-value="${escapeHtml(value)}">✏️ Ред.</button><button class="delete-setting" data-key="${escapeHtml(key)}">🗑️ Удал.</button></div></td>
+                        </tr>`).join('')}
                     </tbody></table></div>`;
-
+                    
                     document.querySelectorAll('.edit-setting').forEach(btn => {
                         btn.onclick = () => {
                             document.getElementById('settingKey').value = btn.dataset.key;
@@ -2237,37 +2204,30 @@
                 } else {
                     c.innerHTML = '<div class="empty-state">⚙️ Нет настроек</div>';
                 }
-            } catch (e) {
+            } catch(e) { 
                 c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки настроек</div>';
             }
         }
-
+        
         async function createAccount() {
             const login = document.getElementById('newLogin')?.value;
             const pass = document.getElementById('newPassword')?.value;
-            if (!login || !pass) {
-                showAlert('accountsTabContent', 'Заполните логин и пароль', 'error');
-                return;
-            }
-            await callGoogleScript('createAccount', {
-                login: login,
-                password: pass,
+            if (!login || !pass) { showAlert('accountsTabContent', 'Заполните логин и пароль', 'error'); return; }
+            await callGoogleScript('createAccount', { 
+                login: login, password: pass, 
                 role: document.getElementById('newRole').value,
-                firstName: document.getElementById('newFirstName').value,
-                lastName: document.getElementById('newLastName').value
+                firstName: document.getElementById('newFirstName').value, 
+                lastName: document.getElementById('newLastName').value 
             });
             showAlert('accountsTabContent', 'Аккаунт создан!', 'success');
             document.querySelectorAll('#newLogin, #newPassword, #newFirstName, #newLastName').forEach(i => i.value = '');
             loadAccounts();
         }
-
+        
         async function saveSetting() {
             const key = document.getElementById('settingKey')?.value;
             const value = document.getElementById('settingValue')?.value;
-            if (!key) {
-                showAlert('settingsTabContent', 'Введите ключ настройки', 'error');
-                return;
-            }
+            if (!key) { showAlert('settingsTabContent', 'Введите ключ настройки', 'error'); return; }
             const newSettings = { ...settings, [key]: value };
             await callGoogleScript('saveSettings', { settings: newSettings });
             showAlert('settingsTabContent', 'Настройка сохранена!', 'success');
@@ -2275,25 +2235,19 @@
             document.getElementById('settingValue').value = '';
             loadSettingsList();
         }
-
+        
         async function sendPromotionList() {
             const sender = document.getElementById('listSender')?.value;
             const promoted = document.getElementById('listPromoted')?.value;
             const link = document.getElementById('listLink')?.value;
             const discordId = document.getElementById('listDiscordId')?.value;
-            if (!sender || !promoted || !link) {
-                showAlert('sendListTab', 'Заполните все поля', 'error');
-                return;
-            }
-            const result = await callGoogleScript('savePromotionList', {
-                senderName: sender,
-                promotedName: promoted,
-                reportLink: link,
-                department: currentDept || 'MA'
+            if (!sender || !promoted || !link) { showAlert('sendListTab', 'Заполните все поля', 'error'); return; }
+            const result = await callGoogleScript('savePromotionList', { 
+                senderName: sender, promotedName: promoted, reportLink: link, department: currentDept || 'MA'
             });
             const discordMention = discordId && discordId.match(/^\d+$/) ? `<@${discordId}> ` : '';
             sendDiscord(PROMOTION_LIST_WEBHOOK, `Список на повышение #${result.listNumber}`, [
-                { name: "Отправитель", value: sender },
+                { name: "Отправитель", value: sender }, 
                 { name: "Повышаемый", value: promoted },
                 { name: "Ссылка", value: link }
             ], 0x4CAF50, `${discordMention}🎫 Заявка на повышение №${result.listNumber}`);
@@ -2302,7 +2256,7 @@
             document.getElementById('discordPreview').style.display = 'none';
             loadPromotions();
         }
-
+        
         document.addEventListener('DOMContentLoaded', () => {
             const discordInput = document.getElementById('listDiscordId');
             if (discordInput) {
@@ -2322,7 +2276,7 @@
                 });
             }
         });
-
+        
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('theme') === 'light') {
                 document.body.classList.add('light');
@@ -2335,15 +2289,10 @@
                 localStorage.setItem('theme', isLight ? 'light' : 'dark');
                 const icon = document.querySelector('#themeBtn i');
                 const span = document.querySelector('#themeBtn span');
-                if (isLight) {
-                    icon.className = 'fas fa-moon';
-                    span.innerText = 'Тёмная тема';
-                } else {
-                    icon.className = 'fas fa-sun';
-                    span.innerText = 'Светлая тема';
-                }
+                if (isLight) { icon.className = 'fas fa-moon'; span.innerText = 'Тёмная тема'; }
+                else { icon.className = 'fas fa-sun'; span.innerText = 'Светлая тема'; }
             };
-
+            
             document.querySelectorAll('.dept-card').forEach(card => {
                 card.onclick = () => showActionsPage(card.dataset.dept);
             });
@@ -2352,7 +2301,7 @@
             document.getElementById('backFromAdminBtn').onclick = showDeptsPage;
             document.getElementById('addActionBtn').onclick = addAction;
             document.getElementById('submitBtn').onclick = submitForm;
-
+            
             document.getElementById('adminLoginBtn').onclick = () => document.getElementById('loginModal').style.display = 'flex';
             document.getElementById('closeModalBtn').onclick = () => document.getElementById('loginModal').style.display = 'none';
             document.getElementById('doLoginBtn').onclick = () => doLogin(document.getElementById('loginUser').value, document.getElementById('loginPass').value);
@@ -2361,7 +2310,7 @@
             document.getElementById('createAccountBtn')?.addEventListener('click', createAccount);
             document.getElementById('saveSettingBtn')?.addEventListener('click', saveSetting);
             document.getElementById('sendListBtn')?.addEventListener('click', sendPromotionList);
-
+            
             document.querySelectorAll('.admin-tab').forEach(tab => {
                 tab.onclick = () => {
                     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -2376,11 +2325,9 @@
                     if (tabName === 'settings') loadSettingsList();
                 };
             });
-
-            window.onclick = e => {
-                if (e.target === document.getElementById('loginModal')) document.getElementById('loginModal').style.display = 'none';
-            };
-
+            
+            window.onclick = e => { if (e.target === document.getElementById('loginModal')) document.getElementById('loginModal').style.display = 'none'; };
+            
             const saved = localStorage.getItem('deltaUser');
             if (saved) {
                 currentUser = JSON.parse(saved);
