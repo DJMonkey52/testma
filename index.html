@@ -111,7 +111,6 @@
             font-size: 0.9rem;
         }
 
-        /* Верхние кнопки */
         .top-bar {
             position: fixed;
             top: 20px;
@@ -177,7 +176,6 @@
             margin-left: 8px;
         }
 
-        /* Страницы */
         .page {
             display: none;
             animation: fadeIn 0.4s ease;
@@ -189,7 +187,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Карточки отделов */
         .depts-grid {
             display: flex;
             justify-content: center;
@@ -243,7 +240,6 @@
             line-height: 1.4;
         }
 
-        /* Карточки действий */
         .actions-grid {
             display: flex;
             justify-content: center;
@@ -296,7 +292,6 @@
             font-size: 0.8rem;
         }
 
-        /* Форма */
         .back-btn {
             display: inline-flex;
             align-items: center;
@@ -625,7 +620,6 @@
             display: flex;
         }
 
-        /* Модалка */
         .modal {
             display: none;
             position: fixed;
@@ -644,7 +638,6 @@
             width: 90%;
         }
 
-        /* Админ панель */
         .admin-tabs {
             display: flex;
             gap: 10px;
@@ -720,7 +713,6 @@
     </style>
 </head>
 <body>
-    <!-- Верхняя панель -->
     <div class="top-bar">
         <div style="display: flex; gap: 10px;">
             <div class="btn-icon" id="themeBtn">
@@ -758,7 +750,6 @@
             <p class="subtitle">Система подачи отчётов Delta</p>
         </div>
 
-        <!-- Страница выбора отдела -->
         <div id="deptsPage" class="page">
             <div class="depts-grid">
                 <div class="dept-card" data-dept="КМБ">
@@ -779,7 +770,6 @@
             </div>
         </div>
 
-        <!-- Страница выбора действия -->
         <div id="actionsPage" class="page">
             <div class="back-btn" id="backToDeptsBtn">
                 <i class="fas fa-arrow-left"></i> Назад
@@ -787,7 +777,6 @@
             <div class="actions-grid" id="actionsGrid"></div>
         </div>
 
-        <!-- Страница формы -->
         <div id="formPage" class="page">
             <div class="back-btn" id="backToActionsBtn">
                 <i class="fas fa-arrow-left"></i> Назад
@@ -821,7 +810,6 @@
             </div>
         </div>
 
-        <!-- Админ панель -->
         <div id="adminPage" class="page">
             <div class="back-btn" id="backFromAdminBtn">
                 <i class="fas fa-arrow-left"></i> На главную
@@ -900,7 +888,6 @@
         </div>
     </div>
 
-    <!-- Модалка входа -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <div class="glass-card">
@@ -919,8 +906,6 @@
     </div>
 
     <script>
-        // ==================== КОНФИГУРАЦИЯ ====================
-        // ВАШ URL ИЗ APPS SCRIPT
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynrQv1QhyEFkuU4bPA1RnQS9D8JDyCOkwaW-ubivYZkbiMYKzVghlnCuP-mKMVUUJ1/exec';
         
         const WEBHOOKS = {
@@ -1000,11 +985,11 @@
             try {
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ type, department: dept, actionType: action, ...data })
                 });
-                const result = await response.text();
-                console.log('Sheet response:', result);
+                console.log('Sheet response sent');
                 return true;
             } catch(e) { 
                 console.error('Sheet error:', e); 
@@ -1023,25 +1008,38 @@
         }
         
         async function doLogin(login, pass) {
+            const alertContainer = 'loginAlert';
             try {
-                const res = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'auth', login, password: pass })
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type: 'auth', login: login, password: pass })
                 });
-                const data = await res.json();
+                
+                const text = await response.text();
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch(e) {
+                    console.error('Parse error:', text);
+                    showAlert(alertContainer, 'Ошибка ответа сервера', 'error');
+                    return false;
+                }
+                
                 if (data.success) {
                     currentUser = data.user;
                     localStorage.setItem('deltaUser', JSON.stringify(currentUser));
                     updateAdminUI();
                     document.getElementById('loginModal').style.display = 'none';
-                    showAlert('loginAlert', 'Вход выполнен!', 'success');
+                    showAlert(alertContainer, 'Вход выполнен!', 'success');
                     return true;
                 } else {
-                    showAlert('loginAlert', data.error || 'Ошибка', 'error');
+                    showAlert(alertContainer, data.error || 'Ошибка входа', 'error');
                     return false;
                 }
             } catch(e) {
-                showAlert('loginAlert', 'Ошибка соединения с сервером', 'error');
+                console.error('Login error:', e);
+                showAlert(alertContainer, 'Ошибка соединения с сервером: ' + e.message, 'error');
                 return false;
             }
         }
@@ -1591,9 +1589,7 @@
             loadPromotions();
         }
         
-        // ИНИЦИАЛИЗАЦИЯ
         document.addEventListener('DOMContentLoaded', () => {
-            // Тема
             if (localStorage.getItem('theme') === 'light') {
                 document.body.classList.add('light');
                 document.querySelector('#themeBtn i').className = 'fas fa-moon';
@@ -1609,7 +1605,6 @@
                 else { icon.className = 'fas fa-sun'; span.innerText = 'Светлая тема'; }
             };
             
-            // Навигация
             document.querySelectorAll('.dept-card').forEach(card => {
                 card.onclick = () => showActionsPage(card.dataset.dept);
             });
@@ -1619,7 +1614,6 @@
             document.getElementById('addActionBtn').onclick = addAction;
             document.getElementById('submitBtn').onclick = submitForm;
             
-            // Админка
             document.getElementById('adminLoginBtn').onclick = () => document.getElementById('loginModal').style.display = 'flex';
             document.getElementById('closeModalBtn').onclick = () => document.getElementById('loginModal').style.display = 'none';
             document.getElementById('doLoginBtn').onclick = () => doLogin(document.getElementById('loginUser').value, document.getElementById('loginPass').value);
@@ -1629,7 +1623,6 @@
             document.getElementById('saveSettingsBtn')?.addEventListener('click', saveSettings);
             document.getElementById('sendListBtn')?.addEventListener('click', sendPromotionList);
             
-            // Табы админки
             document.querySelectorAll('.admin-tab').forEach(tab => {
                 tab.onclick = () => {
                     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -1642,10 +1635,8 @@
                 };
             });
             
-            // Закрытие модалки по клику вне
             window.onclick = e => { if (e.target === document.getElementById('loginModal')) document.getElementById('loginModal').style.display = 'none'; };
             
-            // Восстановление сессии
             const saved = localStorage.getItem('deltaUser');
             if (saved) {
                 currentUser = JSON.parse(saved);
