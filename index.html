@@ -66,7 +66,7 @@
 
         .header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
             margin-top: 10px;
             animation: fadeInDown 0.8s ease;
         }
@@ -214,7 +214,7 @@
             justify-content: center;
             gap: 35px;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .dept-card {
@@ -977,6 +977,9 @@
                 flex-direction: column;
                 text-align: center;
             }
+            .header {
+                margin-bottom: 40px;
+            }
         }
     </style>
 </head>
@@ -1203,6 +1206,14 @@
                 exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX'
             }
         };
+        
+        const STATUS_WEBHOOKS = {
+            MA: 'https://discord.com/api/webhooks/1505219475765592114/hvAP4uFpg_PyHnLnbMsUei3XUEefJM4vf1DoKL6hVXurZiD9OfLQqMHNiAKj0TCC_yHZ',
+            ACD: 'https://discord.com/api/webhooks/1505219475765592114/hvAP4uFpg_PyHnLnbMsUei3XUEefJM4vf1DoKL6hVXurZiD9OfLQqMHNiAKj0TCC_yHZ',
+            КМБ: 'https://discord.com/api/webhooks/1505219389820112928/pUbySSvWb3c4VC6lr6dGB2AL0htMMCZ8N1UoEAO_1w3wKCVw53wYE5PndStUf8DZQ5tQ'
+        };
+        
+        const PROMOTION_LIST_WEBHOOK = 'https://discord.com/api/webhooks/1505217723175796858/TVPMTOvOiJA_oWcEWiA3ftoi2ShAII_nCLkI_mvRFK6eihqLVTzxd1viBVz4yaiaQp6B';
         
         const TAGS = {
             КМБ: { promotion: '<@&793440128906821672><@&792080799062556672>', exam: '<@&713076174112161836>' },
@@ -1950,7 +1961,7 @@
                 if (result.lists && result.lists.length > 0) {
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th>
-                    </tr></thead><tbody>
+                    </table></thead><tbody>
                         ${result.lists.map(l => `<tr>
                             <td>${l.number}</td>
                             <td>${new Date(l.date).toLocaleString()}</td>
@@ -1970,7 +1981,7 @@
                 if (result.accounts && result.accounts.length > 0) {
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th><th>Действия</th>
-                    </tr></thead><tbody>
+                    </table></thead><tbody>
                         ${result.accounts.map(a => `<tr>
                             <td>${escapeHtml(a.login)}</td>
                             <td>${escapeHtml(a.role)}</td>
@@ -2005,7 +2016,7 @@
                 if (Object.keys(settings).length > 0) {
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Ключ</th><th>Значение</th><th>Действия</th>
-                    </tr></thead><tbody>
+                    <tr></thead><tbody>
                         ${Object.entries(settings).map(([key, value]) => `<tr>
                             <td>${escapeHtml(key)}</td>
                             <td>${escapeHtml(value)}</td>
