@@ -143,27 +143,54 @@
             transform: scale(1.02);
         }
 
-        .admin-btn {
+        .admin-login-btn {
             position: fixed;
             top: 20px;
             left: 20px;
-            background: var(--glass-bg);
+            background: rgba(76, 175, 80, 0.2);
             backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--accent);
             border-radius: 50px;
             padding: 8px 20px;
             display: flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            color: var(--text-primary);
+            color: var(--accent-glow);
             font-weight: 500;
             font-size: 0.85rem;
             transition: all 0.3s;
             z-index: 100;
         }
 
-        .admin-btn:hover {
+        .admin-login-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: scale(1.02);
+        }
+
+        .admin-panel-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: var(--accent-glow);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .admin-panel-btn:hover {
             border-color: var(--accent);
             transform: scale(1.02);
         }
@@ -211,7 +238,7 @@
             z-index: 100;
         }
 
-        .home-page, .dept-page, .form-page, .admin-page, .login-page {
+        .home-page, .form-page, .admin-page, .login-modal {
             animation: fadeInUp 0.4s ease;
         }
 
@@ -722,9 +749,23 @@
             display: flex;
         }
 
-        .login-box {
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
             max-width: 400px;
-            margin: 100px auto;
+            width: 90%;
         }
 
         .admin-tabs {
@@ -777,6 +818,7 @@
             border: 1px solid var(--border-light);
             color: var(--text-primary);
             cursor: pointer;
+            margin-top: 10px;
         }
 
         .role-badge {
@@ -818,26 +860,63 @@
             .user-info, .logout-btn {
                 display: none;
             }
+            .dept-cards {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Кнопки -->
     <div class="theme-toggle" id="themeSwitch">
         <i class="fas fa-sun"></i>
         <span>Светлая тема</span>
     </div>
-    <div class="admin-btn" id="adminBtn" style="display: none;">
+    
+    <div id="adminLoginBtn" class="admin-login-btn">
+        <i class="fas fa-user-shield"></i>
+        <span>Вход в админку</span>
+    </div>
+    
+    <div id="adminPanelBtn" class="admin-panel-btn" style="display: none;">
         <i class="fas fa-cog"></i>
         <span>Админ панель</span>
     </div>
-    <div class="user-info" id="userInfo" style="display: none;">
+    
+    <div id="userInfo" class="user-info" style="display: none;">
         <i class="fas fa-user"></i>
         <span id="userName"></span>
         <span class="role-badge" id="userRole"></span>
     </div>
-    <div class="logout-btn" id="logoutBtn" style="display: none;">
+    
+    <div id="logoutBtn" class="logout-btn" style="display: none;">
         <i class="fas fa-sign-out-alt"></i>
         <span>Выйти</span>
+    </div>
+
+    <!-- Модальное окно входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-key"></i> Вход в админ панель</h2>
+                </div>
+                <div class="card-body">
+                    <div id="loginModalAlert"></div>
+                    <div class="input-group">
+                        <label>Логин</label>
+                        <input type="text" id="modalLogin" placeholder="Введите логин">
+                    </div>
+                    <div class="input-group">
+                        <label>Пароль</label>
+                        <input type="password" id="modalPassword" placeholder="Введите пароль">
+                    </div>
+                    <button class="submit-btn" id="modalLoginBtn"><i class="fas fa-sign-in-alt"></i> Войти</button>
+                    <button class="back-btn" id="closeModalBtn" style="margin-top: 10px; width: 100%; justify-content: center;">Закрыть</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container">
@@ -849,31 +928,10 @@
             <p class="subtitle">Система подачи отчётов Delta</p>
         </div>
 
-        <!-- Страница входа -->
-        <div id="loginPage" class="login-page">
-            <div class="glass-card login-box">
-                <div class="card-header">
-                    <h2><i class="fas fa-key"></i> Вход в систему</h2>
-                </div>
-                <div class="card-body">
-                    <div id="loginAlert"></div>
-                    <div class="input-group">
-                        <label>Логин</label>
-                        <input type="text" id="loginUsername" placeholder="Введите логин">
-                    </div>
-                    <div class="input-group">
-                        <label>Пароль</label>
-                        <input type="password" id="loginPassword" placeholder="Введите пароль">
-                    </div>
-                    <button class="submit-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Войти</button>
-                </div>
-            </div>
-        </div>
-
         <!-- Главная страница с отделами -->
-        <div id="homePage" class="home-page" style="display: none;">
+        <div id="homePage" class="home-page">
             <div class="dept-cards">
-                <div class="dept-card" data-dept="КМБ">
+                <div class="dept-card">
                     <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
                     <h3>КМБ</h3>
                     <p>Курс молодого бойца</p>
@@ -882,7 +940,7 @@
                         <div class="action-mini-btn" data-dept="КМБ" data-action="exam"><i class="fas fa-pen-clip"></i> Запись на экзамен</div>
                     </div>
                 </div>
-                <div class="dept-card" data-dept="ACD">
+                <div class="dept-card">
                     <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h3>ACD</h3>
                     <p>Академический отдел</p>
@@ -891,7 +949,7 @@
                         <div class="action-mini-btn" data-dept="ACD" data-action="exam"><i class="fas fa-pen-clip"></i> Запись на экзамен</div>
                     </div>
                 </div>
-                <div class="dept-card" data-dept="MA">
+                <div class="dept-card">
                     <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
                     <h3>MA</h3>
                     <p>Медицинская академия</p>
@@ -1021,6 +1079,7 @@
 
     <script>
         // ==================== КОНФИГУРАЦИЯ ====================
+        // ⚠️ ЗАМЕНИ НА СВОЙ URL ОТ APPS SCRIPT ⚠️
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuBAph1pq4i9JMZS2Dka_nc_XBFZrtqCADpfO5CE4PEShaWF6kSoX8UQe8LsBOxq7O/exec';
         
         // Вебхуки для каждого отдела и типа
@@ -1196,14 +1255,16 @@
                 if (data.success) {
                     currentUser = data.user;
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    showHomePage();
+                    updateUIForAdmin();
+                    document.getElementById('loginModal').style.display = 'none';
+                    showAlert('loginModalAlert', 'Вход выполнен успешно!', 'success');
                     return true;
                 } else {
-                    showAlert('loginAlert', data.error || 'Ошибка входа', 'error');
+                    showAlert('loginModalAlert', data.error || 'Ошибка входа', 'error');
                     return false;
                 }
             } catch (error) {
-                showAlert('loginAlert', 'Ошибка соединения', 'error');
+                showAlert('loginModalAlert', 'Ошибка соединения', 'error');
                 return false;
             }
         }
@@ -1211,25 +1272,24 @@
         function logout() {
             currentUser = null;
             localStorage.removeItem('currentUser');
-            document.getElementById('loginPage').style.display = 'block';
-            document.getElementById('homePage').style.display = 'none';
-            document.getElementById('formPage').style.display = 'none';
-            document.getElementById('adminPage').style.display = 'none';
-            document.getElementById('adminBtn').style.display = 'none';
-            document.getElementById('userInfo').style.display = 'none';
-            document.getElementById('logoutBtn').style.display = 'none';
+            updateUIForAdmin();
+            showHomePage();
         }
         
-        function checkAuth() {
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showHomePage();
-                return true;
+        function updateUIForAdmin() {
+            if (currentUser) {
+                document.getElementById('adminLoginBtn').style.display = 'none';
+                document.getElementById('adminPanelBtn').style.display = 'flex';
+                document.getElementById('userInfo').style.display = 'flex';
+                document.getElementById('logoutBtn').style.display = 'flex';
+                document.getElementById('userName').textContent = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`;
+                document.getElementById('userRole').textContent = currentUser.role || '';
+            } else {
+                document.getElementById('adminLoginBtn').style.display = 'flex';
+                document.getElementById('adminPanelBtn').style.display = 'none';
+                document.getElementById('userInfo').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'none';
             }
-            document.getElementById('loginPage').style.display = 'block';
-            document.getElementById('homePage').style.display = 'none';
-            return false;
         }
         
         function hasPermission(permission) {
@@ -1241,21 +1301,9 @@
         
         // ==================== ОТОБРАЖЕНИЕ СТРАНИЦ ====================
         function showHomePage() {
-            document.getElementById('loginPage').style.display = 'none';
             document.getElementById('homePage').style.display = 'block';
             document.getElementById('formPage').style.display = 'none';
             document.getElementById('adminPage').style.display = 'none';
-            
-            document.getElementById('userInfo').style.display = 'flex';
-            document.getElementById('logoutBtn').style.display = 'flex';
-            document.getElementById('userName').textContent = `${currentUser?.firstName || ''} ${currentUser?.lastName || ''}`;
-            document.getElementById('userRole').textContent = currentUser?.role || '';
-            
-            if (hasPermission('admin_panel')) {
-                document.getElementById('adminBtn').style.display = 'flex';
-            } else {
-                document.getElementById('adminBtn').style.display = 'none';
-            }
         }
         
         function showFormPage(department, actionType) {
@@ -1263,7 +1311,6 @@
             currentActionType = actionType;
             currentActions = [];
             
-            document.getElementById('loginPage').style.display = 'none';
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('formPage').style.display = 'block';
             document.getElementById('adminPage').style.display = 'none';
@@ -1591,7 +1638,7 @@
                 const tag = TAGS.MA.weekly;
                 await sendToDiscordWithEmbed(WEBHOOKS.MA.weekly, "📊 Еженедельный отчёт (MA)", fields, 0x4CAF50, tag);
                 await writeToGoogleSheet('report', 'MA', 'weekly', {
-                    nickname, rank, period, totalPoints, actions: actionsText, proofs: '', senderName: `${currentUser.firstName} ${currentUser.lastName}`
+                    nickname, rank, periodStart: start, periodEnd: end, totalPoints, actions: actionsText, senderName: 'Гость'
                 });
                 showAlert(alertContainer, '✅ Отчёт отправлен!', 'success');
                 
@@ -1628,7 +1675,7 @@
                     await sendToDiscordWithEmbed(webhook, `⬆️ Запрос на повышение (${currentDepartment})`, fields, 0x4CAF50, tag);
                 }
                 await writeToGoogleSheet('report', currentDepartment, 'promotion', {
-                    nickname, currentRank, desiredRank, lastPromotion: lastPromotionFormatted, totalPoints, actions: actionsText, proofs: '', senderName: `${currentUser.firstName} ${currentUser.lastName}`
+                    nickname, currentRank, desiredRank, lastPromotion: lastPromotionFormatted, totalPoints, actions: actionsText, senderName: 'Гость'
                 });
                 showAlert(alertContainer, '✅ Запрос на повышение отправлен!', 'success');
                 
@@ -1651,10 +1698,9 @@
                 if (webhook) {
                     await sendToDiscordWithEmbed(webhook, `📝 Запись на экзамен (${currentDepartment})`, fields, 0x4CAF50, tag);
                 }
-                // Отправка на дополнительный вебхук
                 await sendToDiscordWithEmbed(ADDITIONAL_EXAM_WEBHOOK, `📝 Запись на экзамен (${currentDepartment})`, fields, 0x4CAF50, tag);
                 await writeToGoogleSheet('report', currentDepartment, 'exam', {
-                    fullName, examType, discordTag, examTime, senderName: `${currentUser.firstName} ${currentUser.lastName}`
+                    fullName, examType, discordTag, examTime, senderName: 'Гость'
                 });
                 showAlert(alertContainer, '✅ Заявка на экзамен отправлена!', 'success');
             }
@@ -1664,16 +1710,38 @@
             renderActionsList();
             updateTotalPointsDisplay();
             if (currentActionType === 'weekly') setDefaultWeeklyDates();
-            if (currentActionType === 'promotion') document.getElementById('formLastPromotion').value = '';
+            if (currentActionType === 'promotion') {
+                const lastPromotionInput = document.getElementById('formLastPromotion');
+                if (lastPromotionInput) lastPromotionInput.value = '';
+            }
             if (currentActionType === 'exam') {
-                document.getElementById('formFullName').value = '';
-                document.getElementById('formExamType').value = '';
-                document.getElementById('formDiscord').value = '';
-                document.getElementById('formTime').value = '';
+                const fullNameInput = document.getElementById('formFullName');
+                const examTypeSelect = document.getElementById('formExamType');
+                const discordInput = document.getElementById('formDiscord');
+                const timeInput = document.getElementById('formTime');
+                if (fullNameInput) fullNameInput.value = '';
+                if (examTypeSelect) examTypeSelect.value = '';
+                if (discordInput) discordInput.value = '';
+                if (timeInput) timeInput.value = '';
             }
         }
         
         // ==================== АДМИН ПАНЕЛЬ ====================
+        function showAdminPage() {
+            if (!hasPermission('admin_panel')) {
+                showAlert('homePage', 'У вас нет доступа к админ панели', 'error');
+                return;
+            }
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('formPage').style.display = 'none';
+            document.getElementById('adminPage').style.display = 'block';
+            loadAdminData();
+            
+            // Настройка видимости вкладок по правам
+            document.getElementById('accountsTab').style.display = hasPermission('manage_accounts') ? 'inline-block' : 'none';
+            document.getElementById('settingsTab').style.display = hasPermission('manage_settings') ? 'inline-block' : 'none';
+        }
+        
         async function loadAdminData() {
             await loadExams();
             await loadPromotionLists();
@@ -1697,34 +1765,34 @@
                     container.innerHTML = data.exams.map((exam, idx) => `
                         <div class="exam-item">
                             <div><strong>${exam.fullName}</strong> | ${exam.examType} | ${exam.date ? new Date(exam.date).toLocaleString() : ''}</div>
-                            <div>Discord: ${exam.discordTag} | Время: ${exam.examTime}</div>
+                            <div>Discord: ${exam.discordTag} | Время: ${exam.examTime} | Отдел: ${exam.department}</div>
                             <div>Статус: <span class="status-badge status-${exam.status === 'Пройдено' ? 'passed' : exam.status === 'Отклонено' ? 'failed' : 'waiting'}">${exam.status || 'Ожидание'}</span></div>
-                            <select class="status-select" data-exam-idx="${idx}" data-fullname="${exam.fullName}" data-date="${exam.date}">
+                            <select class="status-select" data-idx="${idx}" data-fullname="${exam.fullName}" data-date="${exam.date}" data-dept="${exam.department}">
                                 <option value="Ожидание" ${exam.status === 'Ожидание' ? 'selected' : ''}>Ожидание</option>
                                 <option value="Пройдено" ${exam.status === 'Пройдено' ? 'selected' : ''}>Пройдено</option>
                                 <option value="Отклонено" ${exam.status === 'Отклонено' ? 'selected' : ''}>Отклонено</option>
                             </select>
                             <div id="examForm_${idx}" style="display: none; margin-top: 10px;">
-                                <input type="text" placeholder="Принимавший экзамен (Имя Фамилия)" id="examiner_${idx}">
-                                <input type="number" placeholder="Балл" id="score_${idx}">
-                                <select id="result_${idx}">
+                                <input type="text" placeholder="Принимавший экзамен (Имя Фамилия)" id="examiner_${idx}" style="padding: 8px; margin-right: 5px;">
+                                <input type="number" placeholder="Балл" id="score_${idx}" style="padding: 8px; margin-right: 5px; width: 80px;">
+                                <select id="result_${idx}" style="padding: 8px;">
                                     <option value="Сдал">Сдал</option>
                                     <option value="Не сдал">Не сдал</option>
                                 </select>
-                                <button onclick="updateExamStatusWithForm(${idx}, '${exam.fullName}', '${exam.date}')">Подтвердить</button>
+                                <button class="submit-btn" onclick="updateExamStatusWithForm(${idx}, '${exam.fullName}', '${exam.date}', '${exam.department}')" style="margin-top: 10px; padding: 8px;">Подтвердить</button>
                             </div>
                         </div>
                     `).join('');
                     
                     document.querySelectorAll('.status-select').forEach(select => {
                         select.addEventListener('change', (e) => {
-                            const idx = select.dataset.examIdx;
+                            const idx = select.dataset.idx;
                             const formDiv = document.getElementById(`examForm_${idx}`);
                             if (select.value === 'Пройдено') {
                                 formDiv.style.display = 'block';
                             } else {
                                 formDiv.style.display = 'none';
-                                updateExamStatus(select.dataset.fullname, select.dataset.date, select.value, '', '', '');
+                                updateExamStatus(select.dataset.fullname, select.dataset.date, select.value, '', '', '', select.dataset.dept);
                             }
                         });
                     });
@@ -1736,30 +1804,29 @@
             }
         }
         
-        async function updateExamStatusWithForm(idx, fullName, date) {
+        window.updateExamStatusWithForm = async function(idx, fullName, date, department) {
             const examinerName = document.getElementById(`examiner_${idx}`)?.value || '';
             const score = document.getElementById(`score_${idx}`)?.value || '';
             const result = document.getElementById(`result_${idx}`)?.value || 'Сдал';
-            await updateExamStatus(fullName, date, 'Пройдено', examinerName, score, result);
+            await updateExamStatus(fullName, date, 'Пройдено', examinerName, score, result, department);
             document.getElementById(`examForm_${idx}`).style.display = 'none';
             await loadExams();
-        }
+        };
         
-        async function updateExamStatus(fullName, date, status, examinerName, score, result) {
+        async function updateExamStatus(fullName, date, status, examinerName, score, result, department) {
             try {
                 await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'examStatus', fullName, date, status, examinerName, score, result, department: currentDepartment })
+                    body: JSON.stringify({ type: 'examStatus', fullName, date, status, examinerName, score, result, department })
                 });
                 
-                // Отправка уведомления в Discord
-                const webhook = STATUS_WEBHOOKS[currentDepartment] || STATUS_WEBHOOKS.MA;
+                const webhook = STATUS_WEBHOOKS[department] || STATUS_WEBHOOKS.MA;
                 const statusText = status === 'Пройдено' ? (settings.passedText || 'Поздравляем! Вы успешно сдали экзамен!') : 
                                   status === 'Отклонено' ? (settings.failedText || 'К сожалению, вы не сдали экзамен. Попробуйте снова.') :
                                   (settings.waitingText || 'Ваша заявка на экзамен принята! Ожидайте ответа.');
                 
-                await sendToDiscordWithEmbed(webhook, `📝 Результат экзамена`, [
+                await sendToDiscordWithEmbed(webhook, `📝 Результат экзамена (${department})`, [
                     { name: "Участник", value: fullName, inline: true },
                     { name: "Статус", value: status, inline: true },
                     { name: "Принимавший", value: examinerName || 'Не указан', inline: true },
@@ -1867,18 +1934,23 @@
             }
             
             try {
-                await fetch(GOOGLE_SCRIPT_URL, {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ type: 'createAccount', login, password, role, firstName, lastName, discordId })
                 });
-                showAlert('accountsList', 'Аккаунт создан', 'success');
-                document.getElementById('newLogin').value = '';
-                document.getElementById('newPassword').value = '';
-                document.getElementById('newFirstName').value = '';
-                document.getElementById('newLastName').value = '';
-                document.getElementById('newDiscordId').value = '';
-                await loadAccounts();
+                const data = await response.json();
+                if (data.success) {
+                    showAlert('accountsList', 'Аккаунт создан', 'success');
+                    document.getElementById('newLogin').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('newFirstName').value = '';
+                    document.getElementById('newLastName').value = '';
+                    document.getElementById('newDiscordId').value = '';
+                    await loadAccounts();
+                } else {
+                    showAlert('accountsList', data.error || 'Ошибка создания', 'error');
+                }
             } catch (error) {
                 showAlert('accountsList', 'Ошибка создания', 'error');
             }
@@ -1939,7 +2011,6 @@
                 });
                 const data = await response.json();
                 
-                // Отправка в Discord
                 await sendToDiscordWithEmbed(PROMOTION_LIST_WEBHOOK, `📋 Список на повышение #${data.listNumber}`, [
                     { name: "Отправитель", value: senderName, inline: true },
                     { name: "Повышаемый", value: promotedName, inline: true },
@@ -1956,22 +2027,6 @@
             } catch (error) {
                 showAlert('promotionFormTab', 'Ошибка отправки', 'error');
             }
-        }
-        
-        function showAdminPage() {
-            if (!hasPermission('admin_panel')) {
-                showAlert('homePage', 'У вас нет доступа к админ панели', 'error');
-                return;
-            }
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('homePage').style.display = 'none';
-            document.getElementById('formPage').style.display = 'none';
-            document.getElementById('adminPage').style.display = 'block';
-            loadAdminData();
-            
-            // Настройка видимости вкладок по правам
-            document.getElementById('accountsTab').style.display = hasPermission('manage_accounts') ? 'inline-block' : 'none';
-            document.getElementById('settingsTab').style.display = hasPermission('manage_settings') ? 'inline-block' : 'none';
         }
         
         // ==================== ИНИЦИАЛИЗАЦИЯ ====================
@@ -2003,22 +2058,30 @@
                 });
             });
             
-            document.querySelectorAll('.dept-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('action-mini-btn')) return;
-                });
-            });
-            
             // Кнопки навигации
-            document.getElementById('adminBtn').addEventListener('click', showAdminPage);
-            document.getElementById('logoutBtn').addEventListener('click', logout);
-            document.getElementById('loginBtn').addEventListener('click', () => {
-                const login = document.getElementById('loginUsername').value;
-                const password = document.getElementById('loginPassword').value;
+            document.getElementById('adminLoginBtn').addEventListener('click', () => {
+                document.getElementById('loginModal').style.display = 'flex';
+            });
+            document.getElementById('closeModalBtn').addEventListener('click', () => {
+                document.getElementById('loginModal').style.display = 'none';
+            });
+            document.getElementById('modalLoginBtn').addEventListener('click', () => {
+                const login = document.getElementById('modalLogin').value;
+                const password = document.getElementById('modalPassword').value;
                 login(login, password);
             });
+            document.getElementById('adminPanelBtn').addEventListener('click', showAdminPage);
+            document.getElementById('logoutBtn').addEventListener('click', logout);
             document.getElementById('addActionBtn').addEventListener('click', addAction);
             document.getElementById('submitFormBtn').addEventListener('click', submitForm);
+            
+            // Закрытие модалки при клике вне
+            window.addEventListener('click', (e) => {
+                const modal = document.getElementById('loginModal');
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
             
             // Админ вкладки
             document.querySelectorAll('.admin-tab').forEach(tab => {
@@ -2044,7 +2107,14 @@
                 if (e.target.id === 'formLastPromotion') updatePromotionInfo();
             });
             
-            checkAuth();
+            // Проверка сохраненного пользователя
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUIForAdmin();
+            }
+            
+            showHomePage();
         });
     </script>
 </body>
