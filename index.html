@@ -15,36 +15,37 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #051505 0%, #0a2a0a 50%, #0d2e0d 100%);
+            background: linear-gradient(135deg, #0a0f0a 0%, #0d2e0d 50%, #0a2a0a 100%);
             min-height: 100vh;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         body.light {
-            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
         }
 
         :root {
-            --glass-bg: rgba(10, 25, 10, 0.95);
-            --glass-border: rgba(76, 175, 80, 0.35);
-            --text-primary: #F0F3FA;
-            --text-secondary: #B0C4B0;
+            --glass-bg: rgba(10, 25, 10, 0.92);
+            --glass-border: rgba(76, 175, 80, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: #c8e6c9;
             --text-muted: #8A9A8A;
             --accent: #4CAF50;
-            --accent-glow: #66BB6A;
+            --accent-glow: #81c784;
             --accent-dark: #2E7D32;
             --success: #10b981;
             --danger: #ef4444;
-            --border-light: rgba(255, 255, 255, 0.06);
-            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.4);
-            --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.5);
-            --input-bg: rgba(5, 20, 5, 0.9);
-            --card-hover: rgba(76, 175, 80, 0.12);
+            --warning: #f59e0b;
+            --border-light: rgba(255, 255, 255, 0.1);
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 20px 35px -10px rgba(0, 0, 0, 0.4);
+            --input-bg: rgba(5, 20, 5, 0.95);
+            --card-hover: rgba(76, 175, 80, 0.15);
         }
 
         body.light {
-            --glass-bg: rgba(245, 255, 245, 0.95);
-            --glass-border: rgba(76, 175, 80, 0.25);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(76, 175, 80, 0.3);
             --text-primary: #1f2937;
             --text-secondary: #4b5563;
             --text-muted: #9ca3af;
@@ -52,22 +53,20 @@
             --accent-glow: #66BB6A;
             --accent-dark: #388E3C;
             --border-light: rgba(0, 0, 0, 0.08);
-            --input-bg: rgba(255, 255, 255, 0.95);
-            --card-hover: rgba(76, 175, 80, 0.08);
+            --input-bg: rgba(255, 255, 255, 0.98);
+            --card-hover: rgba(76, 175, 80, 0.1);
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             margin-top: 10px;
             animation: fadeInDown 0.8s ease;
         }
@@ -80,19 +79,19 @@
         .logo {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
+            gap: 15px;
+            margin-bottom: 10px;
         }
 
         .logo-icon {
-            width: 56px;
-            height: 56px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 30px;
             color: white;
             box-shadow: var(--shadow-sm);
             animation: float 3s ease-in-out infinite;
@@ -100,13 +99,13 @@
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-8px); }
         }
 
         .logo h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #FFFFFF, #A5D6A7);
+            background: linear-gradient(135deg, var(--accent-glow), #ffffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -114,7 +113,7 @@
 
         .subtitle {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .top-bar {
@@ -140,7 +139,7 @@
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             border-radius: 50px;
-            padding: 8px 20px;
+            padding: 10px 22px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -153,8 +152,8 @@
 
         .btn-icon:hover {
             border-color: var(--accent);
-            transform: scale(1.02);
-            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
         }
 
         .btn-admin {
@@ -181,8 +180,8 @@
 
         .role-tag {
             display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
             font-size: 0.7rem;
             background: var(--accent);
             color: white;
@@ -203,40 +202,40 @@
         .depts-grid {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 35px;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .dept-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 30px 35px;
-            width: 280px;
+            border-radius: 30px;
+            padding: 35px 40px;
+            width: 300px;
             text-align: center;
-            transition: all 0.4s;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             cursor: pointer;
             box-shadow: var(--shadow-md);
         }
 
         .dept-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-12px) scale(1.03);
             border-color: var(--accent);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
         }
 
         .dept-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.25), rgba(46, 125, 50, 0.15));
-            border-radius: 25px;
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 34px;
+            margin: 0 auto 18px;
+            font-size: 38px;
             color: var(--accent);
             transition: transform 0.3s;
         }
@@ -246,54 +245,54 @@
         }
 
         .dept-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .dept-card p {
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .actions-grid {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 35px;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         .action-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 35px 30px;
-            width: 280px;
+            border-radius: 30px;
+            padding: 40px 35px;
+            width: 300px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             box-shadow: var(--shadow-sm);
         }
 
         .action-card:hover {
-            transform: translateY(-6px) scale(1.02);
+            transform: translateY(-8px) scale(1.02);
             border-color: var(--accent);
             box-shadow: var(--shadow-md);
         }
 
         .action-icon {
-            width: 65px;
-            height: 65px;
+            width: 70px;
+            height: 70px;
             background: rgba(76, 175, 80, 0.15);
-            border-radius: 22px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 32px;
+            margin: 0 auto 18px;
+            font-size: 34px;
             color: var(--accent);
             transition: transform 0.3s;
         }
@@ -303,15 +302,15 @@
         }
 
         .action-card h4 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .action-card p {
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .back-btn {
@@ -322,24 +321,24 @@
             backdrop-filter: blur(8px);
             border: 1px solid var(--glass-border);
             border-radius: 50px;
-            padding: 10px 22px;
+            padding: 12px 25px;
             color: var(--text-primary);
             font-weight: 500;
             cursor: pointer;
-            margin-bottom: 24px;
+            margin-bottom: 25px;
             transition: all 0.3s;
         }
 
         .back-btn:hover {
             border-color: var(--accent);
-            transform: translateX(-5px);
-            box-shadow: 0 0 15px rgba(76, 175, 80, 0.2);
+            transform: translateX(-6px);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);
         }
 
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
-            border-radius: 28px;
+            border-radius: 30px;
             border: 1px solid var(--glass-border);
             overflow: hidden;
             transition: all 0.3s;
@@ -352,16 +351,17 @@
 
         .card-header {
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(46, 125, 50, 0.08));
-            padding: 18px 25px;
+            padding: 20px 28px;
             border-bottom: 1px solid var(--border-light);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .card-header h2 {
-            font-size: 1.2rem;
+        .card-header h2, .card-header h3 {
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-primary);
             display: flex;
@@ -370,10 +370,10 @@
         }
 
         .take-report-btn {
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             border: none;
-            padding: 8px 20px;
-            border-radius: 30px;
+            padding: 10px 24px;
+            border-radius: 40px;
             color: white;
             cursor: pointer;
             font-weight: 600;
@@ -387,6 +387,7 @@
         .take-report-btn:hover {
             transform: scale(1.05);
             filter: brightness(1.1);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
         }
 
         .card-body {
@@ -394,28 +395,28 @@
         }
 
         .input-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .input-group label {
             display: block;
             font-size: 0.75rem;
             font-weight: 600;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
             color: var(--accent-glow);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .input-group label i {
-            margin-right: 6px;
+            margin-right: 8px;
         }
 
         .input-group input, .input-group select, .input-group textarea {
             width: 100%;
-            padding: 12px 14px;
+            padding: 14px 16px;
             background: var(--input-bg);
             border: 1px solid var(--border-light);
-            border-radius: 14px;
+            border-radius: 16px;
             font-size: 0.9rem;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
@@ -425,19 +426,19 @@
         .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.2);
         }
 
         .period-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 18px;
         }
 
         .period-info {
             background: rgba(76, 175, 80, 0.1);
-            border-radius: 12px;
-            padding: 10px 14px;
+            border-radius: 14px;
+            padding: 12px 16px;
             text-align: center;
             color: var(--accent-glow);
             font-size: 0.85rem;
@@ -446,37 +447,37 @@
 
         .action-item {
             background: var(--card-hover);
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 12px;
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 14px;
             border: 1px solid var(--border-light);
             transition: all 0.3s;
         }
 
         .action-item:hover {
             border-color: var(--accent);
-            transform: translateX(5px);
+            transform: translateX(6px);
         }
 
         .action-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             flex-wrap: wrap;
         }
 
         .action-title {
             font-weight: 600;
             color: var(--text-primary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .remove-action {
             background: rgba(239, 68, 68, 0.15);
             border: none;
             color: #f87171;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 30px;
             cursor: pointer;
             font-size: 0.7rem;
@@ -491,14 +492,14 @@
         .action-fields {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 14px;
+            margin-bottom: 14px;
         }
 
         .action-field {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 5px;
         }
 
         .action-field label {
@@ -509,7 +510,7 @@
         }
 
         .action-field select, .action-field input {
-            padding: 8px 12px;
+            padding: 10px 14px;
             background: var(--input-bg);
             border: 1px solid var(--border-light);
             border-radius: 12px;
@@ -519,28 +520,28 @@
 
         .proofs-section {
             grid-column: span 2;
-            margin-top: 8px;
-            padding-top: 8px;
+            margin-top: 10px;
+            padding-top: 10px;
             border-top: 1px solid var(--border-light);
         }
 
         .proof-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 10px;
+            margin-bottom: 10px;
             background: rgba(0,0,0,0.25);
-            border-radius: 10px;
-            padding: 6px 10px;
+            border-radius: 12px;
+            padding: 8px 12px;
         }
 
         .proof-item input {
             flex: 1;
-            padding: 8px 10px;
+            padding: 10px 12px;
             font-size: 0.8rem;
             background: var(--input-bg);
             border: 1px solid var(--border-light);
-            border-radius: 8px;
+            border-radius: 10px;
             color: var(--text-primary);
         }
 
@@ -549,8 +550,8 @@
             border: none;
             color: #f87171;
             cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 8px;
+            padding: 8px 12px;
+            border-radius: 10px;
             transition: all 0.3s;
         }
 
@@ -561,15 +562,15 @@
         .add-proof-btn {
             background: rgba(76, 175, 80, 0.18);
             border: 1px dashed var(--accent);
-            border-radius: 10px;
-            padding: 6px 12px;
-            font-size: 0.7rem;
+            border-radius: 12px;
+            padding: 8px 14px;
+            font-size: 0.75rem;
             color: var(--accent);
             cursor: pointer;
-            margin-top: 6px;
+            margin-top: 8px;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             transition: all 0.3s;
         }
 
@@ -582,34 +583,34 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 10px;
+            padding-top: 12px;
             border-top: 1px solid var(--border-light);
-            margin-top: 6px;
+            margin-top: 8px;
         }
 
         .points-badge {
             background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            padding: 5px 14px;
+            padding: 6px 16px;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             color: white;
         }
 
         .count-badge {
             background: rgba(76, 175, 80, 0.18);
-            padding: 5px 14px;
+            padding: 6px 16px;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--accent-glow);
         }
 
         .add-btn {
             width: 100%;
             background: rgba(76, 175, 80, 0.12);
-            border: 1px dashed var(--accent);
-            border-radius: 16px;
-            padding: 12px;
+            border: 2px dashed var(--accent);
+            border-radius: 18px;
+            padding: 14px;
             color: var(--accent);
             font-weight: 600;
             cursor: pointer;
@@ -628,24 +629,24 @@
 
         .empty-state {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             color: var(--text-muted);
             background: rgba(10, 25, 10, 0.5);
-            border-radius: 18px;
+            border-radius: 20px;
         }
 
         .total-points-bar {
             background: rgba(76, 175, 80, 0.15);
-            border-radius: 16px;
-            padding: 12px 18px;
-            margin: 20px 0 16px;
+            border-radius: 20px;
+            padding: 15px 22px;
+            margin: 20px 0 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .total-points-value {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             -webkit-background-clip: text;
@@ -657,9 +658,9 @@
             width: 100%;
             background: linear-gradient(105deg, var(--accent), var(--accent-dark));
             border: none;
-            padding: 12px;
-            border-radius: 22px;
-            font-size: 0.9rem;
+            padding: 14px;
+            border-radius: 24px;
+            font-size: 0.95rem;
             font-weight: 700;
             color: white;
             cursor: pointer;
@@ -673,12 +674,12 @@
         .submit-btn:hover {
             transform: translateY(-3px);
             filter: brightness(1.05);
-            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
         }
 
         .footer-signature {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
             padding-top: 20px;
             border-top: 1px solid var(--border-light);
             color: var(--text-muted);
@@ -686,12 +687,12 @@
         }
 
         .alert {
-            padding: 12px 16px;
-            border-radius: 14px;
+            padding: 14px 18px;
+            border-radius: 16px;
             margin-bottom: 20px;
             display: none;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-weight: 500;
             font-size: 0.85rem;
             animation: slideInRight 0.3s ease;
@@ -704,14 +705,14 @@
 
         .alert.success {
             background: rgba(16, 185, 129, 0.15);
-            border-left: 3px solid #10b981;
+            border-left: 4px solid #10b981;
             color: #10b981;
             display: flex;
         }
 
         .alert.error {
             background: rgba(239, 68, 68, 0.12);
-            border-left: 3px solid #ef4444;
+            border-left: 4px solid #ef4444;
             color: #f87171;
             display: flex;
         }
@@ -723,7 +724,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -736,7 +737,7 @@
         }
 
         .modal-content {
-            max-width: 400px;
+            max-width: 420px;
             width: 90%;
             animation: zoomIn 0.3s ease;
         }
@@ -748,8 +749,8 @@
 
         .admin-tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 24px;
+            gap: 12px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
         }
 
@@ -757,11 +758,12 @@
             background: rgba(76, 175, 80, 0.12);
             border: 1px solid var(--border-light);
             border-radius: 50px;
-            padding: 8px 20px;
+            padding: 10px 26px;
             cursor: pointer;
             color: var(--text-primary);
             transition: all 0.3s;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .admin-tab:hover {
@@ -772,6 +774,7 @@
         .admin-tab.active {
             background: var(--accent);
             color: white;
+            border-color: var(--accent);
         }
 
         .admin-tab-content {
@@ -785,12 +788,11 @@
 
         .exam-item, .promotion-item, .account-item, .report-item {
             background: var(--card-hover);
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 10px;
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 12px;
             border: 1px solid var(--border-light);
             transition: all 0.3s;
-            font-size: 0.85rem;
         }
 
         .exam-item:hover, .promotion-item:hover, .account-item:hover, .report-item:hover {
@@ -800,7 +802,7 @@
 
         .status-badge {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.7rem;
             font-weight: 600;
@@ -809,22 +811,53 @@
         .status-waiting { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
         .status-passed { background: rgba(16, 185, 129, 0.2); color: #10b981; }
         .status-failed { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .status-inprogress { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
 
-        .discord-preview {
-            background: rgba(76, 175, 80, 0.1);
-            border-radius: 12px;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 0.8rem;
-            color: var(--accent-glow);
+        .exam-actions {
             display: flex;
-            align-items: center;
             gap: 10px;
+            margin-top: 12px;
             flex-wrap: wrap;
         }
 
-        .discord-preview i {
-            font-size: 1rem;
+        .exam-status-select {
+            padding: 8px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .exam-confirm-btn {
+            background: var(--accent);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .exam-confirm-btn:hover {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+        }
+
+        .discord-preview {
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 14px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--accent-glow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         table {
@@ -833,7 +866,7 @@
         }
 
         th, td {
-            padding: 8px;
+            padding: 12px 10px;
             text-align: left;
             border-bottom: 1px solid var(--border-light);
             color: var(--text-primary);
@@ -842,7 +875,7 @@
         th {
             color: var(--accent-glow);
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
         }
 
         @media (max-width: 850px) {
@@ -866,6 +899,10 @@
             }
             .page {
                 margin-top: 20px;
+            }
+            .card-header {
+                flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -947,7 +984,7 @@
                     <div id="formAlert"></div>
                     <div id="formFields"></div>
                     <div id="actionsSection" style="display: none;">
-                        <label style="font-size: 0.7rem; font-weight: 600; color: var(--accent-glow);">
+                        <label style="font-size: 0.75rem; font-weight: 600; color: var(--accent-glow);">
                             <i class="fas fa-clipboard-list"></i> ДЕЙСТВИЯ
                         </label>
                         <div id="actionsContainer">
@@ -981,63 +1018,64 @@
                         <div class="admin-tab active" data-tab="exams">📝 Экзамены</div>
                         <div class="admin-tab" data-tab="reports">📊 Отчеты</div>
                         <div class="admin-tab" data-tab="promotions">📋 Списки на повышение</div>
-                        <div class="admin-tab" data-tab="accounts" id="accountsTab" style="display: none;">👥 Аккаунты</div>
-                        <div class="admin-tab" data-tab="settings" id="settingsTab" style="display: none;">⚙️ Настройки</div>
+                        <div class="admin-tab" data-tab="accounts" id="accountsTab">👥 Аккаунты</div>
+                        <div class="admin-tab" data-tab="settings" id="settingsTab">⚙️ Настройки</div>
                         <div class="admin-tab" data-tab="sendList">📤 Отправить список</div>
                     </div>
                     
                     <div id="examsTab" class="admin-tab-content">
                         <div class="card-header" style="padding: 15px 20px;">
-                            <h3>Управление экзаменами 📝</h3>
+                            <h3>📝 Управление экзаменами</h3>
                             <button class="take-report-btn" id="takeExamsReportBtn"><i class="fas fa-download"></i> Взять отчеты</button>
                         </div>
                         <div id="examsList" style="padding: 15px;"></div>
                     </div>
                     
                     <div id="reportsTab" class="admin-tab-content" style="display: none;">
-                        <h3>Все отчеты 📊</h3>
+                        <h3>📊 Все отчеты</h3>
                         <div id="reportsList"></div>
                     </div>
                     
                     <div id="promotionsTab" class="admin-tab-content" style="display: none;">
-                        <h3>Списки на повышение 📋</h3>
+                        <h3>📋 Списки на повышение</h3>
                         <div id="promotionsList"></div>
                     </div>
                     
                     <div id="accountsTabContent" class="admin-tab-content" style="display: none;">
-                        <h3>Аккаунты 👥</h3>
+                        <h3>👥 Аккаунты</h3>
                         <div id="accountsList"></div>
-                        <div class="glass-card" style="margin-top: 20px;">
-                            <div class="card-header"><h4>Создать аккаунт ➕</h4></div>
+                        <div class="glass-card" style="margin-top: 25px;">
+                            <div class="card-header"><h4>➕ Создать аккаунт</h4></div>
                             <div class="card-body">
-                                <div class="input-group"><label><i class="fas fa-user"></i> Логин</label><input type="text" id="newLogin"></div>
-                                <div class="input-group"><label><i class="fas fa-lock"></i> Пароль</label><input type="text" id="newPassword"></div>
+                                <div class="input-group"><label><i class="fas fa-user"></i> Логин</label><input type="text" id="newLogin" placeholder="Введите логин"></div>
+                                <div class="input-group"><label><i class="fas fa-lock"></i> Пароль</label><input type="password" id="newPassword" placeholder="Введите пароль"></div>
                                 <div class="input-group"><label><i class="fas fa-tag"></i> Роль</label>
                                     <select id="newRole">
-                                        <option value="Admin">Admin</option>
-                                        <option value="Командир">Командир</option>
-                                        <option value="Зам командира">Зам командира</option>
-                                        <option value="Инструктор МА">Инструктор МА</option>
-                                        <option value="Сотрудник МА">Сотрудник МА</option>
+                                        <option value="Admin">👑 Admin</option>
+                                        <option value="Командир">🎖️ Командир</option>
+                                        <option value="Зам командира">📋 Зам командира</option>
+                                        <option value="Инструктор МА">📚 Инструктор МА</option>
+                                        <option value="Сотрудник МА">👨‍⚕️ Сотрудник МА</option>
                                     </select>
                                 </div>
-                                <div class="input-group"><label><i class="fas fa-user-circle"></i> Имя</label><input type="text" id="newFirstName"></div>
-                                <div class="input-group"><label><i class="fas fa-user-circle"></i> Фамилия</label><input type="text" id="newLastName"></div>
-                                <button class="submit-btn" id="createAccountBtn">Создать</button>
+                                <div class="input-group"><label><i class="fas fa-user-circle"></i> Имя</label><input type="text" id="newFirstName" placeholder="Введите имя"></div>
+                                <div class="input-group"><label><i class="fas fa-user-circle"></i> Фамилия</label><input type="text" id="newLastName" placeholder="Введите фамилию"></div>
+                                <button class="submit-btn" id="createAccountBtn">✅ Создать аккаунт</button>
                             </div>
                         </div>
                     </div>
                     
                     <div id="settingsTabContent" class="admin-tab-content" style="display: none;">
-                        <h3>Настройки текстов ⚙️</h3>
-                        <div class="input-group"><label><i class="fas fa-clock"></i> Текст "Ожидание"</label><textarea id="settingWaiting" rows="3"></textarea></div>
-                        <div class="input-group"><label><i class="fas fa-check-circle"></i> Текст "Пройдено"</label><textarea id="settingPassed" rows="3"></textarea></div>
-                        <div class="input-group"><label><i class="fas fa-times-circle"></i> Текст "Отклонено"</label><textarea id="settingFailed" rows="3"></textarea></div>
-                        <button class="submit-btn" id="saveSettingsBtn">Сохранить</button>
+                        <h3>⚙️ Настройки текстов</h3>
+                        <div class="input-group"><label><i class="fas fa-clock"></i> Текст "Ожидание"</label><textarea id="settingWaiting" rows="3" placeholder="Текст для статуса Ожидание"></textarea></div>
+                        <div class="input-group"><label><i class="fas fa-spinner"></i> Текст "Проводится"</label><textarea id="settingInProgress" rows="3" placeholder="Текст для статуса Проводится"></textarea></div>
+                        <div class="input-group"><label><i class="fas fa-check-circle"></i> Текст "Принят"</label><textarea id="settingPassed" rows="3" placeholder="Текст для статуса Принят"></textarea></div>
+                        <div class="input-group"><label><i class="fas fa-times-circle"></i> Текст "Отклонен"</label><textarea id="settingFailed" rows="3" placeholder="Текст для статуса Отклонен"></textarea></div>
+                        <button class="submit-btn" id="saveSettingsBtn"><i class="fas fa-save"></i> Сохранить настройки</button>
                     </div>
                     
                     <div id="sendListTab" class="admin-tab-content" style="display: none;">
-                        <h3>Отправить список на повышение 📤</h3>
+                        <h3>📤 Отправить список на повышение</h3>
                         <div class="input-group"><label><i class="fas fa-user"></i> Отправитель</label><input type="text" id="listSender" placeholder="Введите имя отправителя"></div>
                         <div class="input-group"><label><i class="fas fa-arrow-up"></i> Повышаемый</label><input type="text" id="listPromoted" placeholder="Введите имя повышаемого"></div>
                         <div class="input-group"><label><i class="fas fa-link"></i> Ссылка на отчет</label><input type="text" id="listLink" placeholder="https://..."></div>
@@ -1046,7 +1084,7 @@
                             <i class="fab fa-discord"></i>
                             <span id="discordTag"></span>
                         </div>
-                        <button class="submit-btn" id="sendListBtn">Отправить</button>
+                        <button class="submit-btn" id="sendListBtn"><i class="fas fa-paper-plane"></i> Отправить список</button>
                     </div>
                 </div>
             </div>
@@ -1061,17 +1099,17 @@
                 </div>
                 <div class="card-body">
                     <div id="loginAlert"></div>
-                    <div class="input-group"><label><i class="fas fa-user"></i> Логин</label><input type="text" id="loginUser"></div>
-                    <div class="input-group"><label><i class="fas fa-lock"></i> Пароль</label><input type="password" id="loginPass"></div>
-                    <button class="submit-btn" id="doLoginBtn">Войти</button>
-                    <button class="back-btn" id="closeModalBtn" style="margin-top: 10px; width: 100%;">Закрыть</button>
+                    <div class="input-group"><label><i class="fas fa-user"></i> Логин</label><input type="text" id="loginUser" placeholder="Введите логин"></div>
+                    <div class="input-group"><label><i class="fas fa-lock"></i> Пароль</label><input type="password" id="loginPass" placeholder="Введите пароль"></div>
+                    <button class="submit-btn" id="doLoginBtn"><i class="fas fa-sign-in-alt"></i> Войти</button>
+                    <button class="back-btn" id="closeModalBtn" style="margin-top: 12px; width: 100%; justify-content: center;">Закрыть</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoFQWYJspO_vHROyBig1VUgmxnS2sxXbDkVyAZju8rsgs9eUe_s-_JVEZq2a16g27S/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynrQv1QhyEFkuU4bPA1RnQS9D8JDyCOkwaW-ubivYZkbiMYKzVghlnCuP-mKMVUUJ1/exec';
         
         const WEBHOOKS = {
             КМБ: {
@@ -1413,7 +1451,7 @@
                     <div class="action-fields">
                         <div class="action-field">
                             <label>ТИП</label>
-                            <select class="action-type" data-idx="${i}>
+                            <select class="action-type" data-idx="${i}">
                                 <option value="">-- Выберите --</option>
                                 ${ACTIVITY_TYPES.map(t => `<option value="${t.name}" data-points="${t.points}" ${a.type === t.name ? 'selected' : ''}>${t.name}</option>`).join('')}
                             </select>
@@ -1644,11 +1682,8 @@
             await loadExams();
             await loadReports();
             await loadPromotions();
-            if (hasPerm('accounts')) await loadAccounts();
-            if (hasPerm('settings')) await loadSettings();
-            
-            document.getElementById('accountsTab').style.display = hasPerm('accounts') ? 'inline-block' : 'none';
-            document.getElementById('settingsTab').style.display = hasPerm('settings') ? 'inline-block' : 'none';
+            await loadAccounts();
+            await loadSettings();
         }
         
         async function loadExams() {
@@ -1658,43 +1693,31 @@
                 if (result.exams && result.exams.length > 0) {
                     container.innerHTML = result.exams.map((e, i) => `
                         <div class="exam-item">
-                            <div><strong>👤 ${e.fullName}</strong> | 📝 ${e.examType} | 🏢 ${e.department}</div>
-                            <div>💬 Discord: ${e.discordTag} | ⏰ Время: ${e.examTime} | 📅 Дата: ${e.date}</div>
-                            <div>📊 Статус: <span class="status-badge status-${e.status==='Пройдено'?'passed':e.status==='Отклонено'?'failed':'waiting'}">${e.status||'Ожидание'}</span></div>
-                            <select class="exam-status" data-name="${e.fullName}" data-date="${e.date}" data-dept="${e.department}">
-                                <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>⏳ Ожидание</option>
-                                <option value="Пройдено" ${e.status==='Пройдено'?'selected':''}>✅ Пройдено</option>
-                                <option value="Отклонено" ${e.status==='Отклонено'?'selected':''}>❌ Отклонено</option>
-                            </select>
-                            <div class="exam-form" style="display:none; margin-top:10px;">
-                                <input type="text" placeholder="👨‍🏫 Принимавший" class="examiner" style="padding:5px; margin:3px; width:150px;">
-                                <input type="number" placeholder="⭐ Балл" class="score" style="padding:5px; margin:3px; width:80px;">
-                                <select class="result" style="padding:5px; margin:3px;"><option>✅ Сдал</option><option>❌ Не сдал</option></select>
-                                <button class="confirm-exam" style="padding:5px 10px; background:var(--accent); color:white; border:none; border-radius:8px;">✅ Подтвердить</button>
+                            <div><strong>👤 ${escapeHtml(e.fullName)}</strong> | 📝 ${escapeHtml(e.examType)} | 🏢 ${escapeHtml(e.department)}</div>
+                            <div>💬 Discord: ${escapeHtml(e.discordTag)} | ⏰ Время: ${escapeHtml(e.examTime)} | 📅 Дата: ${e.date}</div>
+                            <div>📊 Статус: <span class="status-badge status-${e.status==='Принят'?'passed':e.status==='Отклонен'?'failed':e.status==='Проводится'?'inprogress':'waiting'}">${e.status || 'Ожидание'}</span></div>
+                            <div class="exam-actions">
+                                <select class="exam-status-select" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}">
+                                    <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>⏳ Ожидание</option>
+                                    <option value="Проводится" ${e.status==='Проводится'?'selected':''}>🔄 Проводится</option>
+                                    <option value="Принят" ${e.status==='Принят'?'selected':''}>✅ Принят</option>
+                                    <option value="Отклонен" ${e.status==='Отклонен'?'selected':''}>❌ Отклонен</option>
+                                </select>
+                                <button class="exam-confirm-btn" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}"><i class="fas fa-save"></i> Сохранить</button>
                             </div>
                         </div>
                     `).join('');
                     
-                    document.querySelectorAll('.exam-status').forEach(sel => {
-                        sel.onchange = () => {
-                            const div = sel.parentElement.querySelector('.exam-form');
-                            if (sel.value === 'Пройдено') div.style.display = 'block';
-                            else { 
-                                div.style.display = 'none'; 
-                                updateExamStatus(sel.dataset.name, sel.dataset.date, sel.value, '', '', '', sel.dataset.dept); 
-                                loadExams();
-                            }
-                        };
-                    });
-                    document.querySelectorAll('.confirm-exam').forEach(btn => {
-                        btn.onclick = () => {
-                            const div = btn.parentElement;
-                            const sel = div.parentElement.querySelector('.exam-status');
-                            const examiner = div.querySelector('.examiner')?.value || '';
-                            const score = div.querySelector('.score')?.value || '';
-                            const result = div.querySelector('.result')?.value || 'Сдал';
-                            updateExamStatus(sel.dataset.name, sel.dataset.date, 'Пройдено', examiner, score, result, sel.dataset.dept);
-                            div.style.display = 'none';
+                    document.querySelectorAll('.exam-confirm-btn').forEach(btn => {
+                        btn.onclick = async () => {
+                            const name = btn.dataset.name;
+                            const date = btn.dataset.date;
+                            const dept = btn.dataset.dept;
+                            const select = btn.parentElement.querySelector('.exam-status-select');
+                            const status = select.value;
+                            
+                            await updateExamStatus(name, date, status, '', '', '', dept);
+                            showAlert('examsTab', `Статус экзамена изменен на "${status}"`, 'success');
                             setTimeout(() => loadExams(), 500);
                         };
                     });
@@ -1703,6 +1726,7 @@
                 }
             } catch(e) { 
                 container.innerHTML = '<div class="empty-state">❌ Ошибка загрузки экзаменов</div>';
+                console.error(e);
             }
         }
         
@@ -1715,19 +1739,27 @@
                 const webhook = STATUS_WEBHOOKS[dept] || STATUS_WEBHOOKS.MA;
                 
                 let statusText = '';
-                if (status === 'Пройдено') statusText = settings.exam_passed_text || '✅ Экзамен успешно сдан!';
-                else if (status === 'Отклонено') statusText = settings.exam_failed_text || '❌ Экзамен не сдан. Попробуйте снова.';
-                else statusText = settings.exam_waiting_text || '⏳ Ожидайте решения.';
+                let color = 0x4CAF50;
+                if (status === 'Принят') {
+                    statusText = settings.exam_passed_text || '✅ Поздравляем! Вы успешно сдали экзамен!';
+                    color = 0x10b981;
+                } else if (status === 'Отклонен') {
+                    statusText = settings.exam_failed_text || '❌ К сожалению, вы не сдали экзамен. Попробуйте снова.';
+                    color = 0xef4444;
+                } else if (status === 'Проводится') {
+                    statusText = settings.exam_inprogress_text || '🔄 Ваш экзамен проводится. Ожидайте результатов.';
+                    color = 0x3b82f6;
+                } else {
+                    statusText = settings.exam_waiting_text || '⏳ Ваша заявка на экзамен принята! Ожидайте ответа.';
+                    color = 0xf59e0b;
+                }
                 
                 sendDiscord(webhook, `Результат экзамена (${dept})`, [
                     { name: "👤 Участник", value: name }, 
                     { name: "📊 Статус", value: status },
-                    { name: "👨‍🏫 Принимавший", value: examiner || '-' }, 
-                    { name: "⭐ Результат", value: result },
                     { name: "📝 Комментарий", value: statusText }
-                ], status === 'Пройдено' ? 0x10b981 : 0xef4444);
+                ], color);
                 
-                showAlert('examsTab', 'Статус экзамена обновлен!', 'success');
             } catch(e) { console.error(e); }
         }
         
@@ -1751,8 +1783,7 @@
                             period: `${r.periodStart} - ${r.periodEnd}`,
                             actions: r.actions,
                             points: r.totalPoints,
-                            department: r.department,
-                            status: r.status
+                            department: r.department
                         });
                     });
                 }
@@ -1767,8 +1798,7 @@
                             desiredRank: r.desiredRank,
                             actions: r.actions,
                             points: r.totalPoints,
-                            department: r.department,
-                            status: r.status
+                            department: r.department
                         });
                     });
                 }
@@ -1777,7 +1807,7 @@
                 
                 if (allReports.length > 0) {
                     container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
-                        <th>📋 Тип</th><th>📅 Дата</th><th>👤 Пользователь</th><th>📝 Детали</th><th>⭐ Баллы</th><th>🏢 Отдел</th><th>📊 Статус</th>
+                        <th>📋 Тип</th><th>📅 Дата</th><th>👤 Пользователь</th><th>📝 Детали</th><th>⭐ Баллы</th><th>🏢 Отдел</th>
                     </tr></thead><tbody>
                         ${allReports.map(r => `
                             <tr>
@@ -1787,7 +1817,6 @@
                                 <td>${r.rank ? `Ранг: ${r.rank}` : r.currentRank ? `${r.currentRank} → ${r.desiredRank}` : '-'}</td>
                                 <td>${r.points || 0}</td>
                                 <td>${r.department || '-'}</td>
-                                <td><span class="status-badge status-${r.status==='Пройдено'||r.status==='Принято'?'passed':r.status==='Отклонено'?'failed':'waiting'}">${r.status||'Ожидание'}</span></td>
                             </tr>
                         `).join('')}
                     </tbody></table></div>`;
@@ -1796,6 +1825,7 @@
                 }
             } catch(e) { 
                 container.innerHTML = '<div class="empty-state">❌ Ошибка загрузки отчетов</div>';
+                console.error(e);
             }
         }
         
@@ -1810,8 +1840,8 @@
                         ${result.lists.map(l => `<tr>
                             <td>${l.number}</td>
                             <td>${new Date(l.date).toLocaleString()}</td>
-                            <td>${l.senderName}</td>
-                            <td>${l.promotedName}</td>
+                            <td>${escapeHtml(l.senderName)}</td>
+                            <td>${escapeHtml(l.promotedName)}</td>
                             <td><a href="${l.reportLink}" target="_blank">📄 Открыть</a></td>
                         </tr>`).join('')}
                     </tbody></table></div>`;
@@ -1827,10 +1857,18 @@
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>🔑 Логин</th><th>🎭 Роль</th><th>👤 Имя</th><th>👤 Фамилия</th>
                     </tr></thead><tbody>
-                        ${result.accounts.map(a => `<tr><td>${a.login}</td><td>${a.role}</td><td>${a.firstName||''}</td><td>${a.lastName||''}</td></tr>`).join('')}
+                        ${result.accounts.map(a => `<tr>
+                            <td>${escapeHtml(a.login)}</td>
+                            <td>${escapeHtml(a.role)}</td>
+                            <td>${escapeHtml(a.firstName || '')}</td>
+                            <td>${escapeHtml(a.lastName || '')}</td>
+                        </tr>`).join('')}
                     </tbody></table></div>`;
                 } else c.innerHTML = '<div class="empty-state">📭 Нет аккаунтов</div>';
-            } catch(e) { c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки аккаунтов</div>'; }
+            } catch(e) { 
+                c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки аккаунтов</div>';
+                console.error(e);
+            }
         }
         
         async function loadSettings() {
@@ -1838,20 +1876,22 @@
                 const result = await callGoogleScript('getSettings', {});
                 settings = result.settings || {};
                 document.getElementById('settingWaiting').value = settings.exam_waiting_text || '⏳ Ваша заявка на экзамен принята! Ожидайте ответа.';
+                document.getElementById('settingInProgress').value = settings.exam_inprogress_text || '🔄 Ваш экзамен проводится. Ожидайте результатов.';
                 document.getElementById('settingPassed').value = settings.exam_passed_text || '✅ Поздравляем! Вы успешно сдали экзамен!';
                 document.getElementById('settingFailed').value = settings.exam_failed_text || '❌ К сожалению, вы не сдали экзамен. Попробуйте снова.';
-            } catch(e) {}
+            } catch(e) { console.error(e); }
         }
         
         async function saveSettings() {
             const newSet = {
                 exam_waiting_text: document.getElementById('settingWaiting').value,
+                exam_inprogress_text: document.getElementById('settingInProgress').value,
                 exam_passed_text: document.getElementById('settingPassed').value,
                 exam_failed_text: document.getElementById('settingFailed').value
             };
             await callGoogleScript('saveSettings', { settings: newSet });
             settings = newSet;
-            showAlert('settingsTabContent', 'Настройки сохранены', 'success');
+            showAlert('settingsTabContent', 'Настройки сохранены!', 'success');
         }
         
         async function takeExamsReport() {
@@ -1859,19 +1899,22 @@
                 const result = await callGoogleScript('getExams', {});
                 if (result.exams && result.exams.length > 0) {
                     let waitingList = result.exams.filter(e => e.status === 'Ожидание' || !e.status);
-                    let passedList = result.exams.filter(e => e.status === 'Пройдено');
-                    let failedList = result.exams.filter(e => e.status === 'Отклонено');
+                    let inprogressList = result.exams.filter(e => e.status === 'Проводится');
+                    let passedList = result.exams.filter(e => e.status === 'Принят');
+                    let failedList = result.exams.filter(e => e.status === 'Отклонен');
                     
                     let message = `**📊 ОТЧЕТ ПО ЭКЗАМЕНАМ**\n\n`;
                     message += `**⏳ Ожидают (${waitingList.length}):**\n`;
-                    waitingList.forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
-                    message += `\n**✅ Сдавшие (${passedList.length}):**\n`;
-                    passedList.forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
-                    message += `\n**❌ Не сдавшие (${failedList.length}):**\n`;
-                    failedList.forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
+                    waitingList.slice(0, 10).forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
+                    message += `\n**🔄 Проводятся (${inprogressList.length}):**\n`;
+                    inprogressList.slice(0, 10).forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
+                    message += `\n**✅ Приняты (${passedList.length}):**\n`;
+                    passedList.slice(0, 10).forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
+                    message += `\n**❌ Отклонены (${failedList.length}):**\n`;
+                    failedList.slice(0, 10).forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
                     
-                    await sendDiscord(STATUS_WEBHOOKS.MA, "Отчет по экзаменам", [
-                        { name: "📊 Статистика", value: `Ожидают: ${waitingList.length}\nСдавшие: ${passedList.length}\nНе сдавшие: ${failedList.length}` },
+                    await sendDiscord(STATUS_WEBHOOKS.MA, "📊 Отчет по экзаменам", [
+                        { name: "📊 Статистика", value: `Ожидают: ${waitingList.length}\nПроводятся: ${inprogressList.length}\nПриняты: ${passedList.length}\nОтклонены: ${failedList.length}` },
                         { name: "📝 Подробнее", value: message.substring(0, 4000) }
                     ], 0x4CAF50);
                     
@@ -1894,7 +1937,7 @@
                 firstName: document.getElementById('newFirstName').value, 
                 lastName: document.getElementById('newLastName').value 
             });
-            showAlert('accountsTabContent', 'Аккаунт создан', 'success');
+            showAlert('accountsTabContent', 'Аккаунт создан!', 'success');
             document.querySelectorAll('#newLogin, #newPassword, #newFirstName, #newLastName').forEach(i => i.value = '');
             loadAccounts();
         }
@@ -1914,7 +1957,7 @@
                 { name: "Повышаемый", value: promoted },
                 { name: "Ссылка", value: link }
             ], 0x4CAF50, `${discordMention}🎫 Заявка на повышение №${result.listNumber}`);
-            showAlert('sendListTab', `Список #${result.listNumber} отправлен`, 'success');
+            showAlert('sendListTab', `Список #${result.listNumber} отправлен!`, 'success');
             document.querySelectorAll('#listSender, #listPromoted, #listLink, #listDiscordId').forEach(i => i.value = '');
             document.getElementById('discordPreview').style.display = 'none';
             loadPromotions();
@@ -1982,11 +2025,13 @@
                     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
                     document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
-                    document.getElementById(`${tab.dataset.tab}Tab`).style.display = 'block';
-                    if (tab.dataset.tab === 'exams') loadExams();
-                    if (tab.dataset.tab === 'reports') loadReports();
-                    if (tab.dataset.tab === 'promotions') loadPromotions();
-                    if (tab.dataset.tab === 'accounts') loadAccounts();
+                    const tabName = tab.dataset.tab;
+                    document.getElementById(`${tabName}Tab`).style.display = 'block';
+                    if (tabName === 'exams') loadExams();
+                    if (tabName === 'reports') loadReports();
+                    if (tabName === 'promotions') loadPromotions();
+                    if (tabName === 'accounts') loadAccounts();
+                    if (tabName === 'settings') loadSettings();
                 };
             });
             
