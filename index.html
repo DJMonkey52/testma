@@ -57,7 +57,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px 20px;
             min-height: 100vh;
@@ -69,6 +69,18 @@
             text-align: center;
             margin-bottom: 40px;
             margin-top: 10px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .logo {
@@ -121,6 +133,18 @@
             z-index: 100;
             gap: 10px;
             flex-wrap: wrap;
+            animation: slideInDown 0.5s ease;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .btn-icon {
@@ -142,6 +166,7 @@
         .btn-icon:hover {
             border-color: var(--accent);
             transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
         }
 
         .btn-admin {
@@ -178,21 +203,27 @@
 
         .page {
             display: none;
-            animation: fadeIn 0.4s ease;
+            animation: fadeInUp 0.5s ease;
             margin-top: 80px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .depts-grid {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
             flex-wrap: wrap;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .dept-card {
@@ -200,8 +231,8 @@
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
             border-radius: 32px;
-            padding: 38px 32px;
-            width: 300px;
+            padding: 48px 42px;
+            width: 340px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             cursor: pointer;
@@ -209,52 +240,57 @@
         }
 
         .dept-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-12px) scale(1.02);
             border-color: var(--accent);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .dept-icon {
-            width: 75px;
-            height: 75px;
+            width: 85px;
+            height: 85px;
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.25), rgba(46, 125, 50, 0.15));
-            border-radius: 26px;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            font-size: 36px;
+            font-size: 42px;
             color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .dept-card:hover .dept-icon {
+            transform: scale(1.1);
         }
 
         .dept-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .dept-card p {
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             line-height: 1.4;
         }
 
         .actions-grid {
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 35px;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         .action-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 30px 25px;
-            width: 260px;
+            border-radius: 32px;
+            padding: 45px 35px;
+            width: 320px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -262,34 +298,39 @@
         }
 
         .action-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
             border-color: var(--accent);
             box-shadow: var(--shadow-md);
         }
 
         .action-icon {
-            width: 60px;
-            height: 60px;
+            width: 75px;
+            height: 75px;
             background: rgba(76, 175, 80, 0.15);
-            border-radius: 20px;
+            border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 28px;
+            margin: 0 auto 18px;
+            font-size: 36px;
             color: var(--accent);
+            transition: transform 0.3s;
+        }
+
+        .action-card:hover .action-icon {
+            transform: scale(1.1);
         }
 
         .action-card h4 {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .action-card p {
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .back-btn {
@@ -305,12 +346,13 @@
             font-weight: 500;
             cursor: pointer;
             margin-bottom: 24px;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
 
         .back-btn:hover {
             border-color: var(--accent);
-            transform: translateX(-4px);
+            transform: translateX(-5px);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.2);
         }
 
         .glass-card {
@@ -319,6 +361,12 @@
             border-radius: 32px;
             border: 1px solid var(--glass-border);
             overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
         }
 
         .card-header {
@@ -353,6 +401,10 @@
             margin-bottom: 6px;
         }
 
+        .input-group label i {
+            margin-right: 6px;
+        }
+
         .input-group input, .input-group select, .input-group textarea {
             width: 100%;
             padding: 12px 14px;
@@ -362,11 +414,13 @@
             font-size: 0.9rem;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
         }
 
-        .input-group input:focus, .input-group select:focus {
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
             outline: none;
             border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
         }
 
         .period-row {
@@ -391,6 +445,12 @@
             padding: 16px;
             margin-bottom: 14px;
             border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .action-item:hover {
+            border-color: var(--accent);
+            transform: translateX(5px);
         }
 
         .action-header {
@@ -415,6 +475,12 @@
             border-radius: 30px;
             cursor: pointer;
             font-size: 0.7rem;
+            transition: all 0.3s;
+        }
+
+        .remove-action:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: scale(1.05);
         }
 
         .action-fields {
@@ -480,6 +546,11 @@
             cursor: pointer;
             padding: 6px 10px;
             border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .remove-proof:hover {
+            background: rgba(239, 68, 68, 0.3);
         }
 
         .add-proof-btn {
@@ -494,6 +565,12 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .add-proof-btn:hover {
+            background: rgba(76, 175, 80, 0.3);
+            transform: scale(1.02);
         }
 
         .points-row {
@@ -536,6 +613,12 @@
             justify-content: center;
             gap: 10px;
             margin: 16px 0;
+            transition: all 0.3s;
+        }
+
+        .add-btn:hover {
+            background: rgba(76, 175, 80, 0.25);
+            transform: scale(1.01);
         }
 
         .empty-state {
@@ -579,11 +662,13 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transition: all 0.3s;
         }
 
         .submit-btn:hover {
             transform: translateY(-3px);
             filter: brightness(1.05);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
         }
 
         .footer-signature {
@@ -604,6 +689,18 @@
             gap: 10px;
             font-weight: 500;
             font-size: 0.85rem;
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .alert.success {
@@ -631,11 +728,29 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
             max-width: 400px;
             width: 90%;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .admin-tabs {
@@ -652,6 +767,12 @@
             padding: 10px 24px;
             cursor: pointer;
             color: var(--text-primary);
+            transition: all 0.3s;
+        }
+
+        .admin-tab:hover {
+            background: rgba(76, 175, 80, 0.25);
+            transform: translateY(-2px);
         }
 
         .admin-tab.active {
@@ -661,18 +782,25 @@
 
         .admin-tab-content {
             display: none;
+            animation: fadeIn 0.3s ease;
         }
 
         .admin-tab-content:first-of-type {
             display: block;
         }
 
-        .exam-item {
+        .exam-item, .promotion-item, .account-item {
             background: var(--card-hover);
             border-radius: 16px;
             padding: 16px;
             margin-bottom: 12px;
             border: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .exam-item:hover, .promotion-item:hover, .account-item:hover {
+            border-color: var(--accent);
+            transform: translateX(5px);
         }
 
         .status-badge {
@@ -686,6 +814,23 @@
         .status-waiting { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
         .status-passed { background: rgba(16, 185, 129, 0.2); color: #10b981; }
         .status-failed { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        .discord-preview {
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--accent-glow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .discord-preview i {
+            font-size: 1rem;
+        }
 
         @media (max-width: 850px) {
             .depts-grid, .actions-grid {
@@ -747,24 +892,24 @@
                 <div class="logo-icon"><i class="fas fa-gun"></i></div>
                 <h1>ARMY Delta</h1>
             </div>
-            <p class="subtitle">Система подачи отчётов Delta</p>
+            <p class="subtitle">Система подачи отчётов Delta ⚡</p>
         </div>
 
         <div id="deptsPage" class="page">
             <div class="depts-grid">
                 <div class="dept-card" data-dept="КМБ">
                     <div class="dept-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>КМБ</h3>
+                    <h3>КМБ 🛡️</h3>
                     <p>Курс молодого бойца</p>
                 </div>
                 <div class="dept-card" data-dept="ACD">
                     <div class="dept-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>ACD</h3>
+                    <h3>ACD 🎓</h3>
                     <p>Академический отдел</p>
                 </div>
                 <div class="dept-card" data-dept="MA">
                     <div class="dept-icon"><i class="fas fa-user-graduate"></i></div>
-                    <h3>MA</h3>
+                    <h3>MA 🏥</h3>
                     <p>Медицинская академия</p>
                 </div>
             </div>
@@ -828,24 +973,24 @@
                     </div>
                     
                     <div id="examsTab" class="admin-tab-content">
-                        <h3>Управление экзаменами</h3>
+                        <h3>Управление экзаменами 📝</h3>
                         <div id="examsList"></div>
                     </div>
                     
                     <div id="promotionsTab" class="admin-tab-content" style="display: none;">
-                        <h3>Списки на повышение</h3>
+                        <h3>Списки на повышение 📋</h3>
                         <div id="promotionsList"></div>
                     </div>
                     
                     <div id="accountsTabContent" class="admin-tab-content" style="display: none;">
-                        <h3>Аккаунты</h3>
+                        <h3>Аккаунты 👥</h3>
                         <div id="accountsList"></div>
                         <div class="glass-card" style="margin-top: 20px;">
-                            <div class="card-header"><h4>Создать аккаунт</h4></div>
+                            <div class="card-header"><h4>Создать аккаунт ➕</h4></div>
                             <div class="card-body">
-                                <div class="input-group"><label>Логин</label><input type="text" id="newLogin"></div>
-                                <div class="input-group"><label>Пароль</label><input type="text" id="newPassword"></div>
-                                <div class="input-group"><label>Роль</label>
+                                <div class="input-group"><label><i class="fas fa-user"></i> Логин</label><input type="text" id="newLogin"></div>
+                                <div class="input-group"><label><i class="fas fa-lock"></i> Пароль</label><input type="text" id="newPassword"></div>
+                                <div class="input-group"><label><i class="fas fa-tag"></i> Роль</label>
                                     <select id="newRole">
                                         <option value="Admin">Admin</option>
                                         <option value="Командир">Командир</option>
@@ -854,31 +999,37 @@
                                         <option value="Сотрудник МА">Сотрудник МА</option>
                                     </select>
                                 </div>
-                                <div class="input-group"><label>Имя</label><input type="text" id="newFirstName"></div>
-                                <div class="input-group"><label>Фамилия</label><input type="text" id="newLastName"></div>
+                                <div class="input-group"><label><i class="fas fa-user-circle"></i> Имя</label><input type="text" id="newFirstName"></div>
+                                <div class="input-group"><label><i class="fas fa-user-circle"></i> Фамилия</label><input type="text" id="newLastName"></div>
                                 <button class="submit-btn" id="createAccountBtn">Создать</button>
                             </div>
                         </div>
                     </div>
                     
                     <div id="settingsTabContent" class="admin-tab-content" style="display: none;">
-                        <h3>Настройки текстов</h3>
-                        <div class="input-group"><label>Текст "Ожидание"</label><textarea id="settingWaiting" rows="2"></textarea></div>
-                        <div class="input-group"><label>Текст "Пройдено"</label><textarea id="settingPassed" rows="2"></textarea></div>
-                        <div class="input-group"><label>Текст "Отклонено"</label><textarea id="settingFailed" rows="2"></textarea></div>
+                        <h3>Настройки текстов ⚙️</h3>
+                        <div class="input-group"><label><i class="fas fa-clock"></i> Текст "Ожидание"</label><textarea id="settingWaiting" rows="2"></textarea></div>
+                        <div class="input-group"><label><i class="fas fa-check-circle"></i> Текст "Пройдено"</label><textarea id="settingPassed" rows="2"></textarea></div>
+                        <div class="input-group"><label><i class="fas fa-times-circle"></i> Текст "Отклонено"</label><textarea id="settingFailed" rows="2"></textarea></div>
                         <button class="submit-btn" id="saveSettingsBtn">Сохранить</button>
                     </div>
                     
                     <div id="sendListTab" class="admin-tab-content" style="display: none;">
-                        <h3>Отправить список на повышение</h3>
-                        <div class="input-group"><label>Отправитель</label><input type="text" id="listSender"></div>
-                        <div class="input-group"><label>Повышаемый</label><input type="text" id="listPromoted"></div>
-                        <div class="input-group"><label>Ссылка на отчет</label><input type="text" id="listLink"></div>
-                        <div class="input-group"><label>Отдел</label>
+                        <h3>Отправить список на повышение 📤</h3>
+                        <div class="input-group"><label><i class="fas fa-user"></i> Отправитель</label><input type="text" id="listSender" placeholder="Введите имя отправителя"></div>
+                        <div class="input-group"><label><i class="fas fa-arrow-up"></i> Повышаемый</label><input type="text" id="listPromoted" placeholder="Введите имя повышаемого"></div>
+                        <div class="input-group"><label><i class="fas fa-link"></i> Ссылка на отчет</label><input type="text" id="listLink" placeholder="https://..."></div>
+                        <div class="input-group"><label><i class="fab fa-discord"></i> Discord ID</label><input type="text" id="listDiscordId" placeholder="Введите Discord ID (например: 123456789012345678)"></div>
+                        <div class="discord-preview" id="discordPreview" style="display: none;">
+                            <i class="fab fa-discord"></i>
+                            <span id="discordTag"></span>
+                            <span id="requestNumber"></span>
+                        </div>
+                        <div class="input-group"><label><i class="fas fa-building"></i> Отдел</label>
                             <select id="listDept">
-                                <option value="MA">MA</option>
-                                <option value="КМБ">КМБ</option>
-                                <option value="ACD">ACD</option>
+                                <option value="MA">MA 🏥</option>
+                                <option value="КМБ">КМБ 🛡️</option>
+                                <option value="ACD">ACD 🎓</option>
                             </select>
                         </div>
                         <button class="submit-btn" id="sendListBtn">Отправить</button>
@@ -896,8 +1047,8 @@
                 </div>
                 <div class="card-body">
                     <div id="loginAlert"></div>
-                    <div class="input-group"><label>Логин</label><input type="text" id="loginUser"></div>
-                    <div class="input-group"><label>Пароль</label><input type="password" id="loginPass"></div>
+                    <div class="input-group"><label><i class="fas fa-user"></i> Логин</label><input type="text" id="loginUser"></div>
+                    <div class="input-group"><label><i class="fas fa-lock"></i> Пароль</label><input type="password" id="loginPass"></div>
                     <button class="submit-btn" id="doLoginBtn">Войти</button>
                     <button class="back-btn" id="closeModalBtn" style="margin-top: 10px; width: 100%;">Закрыть</button>
                 </div>
@@ -906,8 +1057,7 @@
     </div>
 
     <script>
-        // ВСТАВЬ СВОЙ URL ИЗ GOOGLE APPS SCRIPT
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwqDdtfbVLpfWqwIl_SNezwMRtYHJPm-8-RVbRvbVC1WT8df5VrYy3ldGTMWsAmvXAW/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFKH7M2OEe5-c-jgkXAWVBc9pxpLIw28mjFN6GPvaWsSDGC_Ci8JjF5YI9DO3TspGa/exec';
         
         const WEBHOOKS = {
             КМБ: {
@@ -940,16 +1090,16 @@
         };
         
         const ACTIVITY_TYPES = [
-            { name: "Участие в ГМП", points: 10 }, { name: "Участие в МП", points: 5 },
-            { name: "Участие в лекции/тренировке", points: 5 }, { name: "Проведение лекции/тренировки", points: 10 },
-            { name: "Отбитие ФЗ/ФТ", points: 15 }, { name: "Участие в оцеплении", points: 10 },
-            { name: "Участие в отбитии поезда", points: 5 }, { name: "Участие в рейде", points: 10 },
-            { name: "Участие в поставке", points: 10 }, { name: "Отбитие анальгетика", points: 15 },
-            { name: "Задержание", points: 5 }, { name: "Участие в мед. проверке", points: 10 },
-            { name: "Участие в прок. проверке", points: 10 }, { name: "Участие в AirDrop", points: 5 },
-            { name: "Патруль по ФЗ (1 час)", points: 4 }, { name: "Патруль вне ФЗ (1 час)", points: 4 },
-            { name: "Участие в Вечернем построении", points: 4 }, { name: "Участие в ЧР", points: 10 },
-            { name: "Передача задержанного CID", points: 10 }, { name: "Доп. работа", points: 5 }
+            { name: "🎯 Участие в ГМП", points: 10 }, { name: "⚔️ Участие в МП", points: 5 },
+            { name: "📚 Участие в лекции/тренировке", points: 5 }, { name: "🎤 Проведение лекции/тренировки", points: 10 },
+            { name: "💥 Отбитие ФЗ/ФТ", points: 15 }, { name: "🛡️ Участие в оцеплении", points: 10 },
+            { name: "🚂 Участие в отбитии поезда", points: 5 }, { name: "🔍 Участие в рейде", points: 10 },
+            { name: "📦 Участие в поставке", points: 10 }, { name: "💊 Отбитие анальгетика", points: 15 },
+            { name: "🚔 Задержание", points: 5 }, { name: "🏥 Участие в мед. проверке", points: 10 },
+            { name: "📋 Участие в прок. проверке", points: 10 }, { name: "📡 Участие в AirDrop", points: 5 },
+            { name: "👮 Патруль по ФЗ (1 час)", points: 4 }, { name: "🌍 Патруль вне ФЗ (1 час)", points: 4 },
+            { name: "🌙 Участие в Вечернем построении", points: 4 }, { name: "🏆 Участие в ЧР", points: 10 },
+            { name: "👤 Передача задержанного CID", points: 10 }, { name: "📝 Доп. работа", points: 5 }
         ];
         
         const ROLE_PERMS = {
@@ -965,6 +1115,7 @@
         let currentAction = null;
         let currentActions = [];
         let settings = {};
+        let currentListNumber = 0;
         
         function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
         function formatDate(d) { if (!d) return ''; return new Date(d).toLocaleDateString('ru-RU'); }
@@ -989,7 +1140,7 @@
                 window[callbackName] = function(response) {
                     delete window[callbackName];
                     document.body.removeChild(script);
-                    if (response.success !== undefined) {
+                    if (response.success !== undefined || response.exams !== undefined || response.lists !== undefined || response.accounts !== undefined || response.settings !== undefined) {
                         resolve(response);
                     } else {
                         reject(new Error('Неверный ответ от сервера'));
@@ -1095,14 +1246,14 @@
             let actions = [];
             if (dept === 'MA') {
                 actions = [
-                    { id: 'weekly', name: 'Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
-                    { id: 'promotion', name: 'Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
-                    { id: 'exam', name: 'Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
+                    { id: 'weekly', name: '📊 Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
+                    { id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
+                    { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
                 ];
             } else {
                 actions = [
-                    { id: 'promotion', name: 'Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
-                    { id: 'exam', name: 'Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
+                    { id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
+                    { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
                 ];
             }
             
@@ -1127,23 +1278,23 @@
             document.getElementById('formPage').style.display = 'block';
             
             let title = '';
-            if (action === 'weekly') title = 'Еженедельный отчёт';
-            else if (action === 'promotion') title = 'Отчёт на повышение';
-            else title = 'Запись на экзамен';
+            if (action === 'weekly') title = '📊 Еженедельный отчёт';
+            else if (action === 'promotion') title = '⬆️ Отчёт на повышение';
+            else title = '📝 Запись на экзамен';
             document.getElementById('formTitle').innerHTML = `<i class="fas ${action === 'weekly' ? 'fa-calendar-week' : action === 'promotion' ? 'fa-arrow-up' : 'fa-pen-clip'}"></i> ${title} (${currentDept})`;
             
             const fieldsDiv = document.getElementById('formFields');
             if (action === 'weekly') {
                 fieldsDiv.innerHTML = `
-                    <div class="input-group"><label>ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="fNickname"></div>
-                    <div class="input-group"><label>РАНГ</label><select id="fRank"><option value="">-- Выберите --</option>
+                    <div class="input-group"><label><i class="fas fa-user"></i> ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="fNickname" placeholder="Введите ваш никнейм"></div>
+                    <div class="input-group"><label><i class="fas fa-medal"></i> РАНГ</label><select id="fRank"><option value="">-- Выберите --</option>
                         <option>Специалист (3)</option><option>Капрал (4)</option><option>Сержант (5)</option>
                         <option>Штаб-сержант (6)</option><option>Уорент-офицер (7)</option>
                         <option>Старший Уорент-офицер (8)</option><option>Лейтенант (9)</option>
                         <option>Капитан (10)</option><option>Майор (11)</option><option>Подполковник (12)</option>
                     </select></div>
-                    <div class="period-row"><div class="input-group"><label>ДАТА НАЧАЛА</label><input type="date" id="fStart"></div>
-                    <div class="input-group"><label>ДАТА ОКОНЧАНИЯ</label><input type="date" id="fEnd"></div></div>
+                    <div class="period-row"><div class="input-group"><label><i class="fas fa-calendar-alt"></i> ДАТА НАЧАЛА</label><input type="date" id="fStart"></div>
+                    <div class="input-group"><label><i class="fas fa-calendar-alt"></i> ДАТА ОКОНЧАНИЯ</label><input type="date" id="fEnd"></div></div>
                     <div class="period-info" id="periodInfo"></div>
                 `;
                 document.getElementById('actionsSection').style.display = 'block';
@@ -1151,28 +1302,28 @@
                 setDefaultDates();
             } else if (action === 'promotion') {
                 fieldsDiv.innerHTML = `
-                    <div class="input-group"><label>ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="fNickname"></div>
-                    <div class="input-group"><label>ТЕКУЩИЙ РАНГ</label><select id="fCurrentRank"><option value="">-- Выберите --</option>
+                    <div class="input-group"><label><i class="fas fa-user"></i> ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="fNickname" placeholder="Введите ваш никнейм"></div>
+                    <div class="input-group"><label><i class="fas fa-arrow-down"></i> ТЕКУЩИЙ РАНГ</label><select id="fCurrentRank"><option value="">-- Выберите --</option>
                         <option>Специалист (3)</option><option>Капрал (4)</option><option>Сержант (5)</option>
                         <option>Штаб-сержант (6)</option><option>Уорент-офицер (7)</option>
                         <option>Старший Уорент-офицер (8)</option><option>Лейтенант (9)</option>
                         <option>Капитан (10)</option><option>Майор (11)</option><option>Подполковник (12)</option>
                     </select></div>
-                    <div class="input-group"><label>ЖЕЛАЕМЫЙ РАНГ</label><select id="fDesiredRank"><option value="">-- Выберите --</option>
+                    <div class="input-group"><label><i class="fas fa-arrow-up"></i> ЖЕЛАЕМЫЙ РАНГ</label><select id="fDesiredRank"><option value="">-- Выберите --</option>
                         <option>Специалист (3)</option><option>Капрал (4)</option><option>Сержант (5)</option>
                         <option>Штаб-сержант (6)</option><option>Уорент-офицер (7)</option>
                         <option>Старший Уорент-офицер (8)</option><option>Лейтенант (9)</option>
                         <option>Капитан (10)</option><option>Майор (11)</option><option>Подполковник (12)</option>
                     </select></div>
-                    <div class="input-group"><label>ДАТА ПОСЛЕДНЕГО ПОВЫШЕНИЯ</label><input type="date" id="fLastProm"></div>
+                    <div class="input-group"><label><i class="fas fa-history"></i> ДАТА ПОСЛЕДНЕГО ПОВЫШЕНИЯ</label><input type="date" id="fLastProm"></div>
                     <div class="period-info" id="promoInfo"></div>
                 `;
                 document.getElementById('actionsSection').style.display = 'block';
                 document.getElementById('totalPointsBar').style.display = 'flex';
             } else {
                 fieldsDiv.innerHTML = `
-                    <div class="input-group"><label>ИМЯ И ФАМИЛИЯ</label><input type="text" id="fFullName"></div>
-                    <div class="input-group"><label>ТИП ЭКЗАМЕНА</label><select id="fExamType"><option value="">-- Выберите --</option>
+                    <div class="input-group"><label><i class="fas fa-user"></i> ИМЯ И ФАМИЛИЯ</label><input type="text" id="fFullName" placeholder="Введите имя и фамилию"></div>
+                    <div class="input-group"><label><i class="fas fa-graduation-cap"></i> ТИП ЭКЗАМЕНА</label><select id="fExamType"><option value="">-- Выберите --</option>
                         <option>Acd.Delta</option><option>Специалист (3) → Капрал (4)</option>
                         <option>Капрал (4) → Сержант (5)</option><option>Сержант (5) → Штаб-сержант (6)</option>
                         <option>Штаб-сержант (6) → Уорент-офицер (7)</option>
@@ -1182,8 +1333,8 @@
                         <option>Капитан (10) → Майор (11)</option>
                         <option>Майор (11) → Подполковник (12)</option>
                     </select></div>
-                    <div class="input-group"><label>DISCORD ТЕГ</label><input type="text" id="fDiscord"></div>
-                    <div class="input-group"><label>УДОБНОЕ ВРЕМЯ</label><input type="text" id="fTime"></div>
+                    <div class="input-group"><label><i class="fab fa-discord"></i> DISCORD ТЕГ</label><input type="text" id="fDiscord" placeholder="Введите Discord тег"></div>
+                    <div class="input-group"><label><i class="fas fa-clock"></i> УДОБНОЕ ВРЕМЯ</label><input type="text" id="fTime" placeholder="Например: 20:00 МСК"></div>
                 `;
                 document.getElementById('actionsSection').style.display = 'none';
                 document.getElementById('totalPointsBar').style.display = 'none';
@@ -1222,7 +1373,7 @@
             const info = document.getElementById('periodInfo');
             if (info && start && end) {
                 const days = Math.ceil((new Date(end) - new Date(start)) / (86400000)) + 1;
-                info.innerHTML = `${formatDate(start)} – ${formatDate(end)} (${days} дн.)`;
+                info.innerHTML = `📅 ${formatDate(start)} – ${formatDate(end)} (${days} дн.)`;
             }
         }
         
@@ -1231,7 +1382,7 @@
             const info = document.getElementById('promoInfo');
             if (info && date) {
                 const months = Math.floor((new Date() - new Date(date)) / (86400000 * 30));
-                info.innerHTML = `Последнее повышение: ${formatDate(date)} (прошло ${months} мес.)`;
+                info.innerHTML = `📅 Последнее повышение: ${formatDate(date)} (прошло ${months} мес.)`;
             }
         }
         
@@ -1248,7 +1399,7 @@
             container.innerHTML = currentActions.map((a, i) => `
                 <div class="action-item" data-idx="${i}">
                     <div class="action-header">
-                        <div class="action-title">ДЕЙСТВИЕ #${i+1}</div>
+                        <div class="action-title">🎯 ДЕЙСТВИЕ #${i+1}</div>
                         <button class="remove-action" data-idx="${i}"><i class="fas fa-trash"></i> Удалить</button>
                     </div>
                     <div class="action-fields">
@@ -1498,19 +1649,19 @@
                 if (result.exams && result.exams.length > 0) {
                     container.innerHTML = result.exams.map((e, i) => `
                         <div class="exam-item">
-                            <div><strong>${e.fullName}</strong> | ${e.examType} | ${e.department}</div>
-                            <div>Discord: ${e.discordTag} | Время: ${e.examTime}</div>
-                            <div>Статус: <span class="status-badge status-${e.status==='Пройдено'?'passed':e.status==='Отклонено'?'failed':'waiting'}">${e.status||'Ожидание'}</span></div>
+                            <div><strong>👤 ${e.fullName}</strong> | 📝 ${e.examType} | 🏢 ${e.department}</div>
+                            <div>💬 Discord: ${e.discordTag} | ⏰ Время: ${e.examTime}</div>
+                            <div>📊 Статус: <span class="status-badge status-${e.status==='Пройдено'?'passed':e.status==='Отклонено'?'failed':'waiting'}">${e.status||'Ожидание'}</span></div>
                             <select class="exam-status" data-name="${e.fullName}" data-date="${e.date}" data-dept="${e.department}">
-                                <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>Ожидание</option>
-                                <option value="Пройдено" ${e.status==='Пройдено'?'selected':''}>Пройдено</option>
-                                <option value="Отклонено" ${e.status==='Отклонено'?'selected':''}>Отклонено</option>
+                                <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>⏳ Ожидание</option>
+                                <option value="Пройдено" ${e.status==='Пройдено'?'selected':''}>✅ Пройдено</option>
+                                <option value="Отклонено" ${e.status==='Отклонено'?'selected':''}>❌ Отклонено</option>
                             </select>
                             <div class="exam-form" style="display:none; margin-top:10px;">
-                                <input type="text" placeholder="Принимавший" class="examiner" style="padding:5px; margin:3px;">
-                                <input type="number" placeholder="Балл" class="score" style="padding:5px; margin:3px; width:80px;">
-                                <select class="result" style="padding:5px; margin:3px;"><option>Сдал</option><option>Не сдал</option></select>
-                                <button class="confirm-exam" style="padding:5px 10px; background:var(--accent); color:white; border:none; border-radius:8px;">Подтвердить</button>
+                                <input type="text" placeholder="👨‍🏫 Принимавший" class="examiner" style="padding:5px; margin:3px;">
+                                <input type="number" placeholder="⭐ Балл" class="score" style="padding:5px; margin:3px; width:80px;">
+                                <select class="result" style="padding:5px; margin:3px;"><option>✅ Сдал</option><option>❌ Не сдал</option></select>
+                                <button class="confirm-exam" style="padding:5px 10px; background:var(--accent); color:white; border:none; border-radius:8px;">✅ Подтвердить</button>
                             </div>
                         </div>
                     `).join('');
@@ -1538,10 +1689,10 @@
                         };
                     });
                 } else {
-                    container.innerHTML = '<div class="empty-state">Нет записей на экзамен</div>';
+                    container.innerHTML = '<div class="empty-state">📭 Нет записей на экзамен</div>';
                 }
             } catch(e) { 
-                container.innerHTML = '<div class="empty-state">Ошибка загрузки экзаменов</div>';
+                container.innerHTML = '<div class="empty-state">❌ Ошибка загрузки экзаменов</div>';
                 console.error(e);
             }
         }
@@ -1565,11 +1716,11 @@
             try {
                 const result = await callGoogleScript('getPromotionLists', {});
                 if (result.lists && result.lists.length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th><th>Отдел</th></tr></thead><tbody>
-                        ${result.lists.map(l => `<tr><td>${l.number}</td><td>${new Date(l.date).toLocaleString()}</td><td>${l.senderName}</td><td>${l.promotedName}</td><td><a href="${l.reportLink}" target="_blank">Открыть</a></td><td>${l.department}</td></tr>`).join('')}
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>№</th><th>📅 Дата</th><th>👤 Отправитель</th><th>⬆️ Повышаемый</th><th>🔗 Ссылка</th><th>🏢 Отдел</th></tr></thead><tbody>
+                        ${result.lists.map(l => `<tr><td>${l.number}</td><td>${new Date(l.date).toLocaleString()}</td><td>${l.senderName}</td><td>${l.promotedName}</td><td><a href="${l.reportLink}" target="_blank">📄 Открыть</a></td><td>${l.department}</td></tr>`).join('')}
                     </tbody></table></div>`;
-                } else c.innerHTML = '<div class="empty-state">Нет списков на повышение</div>';
-            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка загрузки списков</div>'; }
+                } else c.innerHTML = '<div class="empty-state">📭 Нет списков на повышение</div>';
+            } catch(e) { c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки списков</div>'; }
         }
         
         async function loadAccounts() {
@@ -1577,11 +1728,11 @@
             try {
                 const result = await callGoogleScript('getAccounts', {});
                 if (result.accounts && result.accounts.length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th></tr></thead><tbody>
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>🔑 Логин</th><th>🎭 Роль</th><th>👤 Имя</th><th>👤 Фамилия</th></tr></thead><tbody>
                         ${result.accounts.map(a => `<tr><td>${a.login}</td><td>${a.role}</td><td>${a.firstName||''}</td><td>${a.lastName||''}</td></tr>`).join('')}
                     </tbody></table></div>`;
-                } else c.innerHTML = '<div class="empty-state">Нет аккаунтов</div>';
-            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка загрузки аккаунтов</div>'; }
+                } else c.innerHTML = '<div class="empty-state">📭 Нет аккаунтов</div>';
+            } catch(e) { c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки аккаунтов</div>'; }
         }
         
         async function loadSettings() {
@@ -1623,19 +1774,54 @@
             const sender = document.getElementById('listSender')?.value;
             const promoted = document.getElementById('listPromoted')?.value;
             const link = document.getElementById('listLink')?.value;
+            const discordId = document.getElementById('listDiscordId')?.value;
             const dept = document.getElementById('listDept')?.value;
             if (!sender || !promoted || !link) { showAlert('sendListTab', 'Заполните все поля', 'error'); return; }
             const result = await callGoogleScript('savePromotionList', { 
                 senderName: sender, promotedName: promoted, reportLink: link, department: dept 
             });
+            const discordMention = discordId ? `<@${discordId}>` : '';
             sendDiscord(PROMOTION_LIST_WEBHOOK, `Список на повышение #${result.listNumber}`, [
                 { name: "Отправитель", value: sender }, { name: "Повышаемый", value: promoted },
                 { name: "Ссылка", value: link }, { name: "Отдел", value: dept }
-            ], 0x4CAF50, '<@&793440128906821672><@&792080799062556672>');
+            ], 0x4CAF50, `${discordMention} <@&793440128906821672><@&792080799062556672> | 🎫 Заявка на повышение №${result.listNumber}`);
             showAlert('sendListTab', `Список #${result.listNumber} отправлен`, 'success');
-            document.querySelectorAll('#listSender, #listPromoted, #listLink').forEach(i => i.value = '');
+            document.querySelectorAll('#listSender, #listPromoted, #listLink, #listDiscordId').forEach(i => i.value = '');
+            document.getElementById('discordPreview').style.display = 'none';
             loadPromotions();
         }
+        
+        // Превью Discord ID
+        document.addEventListener('DOMContentLoaded', () => {
+            const discordInput = document.getElementById('listDiscordId');
+            if (discordInput) {
+                discordInput.addEventListener('input', async () => {
+                    const discordId = discordInput.value.trim();
+                    const preview = document.getElementById('discordPreview');
+                    const tagSpan = document.getElementById('discordTag');
+                    const numberSpan = document.getElementById('requestNumber');
+                    
+                    if (discordId && /^\d+$/.test(discordId)) {
+                        try {
+                            const response = await fetch(`https://discord.com/api/v9/users/${discordId}`);
+                            if (response.ok) {
+                                const user = await response.json();
+                                tagSpan.innerHTML = `📌 Тег: ${user.username}#${user.discriminator || '0000'}`;
+                            } else {
+                                tagSpan.innerHTML = `⚠️ Пользователь с ID ${discordId} не найден`;
+                            }
+                        } catch(e) {
+                            tagSpan.innerHTML = `❌ Ошибка проверки ID`;
+                        }
+                        const randomNum = Math.floor(Math.random() * 1000);
+                        numberSpan.innerHTML = ` | 🎫 Заявка на повышение №${randomNum}`;
+                        preview.style.display = 'flex';
+                    } else {
+                        preview.style.display = 'none';
+                    }
+                });
+            }
+        });
         
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('theme') === 'light') {
