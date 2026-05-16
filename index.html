@@ -57,9 +57,9 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 20px 20px;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -73,14 +73,8 @@
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo {
@@ -137,14 +131,8 @@
         }
 
         @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .btn-icon {
@@ -208,14 +196,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .depts-grid {
@@ -234,7 +216,7 @@
             padding: 30px 35px;
             width: 280px;
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: all 0.4s;
             cursor: pointer;
             box-shadow: var(--shadow-md);
         }
@@ -273,7 +255,6 @@
         .dept-card p {
             color: var(--text-secondary);
             font-size: 0.85rem;
-            line-height: 1.4;
         }
 
         .actions-grid {
@@ -293,7 +274,7 @@
             width: 280px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             box-shadow: var(--shadow-sm);
         }
 
@@ -361,7 +342,7 @@
             border-radius: 28px;
             border: 1px solid var(--glass-border);
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
         }
 
         .glass-card:hover {
@@ -373,6 +354,10 @@
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(46, 125, 50, 0.08));
             padding: 18px 25px;
             border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         .card-header h2 {
@@ -382,6 +367,26 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .take-report-btn {
+            background: var(--accent);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .take-report-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
         }
 
         .card-body {
@@ -693,14 +698,8 @@
         }
 
         @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .alert.success {
@@ -743,14 +742,8 @@
         }
 
         @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .admin-tabs {
@@ -790,7 +783,7 @@
             display: block;
         }
 
-        .exam-item, .promotion-item, .account-item {
+        .exam-item, .promotion-item, .account-item, .report-item {
             background: var(--card-hover);
             border-radius: 14px;
             padding: 14px;
@@ -800,7 +793,7 @@
             font-size: 0.85rem;
         }
 
-        .exam-item:hover, .promotion-item:hover, .account-item:hover {
+        .exam-item:hover, .promotion-item:hover, .account-item:hover, .report-item:hover {
             border-color: var(--accent);
             transform: translateX(5px);
         }
@@ -986,6 +979,7 @@
                 <div class="card-body">
                     <div class="admin-tabs">
                         <div class="admin-tab active" data-tab="exams">📝 Экзамены</div>
+                        <div class="admin-tab" data-tab="reports">📊 Отчеты</div>
                         <div class="admin-tab" data-tab="promotions">📋 Списки на повышение</div>
                         <div class="admin-tab" data-tab="accounts" id="accountsTab" style="display: none;">👥 Аккаунты</div>
                         <div class="admin-tab" data-tab="settings" id="settingsTab" style="display: none;">⚙️ Настройки</div>
@@ -993,8 +987,16 @@
                     </div>
                     
                     <div id="examsTab" class="admin-tab-content">
-                        <h3>Управление экзаменами 📝</h3>
-                        <div id="examsList"></div>
+                        <div class="card-header" style="padding: 15px 20px;">
+                            <h3>Управление экзаменами 📝</h3>
+                            <button class="take-report-btn" id="takeExamsReportBtn"><i class="fas fa-download"></i> Взять отчеты</button>
+                        </div>
+                        <div id="examsList" style="padding: 15px;"></div>
+                    </div>
+                    
+                    <div id="reportsTab" class="admin-tab-content" style="display: none;">
+                        <h3>Все отчеты 📊</h3>
+                        <div id="reportsList"></div>
                     </div>
                     
                     <div id="promotionsTab" class="admin-tab-content" style="display: none;">
@@ -1028,9 +1030,9 @@
                     
                     <div id="settingsTabContent" class="admin-tab-content" style="display: none;">
                         <h3>Настройки текстов ⚙️</h3>
-                        <div class="input-group"><label><i class="fas fa-clock"></i> Текст "Ожидание"</label><textarea id="settingWaiting" rows="2"></textarea></div>
-                        <div class="input-group"><label><i class="fas fa-check-circle"></i> Текст "Пройдено"</label><textarea id="settingPassed" rows="2"></textarea></div>
-                        <div class="input-group"><label><i class="fas fa-times-circle"></i> Текст "Отклонено"</label><textarea id="settingFailed" rows="2"></textarea></div>
+                        <div class="input-group"><label><i class="fas fa-clock"></i> Текст "Ожидание"</label><textarea id="settingWaiting" rows="3"></textarea></div>
+                        <div class="input-group"><label><i class="fas fa-check-circle"></i> Текст "Пройдено"</label><textarea id="settingPassed" rows="3"></textarea></div>
+                        <div class="input-group"><label><i class="fas fa-times-circle"></i> Текст "Отклонено"</label><textarea id="settingFailed" rows="3"></textarea></div>
                         <button class="submit-btn" id="saveSettingsBtn">Сохранить</button>
                     </div>
                     
@@ -1069,7 +1071,7 @@
     </div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwqDdtfbVLpfWqwIl_SNezwMRtYHJPm-8-RVbRvbVC1WT8df5VrYy3ldGTMWsAmvXAW/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynrQv1QhyEFkuU4bPA1RnQS9D8JDyCOkwaW-ubivYZkbiMYKzVghlnCuP-mKMVUUJ1/exec';
         
         const WEBHOOKS = {
             КМБ: {
@@ -1115,11 +1117,11 @@
         ];
         
         const ROLE_PERMS = {
-            Admin: ['all', 'admin', 'accounts', 'settings', 'exams', 'sendList'],
-            Командир: ['all', 'admin', 'accounts', 'settings', 'exams', 'sendList'],
-            'Зам командира': ['admin', 'exams', 'sendList'],
-            'Инструктор МА': ['exams'],
-            'Сотрудник МА': ['exams']
+            Admin: ['all', 'admin', 'accounts', 'settings', 'exams', 'sendList', 'reports'],
+            Командир: ['all', 'admin', 'accounts', 'settings', 'exams', 'sendList', 'reports'],
+            'Зам командира': ['admin', 'exams', 'sendList', 'reports'],
+            'Инструктор МА': ['exams', 'reports'],
+            'Сотрудник МА': ['exams', 'reports']
         };
         
         let currentUser = null;
@@ -1151,11 +1153,7 @@
                 window[callbackName] = function(response) {
                     delete window[callbackName];
                     document.body.removeChild(script);
-                    if (response.success !== undefined || response.exams !== undefined || response.lists !== undefined || response.accounts !== undefined || response.settings !== undefined) {
-                        resolve(response);
-                    } else {
-                        reject(new Error('Неверный ответ от сервера'));
-                    }
+                    resolve(response);
                 };
                 
                 const params = new URLSearchParams();
@@ -1209,8 +1207,7 @@
                     return false;
                 }
             } catch(e) {
-                console.error('Login error:', e);
-                showAlert(alertContainer, 'Ошибка соединения с сервером: ' + e.message, 'error');
+                showAlert(alertContainer, 'Ошибка соединения: ' + e.message, 'error');
                 return false;
             }
         }
@@ -1416,7 +1413,7 @@
                     <div class="action-fields">
                         <div class="action-field">
                             <label>ТИП</label>
-                            <select class="action-type" data-idx="${i}">
+                            <select class="action-type" data-idx="${i}>
                                 <option value="">-- Выберите --</option>
                                 ${ACTIVITY_TYPES.map(t => `<option value="${t.name}" data-points="${t.points}" ${a.type === t.name ? 'selected' : ''}>${t.name}</option>`).join('')}
                             </select>
@@ -1645,6 +1642,7 @@
             document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             document.getElementById('adminPage').style.display = 'block';
             await loadExams();
+            await loadReports();
             await loadPromotions();
             if (hasPerm('accounts')) await loadAccounts();
             if (hasPerm('settings')) await loadSettings();
@@ -1661,7 +1659,7 @@
                     container.innerHTML = result.exams.map((e, i) => `
                         <div class="exam-item">
                             <div><strong>👤 ${e.fullName}</strong> | 📝 ${e.examType} | 🏢 ${e.department}</div>
-                            <div>💬 Discord: ${e.discordTag} | ⏰ Время: ${e.examTime}</div>
+                            <div>💬 Discord: ${e.discordTag} | ⏰ Время: ${e.examTime} | 📅 Дата: ${e.date}</div>
                             <div>📊 Статус: <span class="status-badge status-${e.status==='Пройдено'?'passed':e.status==='Отклонено'?'failed':'waiting'}">${e.status||'Ожидание'}</span></div>
                             <select class="exam-status" data-name="${e.fullName}" data-date="${e.date}" data-dept="${e.department}">
                                 <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>⏳ Ожидание</option>
@@ -1669,7 +1667,7 @@
                                 <option value="Отклонено" ${e.status==='Отклонено'?'selected':''}>❌ Отклонено</option>
                             </select>
                             <div class="exam-form" style="display:none; margin-top:10px;">
-                                <input type="text" placeholder="👨‍🏫 Принимавший" class="examiner" style="padding:5px; margin:3px;">
+                                <input type="text" placeholder="👨‍🏫 Принимавший" class="examiner" style="padding:5px; margin:3px; width:150px;">
                                 <input type="number" placeholder="⭐ Балл" class="score" style="padding:5px; margin:3px; width:80px;">
                                 <select class="result" style="padding:5px; margin:3px;"><option>✅ Сдал</option><option>❌ Не сдал</option></select>
                                 <button class="confirm-exam" style="padding:5px 10px; background:var(--accent); color:white; border:none; border-radius:8px;">✅ Подтвердить</button>
@@ -1684,6 +1682,7 @@
                             else { 
                                 div.style.display = 'none'; 
                                 updateExamStatus(sel.dataset.name, sel.dataset.date, sel.value, '', '', '', sel.dataset.dept); 
+                                loadExams();
                             }
                         };
                     });
@@ -1696,7 +1695,7 @@
                             const result = div.querySelector('.result')?.value || 'Сдал';
                             updateExamStatus(sel.dataset.name, sel.dataset.date, 'Пройдено', examiner, score, result, sel.dataset.dept);
                             div.style.display = 'none';
-                            setTimeout(() => loadExams(), 1000);
+                            setTimeout(() => loadExams(), 500);
                         };
                     });
                 } else {
@@ -1704,7 +1703,6 @@
                 }
             } catch(e) { 
                 container.innerHTML = '<div class="empty-state">❌ Ошибка загрузки экзаменов</div>';
-                console.error(e);
             }
         }
         
@@ -1715,11 +1713,90 @@
                     examinerName: examiner, score: score, result: result, department: dept 
                 });
                 const webhook = STATUS_WEBHOOKS[dept] || STATUS_WEBHOOKS.MA;
+                
+                let statusText = '';
+                if (status === 'Пройдено') statusText = settings.exam_passed_text || '✅ Экзамен успешно сдан!';
+                else if (status === 'Отклонено') statusText = settings.exam_failed_text || '❌ Экзамен не сдан. Попробуйте снова.';
+                else statusText = settings.exam_waiting_text || '⏳ Ожидайте решения.';
+                
                 sendDiscord(webhook, `Результат экзамена (${dept})`, [
-                    { name: "Участник", value: name }, { name: "Статус", value: status },
-                    { name: "Принимавший", value: examiner || '-' }, { name: "Результат", value: result }
+                    { name: "👤 Участник", value: name }, 
+                    { name: "📊 Статус", value: status },
+                    { name: "👨‍🏫 Принимавший", value: examiner || '-' }, 
+                    { name: "⭐ Результат", value: result },
+                    { name: "📝 Комментарий", value: statusText }
                 ], status === 'Пройдено' ? 0x10b981 : 0xef4444);
+                
+                showAlert('examsTab', 'Статус экзамена обновлен!', 'success');
             } catch(e) { console.error(e); }
+        }
+        
+        async function loadReports() {
+            const container = document.getElementById('reportsList');
+            try {
+                const [weeklyReports, promotionReports] = await Promise.all([
+                    callGoogleScript('getWeeklyReports', {}),
+                    callGoogleScript('getPromotionReports', {})
+                ]);
+                
+                let allReports = [];
+                
+                if (weeklyReports.reports && weeklyReports.reports.length > 0) {
+                    weeklyReports.reports.forEach(r => {
+                        allReports.push({
+                            type: '📊 Еженедельный',
+                            date: r.date,
+                            nickname: r.nickname,
+                            rank: r.rank,
+                            period: `${r.periodStart} - ${r.periodEnd}`,
+                            actions: r.actions,
+                            points: r.totalPoints,
+                            department: r.department,
+                            status: r.status
+                        });
+                    });
+                }
+                
+                if (promotionReports.reports && promotionReports.reports.length > 0) {
+                    promotionReports.reports.forEach(r => {
+                        allReports.push({
+                            type: '⬆️ Повышение',
+                            date: r.date,
+                            nickname: r.nickname,
+                            currentRank: r.currentRank,
+                            desiredRank: r.desiredRank,
+                            actions: r.actions,
+                            points: r.totalPoints,
+                            department: r.department,
+                            status: r.status
+                        });
+                    });
+                }
+                
+                allReports.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                if (allReports.length > 0) {
+                    container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
+                        <th>📋 Тип</th><th>📅 Дата</th><th>👤 Пользователь</th><th>📝 Детали</th><th>⭐ Баллы</th><th>🏢 Отдел</th><th>📊 Статус</th>
+                    </tr></thead><tbody>
+                        ${allReports.map(r => `
+                            <tr>
+                                <td>${r.type}</td>
+                                <td>${new Date(r.date).toLocaleString()}</td>
+                                <td>${r.nickname || r.name || '-'}</td>
+                                <td>${r.rank ? `Ранг: ${r.rank}` : r.currentRank ? `${r.currentRank} → ${r.desiredRank}` : '-'}</td>
+                                <td>${r.points || 0}</td>
+                                <td>${r.department || '-'}</td>
+                                <td><span class="status-badge status-${r.status==='Пройдено'||r.status==='Принято'?'passed':r.status==='Отклонено'?'failed':'waiting'}">${r.status||'Ожидание'}</span></td>
+                            </tr>
+                        `).join('')}
+                    </tbody></table></div>`;
+                } else {
+                    container.innerHTML = '<div class="empty-state">📭 Нет отчетов</div>';
+                }
+            } catch(e) { 
+                container.innerHTML = '<div class="empty-state">❌ Ошибка загрузки отчетов</div>';
+            }
         }
         
         async function loadPromotions() {
@@ -1727,8 +1804,16 @@
             try {
                 const result = await callGoogleScript('getPromotionLists', {});
                 if (result.lists && result.lists.length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>№</th><th>📅 Дата</th><th>👤 Отправитель</th><th>⬆️ Повышаемый</th><th>🔗 Ссылка</th><th>🏢 Отдел</th></tr></thead><tbody>
-                        ${result.lists.map(l => `<tr><td>${l.number}</td><td>${new Date(l.date).toLocaleString()}</td><td>${l.senderName}</td><td>${l.promotedName}</td><td><a href="${l.reportLink}" target="_blank">📄 Открыть</a></td><td>${l.department}</td></tr>`).join('')}
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
+                        <th>№</th><th>📅 Дата</th><th>👤 Отправитель</th><th>⬆️ Повышаемый</th><th>🔗 Ссылка</th>
+                    </tr></thead><tbody>
+                        ${result.lists.map(l => `<tr>
+                            <td>${l.number}</td>
+                            <td>${new Date(l.date).toLocaleString()}</td>
+                            <td>${l.senderName}</td>
+                            <td>${l.promotedName}</td>
+                            <td><a href="${l.reportLink}" target="_blank">📄 Открыть</a></td>
+                        </tr>`).join('')}
                     </tbody></table></div>`;
                 } else c.innerHTML = '<div class="empty-state">📭 Нет списков на повышение</div>';
             } catch(e) { c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки списков</div>'; }
@@ -1739,9 +1824,11 @@
             try {
                 const result = await callGoogleScript('getAccounts', {});
                 if (result.accounts && result.accounts.length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>🔑 Логин</th><th>🎭 Роль</th><th>👤 Имя</th><th>👤 Фамилия</th></tr></thead><tbody>
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
+                        <th>🔑 Логин</th><th>🎭 Роль</th><th>👤 Имя</th><th>👤 Фамилия</th>
+                    </tr></thead><tbody>
                         ${result.accounts.map(a => `<tr><td>${a.login}</td><td>${a.role}</td><td>${a.firstName||''}</td><td>${a.lastName||''}</td></tr>`).join('')}
-                    </tbody></td></div>`;
+                    </tbody></table></div>`;
                 } else c.innerHTML = '<div class="empty-state">📭 Нет аккаунтов</div>';
             } catch(e) { c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки аккаунтов</div>'; }
         }
@@ -1750,9 +1837,9 @@
             try {
                 const result = await callGoogleScript('getSettings', {});
                 settings = result.settings || {};
-                document.getElementById('settingWaiting').value = settings.exam_waiting_text || '';
-                document.getElementById('settingPassed').value = settings.exam_passed_text || '';
-                document.getElementById('settingFailed').value = settings.exam_failed_text || '';
+                document.getElementById('settingWaiting').value = settings.exam_waiting_text || '⏳ Ваша заявка на экзамен принята! Ожидайте ответа.';
+                document.getElementById('settingPassed').value = settings.exam_passed_text || '✅ Поздравляем! Вы успешно сдали экзамен!';
+                document.getElementById('settingFailed').value = settings.exam_failed_text || '❌ К сожалению, вы не сдали экзамен. Попробуйте снова.';
             } catch(e) {}
         }
         
@@ -1763,7 +1850,38 @@
                 exam_failed_text: document.getElementById('settingFailed').value
             };
             await callGoogleScript('saveSettings', { settings: newSet });
+            settings = newSet;
             showAlert('settingsTabContent', 'Настройки сохранены', 'success');
+        }
+        
+        async function takeExamsReport() {
+            try {
+                const result = await callGoogleScript('getExams', {});
+                if (result.exams && result.exams.length > 0) {
+                    let waitingList = result.exams.filter(e => e.status === 'Ожидание' || !e.status);
+                    let passedList = result.exams.filter(e => e.status === 'Пройдено');
+                    let failedList = result.exams.filter(e => e.status === 'Отклонено');
+                    
+                    let message = `**📊 ОТЧЕТ ПО ЭКЗАМЕНАМ**\n\n`;
+                    message += `**⏳ Ожидают (${waitingList.length}):**\n`;
+                    waitingList.forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
+                    message += `\n**✅ Сдавшие (${passedList.length}):**\n`;
+                    passedList.forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
+                    message += `\n**❌ Не сдавшие (${failedList.length}):**\n`;
+                    failedList.forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
+                    
+                    await sendDiscord(STATUS_WEBHOOKS.MA, "Отчет по экзаменам", [
+                        { name: "📊 Статистика", value: `Ожидают: ${waitingList.length}\nСдавшие: ${passedList.length}\nНе сдавшие: ${failedList.length}` },
+                        { name: "📝 Подробнее", value: message.substring(0, 4000) }
+                    ], 0x4CAF50);
+                    
+                    showAlert('examsTab', 'Отчет отправлен в Discord!', 'success');
+                } else {
+                    showAlert('examsTab', 'Нет данных об экзаменах', 'error');
+                }
+            } catch(e) {
+                showAlert('examsTab', 'Ошибка при формировании отчета', 'error');
+            }
         }
         
         async function createAccount() {
@@ -1792,7 +1910,8 @@
             });
             const discordMention = discordId && discordId.match(/^\d+$/) ? `<@${discordId}> ` : '';
             sendDiscord(PROMOTION_LIST_WEBHOOK, `Список на повышение #${result.listNumber}`, [
-                { name: "Отправитель", value: sender }, { name: "Повышаемый", value: promoted },
+                { name: "Отправитель", value: sender }, 
+                { name: "Повышаемый", value: promoted },
                 { name: "Ссылка", value: link }
             ], 0x4CAF50, `${discordMention}🎫 Заявка на повышение №${result.listNumber}`);
             showAlert('sendListTab', `Список #${result.listNumber} отправлен`, 'success');
@@ -1805,7 +1924,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const discordInput = document.getElementById('listDiscordId');
             if (discordInput) {
-                discordInput.addEventListener('input', async () => {
+                discordInput.addEventListener('input', () => {
                     const discordId = discordInput.value.trim();
                     const preview = document.getElementById('discordPreview');
                     const tagSpan = document.getElementById('discordTag');
@@ -1847,6 +1966,7 @@
             document.getElementById('backFromAdminBtn').onclick = showDeptsPage;
             document.getElementById('addActionBtn').onclick = addAction;
             document.getElementById('submitBtn').onclick = submitForm;
+            document.getElementById('takeExamsReportBtn').onclick = takeExamsReport;
             
             document.getElementById('adminLoginBtn').onclick = () => document.getElementById('loginModal').style.display = 'flex';
             document.getElementById('closeModalBtn').onclick = () => document.getElementById('loginModal').style.display = 'none';
@@ -1864,6 +1984,7 @@
                     document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
                     document.getElementById(`${tab.dataset.tab}Tab`).style.display = 'block';
                     if (tab.dataset.tab === 'exams') loadExams();
+                    if (tab.dataset.tab === 'reports') loadReports();
                     if (tab.dataset.tab === 'promotions') loadPromotions();
                     if (tab.dataset.tab === 'accounts') loadAccounts();
                 };
