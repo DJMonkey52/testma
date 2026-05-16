@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ARMY Delta | Система отчетов</title>
+    <title>ARMY | Система отчетов</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -645,6 +645,11 @@
             align-items: center;
         }
 
+        .total-points-label {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
         .total-points-value {
             font-size: 1.8rem;
             font-weight: 800;
@@ -679,11 +684,23 @@
 
         .footer-signature {
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-light);
-            color: var(--text-muted);
-            font-size: 0.8rem;
+            margin-top: 50px;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(46, 125, 50, 0.05));
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .footer-signature p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-signature i {
+            color: var(--accent);
+            margin: 0 5px;
         }
 
         .alert {
@@ -786,6 +803,12 @@
             display: block;
         }
 
+        .admin-tab-content h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
         .exam-item, .promotion-item, .account-item, .report-item {
             background: var(--card-hover);
             border-radius: 18px;
@@ -793,6 +816,7 @@
             margin-bottom: 12px;
             border: 1px solid var(--border-light);
             transition: all 0.3s;
+            color: var(--text-primary);
         }
 
         .exam-item:hover, .promotion-item:hover, .account-item:hover, .report-item:hover {
@@ -940,26 +964,26 @@
         <div class="header">
             <div class="logo">
                 <div class="logo-icon"><i class="fas fa-gun"></i></div>
-                <h1>ARMY Delta</h1>
+                <h1>ARMY</h1>
             </div>
-            <p class="subtitle">Система подачи отчётов Delta ⚡</p>
+            <p class="subtitle">Система подачи отчётов</p>
         </div>
 
         <div id="deptsPage" class="page">
             <div class="depts-grid">
                 <div class="dept-card" data-dept="КМБ">
                     <div class="dept-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>КМБ 🛡️</h3>
+                    <h3>КМБ</h3>
                     <p>Курс молодого бойца</p>
                 </div>
                 <div class="dept-card" data-dept="ACD">
                     <div class="dept-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>ACD 🎓</h3>
+                    <h3>ACD</h3>
                     <p>Академический отдел</p>
                 </div>
                 <div class="dept-card" data-dept="MA">
                     <div class="dept-icon"><i class="fas fa-user-graduate"></i></div>
-                    <h3>MA 🏥</h3>
+                    <h3>MA</h3>
                     <p>Медицинская академия</p>
                 </div>
             </div>
@@ -999,7 +1023,7 @@
                     </div>
                     <button class="submit-btn" id="submitBtn"><i class="fab fa-discord"></i> ОТПРАВИТЬ</button>
                     <div class="footer-signature">
-                        <i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i>
+                        <p><i class="fas fa-code"></i> Developed by <i class="fas fa-heart" style="color: var(--accent);"></i> Alexandr DeHaus</p>
                     </div>
                 </div>
             </div>
@@ -1015,58 +1039,58 @@
                 </div>
                 <div class="card-body">
                     <div class="admin-tabs">
-                        <div class="admin-tab active" data-tab="exams">📝 Экзамены</div>
-                        <div class="admin-tab" data-tab="reports">📊 Отчеты</div>
-                        <div class="admin-tab" data-tab="promotions">📋 Списки на повышение</div>
-                        <div class="admin-tab" data-tab="accounts" id="accountsTab">👥 Аккаунты</div>
-                        <div class="admin-tab" data-tab="settings" id="settingsTab">⚙️ Настройки</div>
-                        <div class="admin-tab" data-tab="sendList">📤 Отправить список</div>
+                        <div class="admin-tab active" data-tab="exams">Экзамены</div>
+                        <div class="admin-tab" data-tab="reports">Отчеты</div>
+                        <div class="admin-tab" data-tab="promotions">Списки на повышение</div>
+                        <div class="admin-tab" data-tab="accounts" id="accountsTab">Аккаунты</div>
+                        <div class="admin-tab" data-tab="settings" id="settingsTab">Настройки</div>
+                        <div class="admin-tab" data-tab="sendList">Отправить список</div>
                     </div>
                     
                     <div id="examsTab" class="admin-tab-content">
                         <div class="card-header" style="padding: 15px 20px;">
-                            <h3>📝 Управление экзаменами</h3>
+                            <h3>Управление экзаменами</h3>
                             <button class="take-report-btn" id="takeExamsReportBtn"><i class="fas fa-download"></i> Взять отчеты</button>
                         </div>
                         <div id="examsList" style="padding: 15px;"></div>
                     </div>
                     
                     <div id="reportsTab" class="admin-tab-content" style="display: none;">
-                        <h3>📊 Все отчеты</h3>
+                        <h3>Все отчеты</h3>
                         <div id="reportsList"></div>
                     </div>
                     
                     <div id="promotionsTab" class="admin-tab-content" style="display: none;">
-                        <h3>📋 Списки на повышение</h3>
+                        <h3>Списки на повышение</h3>
                         <div id="promotionsList"></div>
                     </div>
                     
                     <div id="accountsTabContent" class="admin-tab-content" style="display: none;">
-                        <h3>👥 Аккаунты</h3>
+                        <h3>Аккаунты</h3>
                         <div id="accountsList"></div>
                         <div class="glass-card" style="margin-top: 25px;">
-                            <div class="card-header"><h4>➕ Создать аккаунт</h4></div>
+                            <div class="card-header"><h4>Создать аккаунт</h4></div>
                             <div class="card-body">
                                 <div class="input-group"><label><i class="fas fa-user"></i> Логин</label><input type="text" id="newLogin" placeholder="Введите логин"></div>
                                 <div class="input-group"><label><i class="fas fa-lock"></i> Пароль</label><input type="password" id="newPassword" placeholder="Введите пароль"></div>
                                 <div class="input-group"><label><i class="fas fa-tag"></i> Роль</label>
                                     <select id="newRole">
-                                        <option value="Admin">👑 Admin</option>
-                                        <option value="Командир">🎖️ Командир</option>
-                                        <option value="Зам командира">📋 Зам командира</option>
-                                        <option value="Инструктор МА">📚 Инструктор МА</option>
-                                        <option value="Сотрудник МА">👨‍⚕️ Сотрудник МА</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Командир">Командир</option>
+                                        <option value="Зам командира">Зам командира</option>
+                                        <option value="Инструктор МА">Инструктор МА</option>
+                                        <option value="Сотрудник МА">Сотрудник МА</option>
                                     </select>
                                 </div>
                                 <div class="input-group"><label><i class="fas fa-user-circle"></i> Имя</label><input type="text" id="newFirstName" placeholder="Введите имя"></div>
                                 <div class="input-group"><label><i class="fas fa-user-circle"></i> Фамилия</label><input type="text" id="newLastName" placeholder="Введите фамилию"></div>
-                                <button class="submit-btn" id="createAccountBtn">✅ Создать аккаунт</button>
+                                <button class="submit-btn" id="createAccountBtn">Создать аккаунт</button>
                             </div>
                         </div>
                     </div>
                     
                     <div id="settingsTabContent" class="admin-tab-content" style="display: none;">
-                        <h3>⚙️ Настройки текстов</h3>
+                        <h3>Настройки текстов</h3>
                         <div class="input-group"><label><i class="fas fa-clock"></i> Текст "Ожидание"</label><textarea id="settingWaiting" rows="3" placeholder="Текст для статуса Ожидание"></textarea></div>
                         <div class="input-group"><label><i class="fas fa-spinner"></i> Текст "Проводится"</label><textarea id="settingInProgress" rows="3" placeholder="Текст для статуса Проводится"></textarea></div>
                         <div class="input-group"><label><i class="fas fa-check-circle"></i> Текст "Принят"</label><textarea id="settingPassed" rows="3" placeholder="Текст для статуса Принят"></textarea></div>
@@ -1075,7 +1099,7 @@
                     </div>
                     
                     <div id="sendListTab" class="admin-tab-content" style="display: none;">
-                        <h3>📤 Отправить список на повышение</h3>
+                        <h3>Отправить список на повышение</h3>
                         <div class="input-group"><label><i class="fas fa-user"></i> Отправитель</label><input type="text" id="listSender" placeholder="Введите имя отправителя"></div>
                         <div class="input-group"><label><i class="fas fa-arrow-up"></i> Повышаемый</label><input type="text" id="listPromoted" placeholder="Введите имя повышаемого"></div>
                         <div class="input-group"><label><i class="fas fa-link"></i> Ссылка на отчет</label><input type="text" id="listLink" placeholder="https://..."></div>
@@ -1142,16 +1166,16 @@
         };
         
         const ACTIVITY_TYPES = [
-            { name: "🎯 Участие в ГМП", points: 10 }, { name: "⚔️ Участие в МП", points: 5 },
-            { name: "📚 Участие в лекции/тренировке", points: 5 }, { name: "🎤 Проведение лекции/тренировки", points: 10 },
-            { name: "💥 Отбитие ФЗ/ФТ", points: 15 }, { name: "🛡️ Участие в оцеплении", points: 10 },
-            { name: "🚂 Участие в отбитии поезда", points: 5 }, { name: "🔍 Участие в рейде", points: 10 },
-            { name: "📦 Участие в поставке", points: 10 }, { name: "💊 Отбитие анальгетика", points: 15 },
-            { name: "🚔 Задержание", points: 5 }, { name: "🏥 Участие в мед. проверке", points: 10 },
-            { name: "📋 Участие в прок. проверке", points: 10 }, { name: "📡 Участие в AirDrop", points: 5 },
-            { name: "👮 Патруль по ФЗ (1 час)", points: 4 }, { name: "🌍 Патруль вне ФЗ (1 час)", points: 4 },
-            { name: "🌙 Участие в Вечернем построении", points: 4 }, { name: "🏆 Участие в ЧР", points: 10 },
-            { name: "👤 Передача задержанного CID", points: 10 }, { name: "📝 Доп. работа", points: 5 }
+            { name: "Участие в ГМП", points: 10 }, { name: "Участие в МП", points: 5 },
+            { name: "Участие в лекции/тренировке", points: 5 }, { name: "Проведение лекции/тренировки", points: 10 },
+            { name: "Отбитие ФЗ/ФТ", points: 15 }, { name: "Участие в оцеплении", points: 10 },
+            { name: "Участие в отбитии поезда", points: 5 }, { name: "Участие в рейде", points: 10 },
+            { name: "Участие в поставке", points: 10 }, { name: "Отбитие анальгетика", points: 15 },
+            { name: "Задержание", points: 5 }, { name: "Участие в мед. проверке", points: 10 },
+            { name: "Участие в прок. проверке", points: 10 }, { name: "Участие в AirDrop", points: 5 },
+            { name: "Патруль по ФЗ (1 час)", points: 4 }, { name: "Патруль вне ФЗ (1 час)", points: 4 },
+            { name: "Участие в Вечернем построении", points: 4 }, { name: "Участие в ЧР", points: 10 },
+            { name: "Передача задержанного CID", points: 10 }, { name: "Доп. работа", points: 5 }
         ];
         
         const ROLE_PERMS = {
@@ -1177,7 +1201,7 @@
             try {
                 const res = await fetch(webhook, {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ content, embeds: [{ title, color, fields, footer: { text: "ARMY Delta" }, timestamp: new Date().toISOString() }] })
+                    body: JSON.stringify({ content, embeds: [{ title, color, fields, footer: { text: "ARMY" }, timestamp: new Date().toISOString() }] })
                 });
                 return res.ok;
             } catch(e) { console.error('Discord error:', e); return false; }
@@ -1292,14 +1316,14 @@
             let actions = [];
             if (dept === 'MA') {
                 actions = [
-                    { id: 'weekly', name: '📊 Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
-                    { id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
-                    { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
+                    { id: 'weekly', name: 'Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
+                    { id: 'promotion', name: 'Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
+                    { id: 'exam', name: 'Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
                 ];
             } else {
                 actions = [
-                    { id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
-                    { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
+                    { id: 'promotion', name: 'Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
+                    { id: 'exam', name: 'Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
                 ];
             }
             
@@ -1324,9 +1348,9 @@
             document.getElementById('formPage').style.display = 'block';
             
             let title = '';
-            if (action === 'weekly') title = '📊 Еженедельный отчёт';
-            else if (action === 'promotion') title = '⬆️ Отчёт на повышение';
-            else title = '📝 Запись на экзамен';
+            if (action === 'weekly') title = 'Еженедельный отчёт';
+            else if (action === 'promotion') title = 'Отчёт на повышение';
+            else title = 'Запись на экзамен';
             document.getElementById('formTitle').innerHTML = `<i class="fas ${action === 'weekly' ? 'fa-calendar-week' : action === 'promotion' ? 'fa-arrow-up' : 'fa-pen-clip'}"></i> ${title} (${currentDept})`;
             
             const fieldsDiv = document.getElementById('formFields');
@@ -1445,7 +1469,7 @@
             container.innerHTML = currentActions.map((a, i) => `
                 <div class="action-item" data-idx="${i}">
                     <div class="action-header">
-                        <div class="action-title">🎯 ДЕЙСТВИЕ #${i+1}</div>
+                        <div class="action-title">ДЕЙСТВИЕ #${i+1}</div>
                         <button class="remove-action" data-idx="${i}"><i class="fas fa-trash"></i> Удалить</button>
                     </div>
                     <div class="action-fields">
@@ -1747,18 +1771,30 @@
                     statusText = settings.exam_failed_text || '❌ К сожалению, вы не сдали экзамен. Попробуйте снова.';
                     color = 0xef4444;
                 } else if (status === 'Проводится') {
-                    statusText = settings.exam_inprogress_text || '🔄 Ваш экзамен проводится. Ожидайте результатов.';
+                    statusText = settings.exam_inprogress_text || 'https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)';
                     color = 0x3b82f6;
                 } else {
                     statusText = settings.exam_waiting_text || '⏳ Ваша заявка на экзамен принята! Ожидайте ответа.';
                     color = 0xf59e0b;
                 }
                 
-                sendDiscord(webhook, `Результат экзамена (${dept})`, [
-                    { name: "👤 Участник", value: name }, 
-                    { name: "📊 Статус", value: status },
-                    { name: "📝 Комментарий", value: statusText }
-                ], color);
+                await fetch(webhook, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        content: `${statusText}`,
+                        embeds: [{ 
+                            title: `Результат экзамена (${dept})`, 
+                            color: color, 
+                            fields: [
+                                { name: "👤 Участник", value: name, inline: true }, 
+                                { name: "📊 Статус", value: status, inline: true }
+                            ],
+                            footer: { text: "ARMY" }, 
+                            timestamp: new Date().toISOString() 
+                        }]
+                    })
+                });
                 
             } catch(e) { console.error(e); }
         }
@@ -1776,12 +1812,11 @@
                 if (weeklyReports.reports && weeklyReports.reports.length > 0) {
                     weeklyReports.reports.forEach(r => {
                         allReports.push({
-                            type: '📊 Еженедельный',
+                            type: 'Еженедельный',
                             date: r.date,
                             nickname: r.nickname,
                             rank: r.rank,
                             period: `${r.periodStart} - ${r.periodEnd}`,
-                            actions: r.actions,
                             points: r.totalPoints,
                             department: r.department
                         });
@@ -1791,12 +1826,11 @@
                 if (promotionReports.reports && promotionReports.reports.length > 0) {
                     promotionReports.reports.forEach(r => {
                         allReports.push({
-                            type: '⬆️ Повышение',
+                            type: 'Повышение',
                             date: r.date,
                             nickname: r.nickname,
                             currentRank: r.currentRank,
                             desiredRank: r.desiredRank,
-                            actions: r.actions,
                             points: r.totalPoints,
                             department: r.department
                         });
@@ -1807,13 +1841,13 @@
                 
                 if (allReports.length > 0) {
                     container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
-                        <th>📋 Тип</th><th>📅 Дата</th><th>👤 Пользователь</th><th>📝 Детали</th><th>⭐ Баллы</th><th>🏢 Отдел</th>
+                        <th>Тип</th><th>Дата</th><th>Пользователь</th><th>Детали</th><th>Баллы</th><th>Отдел</th>
                     </tr></thead><tbody>
                         ${allReports.map(r => `
                             <tr>
                                 <td>${r.type}</td>
                                 <td>${new Date(r.date).toLocaleString()}</td>
-                                <td>${r.nickname || r.name || '-'}</td>
+                                <td>${r.nickname || '-'}</td>
                                 <td>${r.rank ? `Ранг: ${r.rank}` : r.currentRank ? `${r.currentRank} → ${r.desiredRank}` : '-'}</td>
                                 <td>${r.points || 0}</td>
                                 <td>${r.department || '-'}</td>
@@ -1835,14 +1869,14 @@
                 const result = await callGoogleScript('getPromotionLists', {});
                 if (result.lists && result.lists.length > 0) {
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
-                        <th>№</th><th>📅 Дата</th><th>👤 Отправитель</th><th>⬆️ Повышаемый</th><th>🔗 Ссылка</th>
+                        <th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th>
                     </tr></thead><tbody>
                         ${result.lists.map(l => `<tr>
                             <td>${l.number}</td>
                             <td>${new Date(l.date).toLocaleString()}</td>
                             <td>${escapeHtml(l.senderName)}</td>
                             <td>${escapeHtml(l.promotedName)}</td>
-                            <td><a href="${l.reportLink}" target="_blank">📄 Открыть</a></td>
+                            <td><a href="${l.reportLink}" target="_blank">Открыть</a></td>
                         </tr>`).join('')}
                     </tbody></table></div>`;
                 } else c.innerHTML = '<div class="empty-state">📭 Нет списков на повышение</div>';
@@ -1855,7 +1889,7 @@
                 const result = await callGoogleScript('getAccounts', {});
                 if (result.accounts && result.accounts.length > 0) {
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
-                        <th>🔑 Логин</th><th>🎭 Роль</th><th>👤 Имя</th><th>👤 Фамилия</th>
+                        <th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th>
                     </tr></thead><tbody>
                         ${result.accounts.map(a => `<tr>
                             <td>${escapeHtml(a.login)}</td>
@@ -1876,7 +1910,7 @@
                 const result = await callGoogleScript('getSettings', {});
                 settings = result.settings || {};
                 document.getElementById('settingWaiting').value = settings.exam_waiting_text || '⏳ Ваша заявка на экзамен принята! Ожидайте ответа.';
-                document.getElementById('settingInProgress').value = settings.exam_inprogress_text || '🔄 Ваш экзамен проводится. Ожидайте результатов.';
+                document.getElementById('settingInProgress').value = settings.exam_inprogress_text || 'https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)';
                 document.getElementById('settingPassed').value = settings.exam_passed_text || '✅ Поздравляем! Вы успешно сдали экзамен!';
                 document.getElementById('settingFailed').value = settings.exam_failed_text || '❌ К сожалению, вы не сдали экзамен. Попробуйте снова.';
             } catch(e) { console.error(e); }
@@ -1903,19 +1937,19 @@
                     let passedList = result.exams.filter(e => e.status === 'Принят');
                     let failedList = result.exams.filter(e => e.status === 'Отклонен');
                     
-                    let message = `**📊 ОТЧЕТ ПО ЭКЗАМЕНАМ**\n\n`;
-                    message += `**⏳ Ожидают (${waitingList.length}):**\n`;
+                    let message = `**ОТЧЕТ ПО ЭКЗАМЕНАМ**\n\n`;
+                    message += `**Ожидают (${waitingList.length}):**\n`;
                     waitingList.slice(0, 10).forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
-                    message += `\n**🔄 Проводятся (${inprogressList.length}):**\n`;
+                    message += `\n**Проводятся (${inprogressList.length}):**\n`;
                     inprogressList.slice(0, 10).forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
-                    message += `\n**✅ Приняты (${passedList.length}):**\n`;
+                    message += `\n**Приняты (${passedList.length}):**\n`;
                     passedList.slice(0, 10).forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
-                    message += `\n**❌ Отклонены (${failedList.length}):**\n`;
+                    message += `\n**Отклонены (${failedList.length}):**\n`;
                     failedList.slice(0, 10).forEach(e => message += `• ${e.fullName} - ${e.examType} (${e.department})\n`);
                     
-                    await sendDiscord(STATUS_WEBHOOKS.MA, "📊 Отчет по экзаменам", [
-                        { name: "📊 Статистика", value: `Ожидают: ${waitingList.length}\nПроводятся: ${inprogressList.length}\nПриняты: ${passedList.length}\nОтклонены: ${failedList.length}` },
-                        { name: "📝 Подробнее", value: message.substring(0, 4000) }
+                    await sendDiscord(STATUS_WEBHOOKS.MA, "Отчет по экзаменам", [
+                        { name: "Статистика", value: `Ожидают: ${waitingList.length}\nПроводятся: ${inprogressList.length}\nПриняты: ${passedList.length}\nОтклонены: ${failedList.length}` },
+                        { name: "Подробнее", value: message.substring(0, 4000) }
                     ], 0x4CAF50);
                     
                     showAlert('examsTab', 'Отчет отправлен в Discord!', 'success');
@@ -1963,7 +1997,6 @@
             loadPromotions();
         }
         
-        // Превью Discord ID
         document.addEventListener('DOMContentLoaded', () => {
             const discordInput = document.getElementById('listDiscordId');
             if (discordInput) {
