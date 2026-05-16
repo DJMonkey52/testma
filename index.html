@@ -66,7 +66,7 @@
 
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 60px;
             margin-top: 10px;
             animation: fadeInDown 0.8s ease;
         }
@@ -119,11 +119,24 @@
         .top-bar {
             position: fixed;
             top: 20px;
+            left: 20px;
             right: 20px;
             display: flex;
-            gap: 12px;
+            justify-content: space-between;
             z-index: 100;
+            gap: 10px;
+            flex-wrap: wrap;
             animation: slideInDown 0.5s ease;
+        }
+
+        .top-bar-left {
+            display: flex;
+            gap: 10px;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 10px;
         }
 
         @keyframes slideInDown {
@@ -199,9 +212,9 @@
         .depts-grid {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 35px;
             flex-wrap: wrap;
-            margin-top: 15px;
+            margin-top: 30px;
         }
 
         .dept-card {
@@ -209,8 +222,8 @@
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
-            padding: 28px 32px;
-            width: 260px;
+            padding: 32px 35px;
+            width: 270px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             cursor: pointer;
@@ -256,9 +269,9 @@
         .actions-grid {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 35px;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         .action-card {
@@ -266,8 +279,8 @@
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
-            padding: 35px 30px;
-            width: 280px;
+            padding: 38px 32px;
+            width: 290px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -951,6 +964,11 @@
                 position: relative;
                 margin-bottom: 20px;
                 justify-content: center;
+                flex-direction: column;
+                align-items: center;
+            }
+            .top-bar-left, .top-bar-right {
+                justify-content: center;
             }
             .page {
                 margin-top: 20px;
@@ -964,26 +982,30 @@
 </head>
 <body>
     <div class="top-bar">
-        <div class="btn-icon" id="adminLoginBtn">
-            <i class="fas fa-user-shield"></i>
-            <span>Вход в админку</span>
+        <div class="top-bar-left">
+            <div class="btn-icon btn-admin" id="adminPanelBtn" style="display: none;">
+                <i class="fas fa-cog"></i>
+                <span>Админ панель</span>
+            </div>
+            <div class="btn-icon btn-logout" id="logoutBtn" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Выйти</span>
+            </div>
         </div>
-        <div class="btn-icon btn-admin" id="adminPanelBtn" style="display: none;">
-            <i class="fas fa-cog"></i>
-            <span>Админ панель</span>
-        </div>
-        <div class="btn-icon user-badge" id="userInfo" style="display: none;">
-            <i class="fas fa-user"></i>
-            <span id="userName"></span>
-            <span class="role-tag" id="userRole"></span>
-        </div>
-        <div class="btn-icon btn-logout" id="logoutBtn" style="display: none;">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Выйти</span>
-        </div>
-        <div class="btn-icon" id="themeBtn">
-            <i class="fas fa-sun"></i>
-            <span>Светлая тема</span>
+        <div class="top-bar-right">
+            <div class="btn-icon" id="adminLoginBtn">
+                <i class="fas fa-user-shield"></i>
+                <span>Вход в админку</span>
+            </div>
+            <div class="btn-icon user-badge" id="userInfo" style="display: none;">
+                <i class="fas fa-user"></i>
+                <span id="userName"></span>
+                <span class="role-tag" id="userRole"></span>
+            </div>
+            <div class="btn-icon" id="themeBtn">
+                <i class="fas fa-sun"></i>
+                <span>Светлая тема</span>
+            </div>
         </div>
     </div>
 
@@ -1901,7 +1923,7 @@
                 if (allReports.length > 0) {
                     container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Тип</th><th>Дата</th><th>Пользователь</th><th>Детали</th><th>Баллы</th><th>Отдел</th>
-                    <tr></thead><tbody>
+                    </tr></thead><tbody>
                         ${allReports.map(r => `
                             <tr>
                                 <td>${r.type}</td>
