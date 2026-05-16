@@ -57,7 +57,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px 20px;
             min-height: 100vh;
@@ -161,10 +161,6 @@
             color: white;
         }
 
-        .btn-logout:hover {
-            background: var(--danger);
-        }
-
         .user-badge {
             background: var(--glass-bg);
             border-color: var(--accent);
@@ -193,7 +189,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Карточки отделов - как на скрине */
+        /* Карточки отделов */
         .depts-grid {
             display: flex;
             justify-content: center;
@@ -251,7 +247,7 @@
         .actions-grid {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 25px;
             flex-wrap: wrap;
             margin-top: 30px;
         }
@@ -266,11 +262,13 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
         .action-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
+            box-shadow: var(--shadow-md);
         }
 
         .action-icon {
@@ -676,7 +674,7 @@
             display: block;
         }
 
-        .exam-item, .list-item {
+        .exam-item {
             background: var(--card-hover);
             border-radius: 16px;
             padding: 16px;
@@ -695,21 +693,6 @@
         .status-waiting { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
         .status-passed { background: rgba(16, 185, 129, 0.2); color: #10b981; }
         .status-failed { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        th {
-            color: var(--accent-glow);
-        }
 
         @media (max-width: 850px) {
             .depts-grid, .actions-grid {
@@ -937,7 +920,7 @@
 
     <script>
         // ==================== КОНФИГУРАЦИЯ ====================
-        // ВАЖНО: ЗАМЕНИ НА СВОЙ URL ИЗ APPS SCRIPT
+        // ВАШ URL ИЗ APPS SCRIPT
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxGvQ0Q7rHHwOayB1HJ8RK1xM1zznn9r5xCGl94wMvAaz2YKfwRpMxydKORGvrW1kcg/exec';
         
         const WEBHOOKS = {
@@ -1004,23 +987,29 @@
         
         async function sendDiscord(webhook, title, fields, color = 0x4CAF50, content = '') {
             try {
-                await fetch(webhook, {
+                const res = await fetch(webhook, {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ content, embeds: [{ title, color, fields, footer: { text: "ARMY Delta" }, timestamp: new Date().toISOString() }] })
                 });
-            } catch(e) { console.error(e); }
+                return res.ok;
+            } catch(e) { console.error('Discord error:', e); return false; }
         }
         
         async function saveToSheet(type, dept, action, data) {
-            if (!GOOGLE_SCRIPT_URL) return;
+            if (!GOOGLE_SCRIPT_URL) return false;
             try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors',
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ type, department: dept, actionType: action, ...data })
                 });
-                console.log('Отправлено в Google Sheets:', type, dept, action);
-            } catch(e) { console.error('Ошибка отправки в Google Sheets:', e); }
+                const result = await response.text();
+                console.log('Sheet response:', result);
+                return true;
+            } catch(e) { 
+                console.error('Sheet error:', e); 
+                return false;
+            }
         }
         
         function showAlert(container, msg, type) {
@@ -1052,7 +1041,7 @@
                     return false;
                 }
             } catch(e) {
-                showAlert('loginAlert', 'Ошибка соединения', 'error');
+                showAlert('loginAlert', 'Ошибка соединения с сервером', 'error');
                 return false;
             }
         }
@@ -1101,12 +1090,12 @@
                 actions = [
                     { id: 'weekly', name: 'Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
                     { id: 'promotion', name: 'Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
-                    { id: 'exam', name: 'Запись на экзамен', desc: 'Запись на экзамен для повышения', icon: 'fa-pen-clip' }
+                    { id: 'exam', name: 'Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
                 ];
             } else {
                 actions = [
                     { id: 'promotion', name: 'Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
-                    { id: 'exam', name: 'Запись на экзамен', desc: 'Запись на экзамен для повышения', icon: 'fa-pen-clip' }
+                    { id: 'exam', name: 'Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
                 ];
             }
             
@@ -1432,15 +1421,19 @@
             renderActionsList();
             updateTotalDisplay();
             if (currentAction === 'weekly') {
-                const inputs = ['fNickname', 'fRank'];
-                inputs.forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+                document.getElementById('fNickname') && (document.getElementById('fNickname').value = '');
+                document.getElementById('fRank') && (document.getElementById('fRank').value = '');
                 setDefaultDates();
             } else if (currentAction === 'promotion') {
-                const inputs = ['fNickname', 'fCurrentRank', 'fDesiredRank', 'fLastProm'];
-                inputs.forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+                document.getElementById('fNickname') && (document.getElementById('fNickname').value = '');
+                document.getElementById('fCurrentRank') && (document.getElementById('fCurrentRank').value = '');
+                document.getElementById('fDesiredRank') && (document.getElementById('fDesiredRank').value = '');
+                document.getElementById('fLastProm') && (document.getElementById('fLastProm').value = '');
             } else {
-                const inputs = ['fFullName', 'fExamType', 'fDiscord', 'fTime'];
-                inputs.forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+                document.getElementById('fFullName') && (document.getElementById('fFullName').value = '');
+                document.getElementById('fExamType') && (document.getElementById('fExamType').value = '');
+                document.getElementById('fDiscord') && (document.getElementById('fDiscord').value = '');
+                document.getElementById('fTime') && (document.getElementById('fTime').value = '');
             }
         }
         
@@ -1465,7 +1458,7 @@
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getExams' }) });
                 const data = await res.json();
-                if (data.exams?.length) {
+                if (data.exams && data.exams.length > 0) {
                     container.innerHTML = data.exams.map((e, i) => `
                         <div class="exam-item">
                             <div><strong>${e.fullName}</strong> | ${e.examType} | ${e.department}</div>
@@ -1477,16 +1470,16 @@
                                 <option value="Отклонено" ${e.status==='Отклонено'?'selected':''}>Отклонено</option>
                             </select>
                             <div class="exam-form" style="display:none; margin-top:10px;">
-                                <input type="text" placeholder="Принимавший" class="examiner">
-                                <input type="number" placeholder="Балл" class="score">
-                                <select class="result"><option>Сдал</option><option>Не сдал</option></select>
-                                <button class="confirm-exam">Подтвердить</button>
+                                <input type="text" placeholder="Принимавший" class="examiner" style="padding:5px; margin:3px;">
+                                <input type="number" placeholder="Балл" class="score" style="padding:5px; margin:3px; width:80px;">
+                                <select class="result" style="padding:5px; margin:3px;"><option>Сдал</option><option>Не сдал</option></select>
+                                <button class="confirm-exam" style="padding:5px 10px; background:var(--accent); color:white; border:none; border-radius:8px;">Подтвердить</button>
                             </div>
                         </div>
                     `).join('');
                     
                     document.querySelectorAll('.exam-status').forEach(sel => {
-                        sel.onchange = (e) => {
+                        sel.onchange = () => {
                             const div = sel.parentElement.querySelector('.exam-form');
                             if (sel.value === 'Пройдено') div.style.display = 'block';
                             else { div.style.display = 'none'; updateExamStatus(sel.dataset.name, sel.dataset.date, sel.value, '', '', '', sel.dataset.dept); }
@@ -1505,18 +1498,20 @@
                         };
                     });
                 } else {
-                    container.innerHTML = '<div class="empty-state">Нет записей</div>';
+                    container.innerHTML = '<div class="empty-state">Нет записей на экзамен</div>';
                 }
-            } catch(e) { container.innerHTML = '<div class="empty-state">Ошибка загрузки</div>'; }
+            } catch(e) { container.innerHTML = '<div class="empty-state">Ошибка загрузки экзаменов</div>'; }
         }
         
         async function updateExamStatus(name, date, status, examiner, score, result, dept) {
-            await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'examStatus', fullName: name, date, status, examinerName: examiner, score, result, department: dept }) });
-            const webhook = STATUS_WEBHOOKS[dept] || STATUS_WEBHOOKS.MA;
-            await sendDiscord(webhook, `Результат экзамена (${dept})`, [
-                { name: "Участник", value: name }, { name: "Статус", value: status },
-                { name: "Принимавший", value: examiner || '-' }, { name: "Результат", value: result }
-            ], status === 'Пройдено' ? 0x10b981 : 0xef4444);
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'examStatus', fullName: name, date, status, examinerName: examiner, score, result, department: dept }) });
+                const webhook = STATUS_WEBHOOKS[dept] || STATUS_WEBHOOKS.MA;
+                await sendDiscord(webhook, `Результат экзамена (${dept})`, [
+                    { name: "Участник", value: name }, { name: "Статус", value: status },
+                    { name: "Принимавший", value: examiner || '-' }, { name: "Результат", value: result }
+                ], status === 'Пройдено' ? 0x10b981 : 0xef4444);
+            } catch(e) { console.error(e); }
         }
         
         async function loadPromotions() {
@@ -1524,12 +1519,12 @@
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getPromotionLists' }) });
                 const data = await res.json();
-                if (data.lists?.length) {
-                    c.innerHTML = `<table><thead><th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th><th>Отдел</th></thead><tbody>
+                if (data.lists && data.lists.length > 0) {
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th><th>Отдел</th></tr></thead><tbody>
                         ${data.lists.map(l => `<tr><td>${l.number}</td><td>${new Date(l.date).toLocaleString()}</td><td>${l.senderName}</td><td>${l.promotedName}</td><td><a href="${l.reportLink}" target="_blank">Открыть</a></td><td>${l.department}</td></tr>`).join('')}
-                    </tbody></table>`;
-                } else c.innerHTML = '<div class="empty-state">Нет списков</div>';
-            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка загрузки</div>'; }
+                    </tbody></table></div>`;
+                } else c.innerHTML = '<div class="empty-state">Нет списков на повышение</div>';
+            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка загрузки списков</div>'; }
         }
         
         async function loadAccounts() {
@@ -1537,12 +1532,12 @@
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getAccounts' }) });
                 const data = await res.json();
-                if (data.accounts?.length) {
-                    c.innerHTML = `<tr><thead><th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th></thead><tbody>
+                if (data.accounts && data.accounts.length > 0) {
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr><th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th></tr></thead><tbody>
                         ${data.accounts.map(a => `<tr><td>${a.login}</td><td>${a.role}</td><td>${a.firstName||''}</td><td>${a.lastName||''}</td></tr>`).join('')}
-                    </tbody></table>`;
+                    </tbody></table></div>`;
                 } else c.innerHTML = '<div class="empty-state">Нет аккаунтов</div>';
-            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка загрузки</div>'; }
+            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка загрузки аккаунтов</div>'; }
         }
         
         async function loadSettings() {
@@ -1563,13 +1558,13 @@
                 exam_failed_text: document.getElementById('settingFailed').value
             };
             await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'saveSettings', settings: newSet }) });
-            showAlert('settingsTabContent', 'Сохранено', 'success');
+            showAlert('settingsTabContent', 'Настройки сохранены', 'success');
         }
         
         async function createAccount() {
             const login = document.getElementById('newLogin')?.value;
             const pass = document.getElementById('newPassword')?.value;
-            if (!login || !pass) { showAlert('accountsTabContent', 'Заполните логин/пароль', 'error'); return; }
+            if (!login || !pass) { showAlert('accountsTabContent', 'Заполните логин и пароль', 'error'); return; }
             await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
                 type: 'createAccount', login, password: pass, role: document.getElementById('newRole').value,
                 firstName: document.getElementById('newFirstName').value, lastName: document.getElementById('newLastName').value
@@ -1596,7 +1591,9 @@
             loadPromotions();
         }
         
+        // ИНИЦИАЛИЗАЦИЯ
         document.addEventListener('DOMContentLoaded', () => {
+            // Тема
             if (localStorage.getItem('theme') === 'light') {
                 document.body.classList.add('light');
                 document.querySelector('#themeBtn i').className = 'fas fa-moon';
@@ -1612,6 +1609,7 @@
                 else { icon.className = 'fas fa-sun'; span.innerText = 'Светлая тема'; }
             };
             
+            // Навигация
             document.querySelectorAll('.dept-card').forEach(card => {
                 card.onclick = () => showActionsPage(card.dataset.dept);
             });
@@ -1621,6 +1619,7 @@
             document.getElementById('addActionBtn').onclick = addAction;
             document.getElementById('submitBtn').onclick = submitForm;
             
+            // Админка
             document.getElementById('adminLoginBtn').onclick = () => document.getElementById('loginModal').style.display = 'flex';
             document.getElementById('closeModalBtn').onclick = () => document.getElementById('loginModal').style.display = 'none';
             document.getElementById('doLoginBtn').onclick = () => doLogin(document.getElementById('loginUser').value, document.getElementById('loginPass').value);
@@ -1630,6 +1629,7 @@
             document.getElementById('saveSettingsBtn')?.addEventListener('click', saveSettings);
             document.getElementById('sendListBtn')?.addEventListener('click', sendPromotionList);
             
+            // Табы админки
             document.querySelectorAll('.admin-tab').forEach(tab => {
                 tab.onclick = () => {
                     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -1642,8 +1642,10 @@
                 };
             });
             
+            // Закрытие модалки по клику вне
             window.onclick = e => { if (e.target === document.getElementById('loginModal')) document.getElementById('loginModal').style.display = 'none'; };
             
+            // Восстановление сессии
             const saved = localStorage.getItem('deltaUser');
             if (saved) {
                 currentUser = JSON.parse(saved);
