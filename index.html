@@ -118,10 +118,28 @@
             font-size: 0.9rem;
         }
 
-        .theme-toggle {
+        /* Кнопки сверху */
+        .top-buttons {
             position: fixed;
             top: 20px;
+            left: 20px;
             right: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 100;
+        }
+
+        .left-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .right-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
@@ -135,116 +153,47 @@
             font-weight: 500;
             font-size: 0.85rem;
             transition: all 0.3s;
-            z-index: 100;
         }
 
-        .theme-toggle:hover {
+        .icon-btn:hover {
             border-color: var(--accent);
             transform: scale(1.02);
         }
 
         .admin-login-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(76, 175, 80, 0.2);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--accent);
-            border-radius: 50px;
-            padding: 8px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
+            border-color: var(--accent);
             color: var(--accent-glow);
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-            z-index: 100;
         }
 
         .admin-login-btn:hover {
             background: var(--accent);
             color: white;
-            border-color: var(--accent);
-            transform: scale(1.02);
-        }
-
-        .admin-panel-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--accent);
-            border-radius: 50px;
-            padding: 8px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            color: var(--accent-glow);
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-            z-index: 100;
-        }
-
-        .admin-panel-btn:hover {
-            border-color: var(--accent);
-            transform: scale(1.02);
         }
 
         .logout-btn {
-            position: fixed;
-            top: 20px;
-            right: 160px;
             background: rgba(239, 68, 68, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--danger);
-            border-radius: 50px;
-            padding: 8px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
+            border-color: var(--danger);
             color: white;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.3s;
-            z-index: 100;
         }
 
         .logout-btn:hover {
             background: var(--danger);
-            transform: scale(1.02);
         }
 
         .user-info {
-            position: fixed;
-            top: 20px;
-            right: 280px;
             background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--accent);
-            border-radius: 50px;
-            padding: 8px 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            border-color: var(--accent);
             color: var(--accent-glow);
-            font-weight: 500;
-            font-size: 0.85rem;
-            z-index: 100;
         }
 
-        .home-page, .form-page, .admin-page, .login-modal {
-            animation: fadeInUp 0.4s ease;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Главная страница с отделами */
+        .home-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            min-height: calc(100vh - 180px);
         }
 
         .dept-cards {
@@ -260,9 +209,8 @@
             backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
             border-radius: 32px;
-            padding: 38px 32px;
-            width: 280px;
-            cursor: pointer;
+            padding: 30px 25px;
+            width: 300px;
             transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             text-align: center;
             box-shadow: var(--shadow-md);
@@ -274,51 +222,68 @@
         }
 
         .dept-card .card-icon {
-            width: 75px;
-            height: 75px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.25), rgba(46, 125, 50, 0.15));
-            border-radius: 26px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            font-size: 36px;
+            font-size: 32px;
             color: var(--accent);
         }
 
         .dept-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
-        .action-buttons {
+        .dept-card p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+
+        .dept-buttons {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 10px;
         }
 
-        .action-mini-btn {
+        .dept-btn {
             background: rgba(76, 175, 80, 0.12);
             border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 12px;
+            border-radius: 14px;
+            padding: 10px;
             color: var(--text-primary);
             font-weight: 600;
+            font-size: 0.85rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             transition: all 0.3s;
         }
 
-        .action-mini-btn:hover {
+        .dept-btn:hover {
             background: rgba(76, 175, 80, 0.25);
             border-color: var(--accent);
             transform: translateY(-2px);
+        }
+
+        /* Форма */
+        .form-page, .admin-page {
+            display: none;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .back-btn {
@@ -364,6 +329,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .card-header h2 i {
+            color: var(--accent);
         }
 
         .card-body {
@@ -428,45 +397,6 @@
             overflow: hidden;
         }
 
-        .action-item.new-action {
-            animation: actionAppear 0.35s ease forwards;
-        }
-
-        @keyframes actionAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(-15px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .action-item.removing {
-            animation: actionRemove 0.3s ease forwards !important;
-            pointer-events: none;
-        }
-
-        @keyframes actionRemove {
-            0% {
-                opacity: 1;
-                transform: scale(1) translateX(0);
-                max-height: 300px;
-                margin-bottom: 14px;
-                padding: 16px;
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.95) translateX(-30px);
-                max-height: 0;
-                margin-bottom: 0;
-                padding-top: 0;
-                padding-bottom: 0;
-                border: none;
-            }
-        }
-
         .action-header {
             display: flex;
             justify-content: space-between;
@@ -495,11 +425,6 @@
             font-size: 0.7rem;
             font-weight: 600;
             transition: all 0.2s;
-        }
-
-        .remove-action:hover {
-            background: rgba(239, 68, 68, 0.3);
-            transform: scale(1.02);
         }
 
         .action-fields {
@@ -638,11 +563,6 @@
             margin: 16px 0;
         }
 
-        .add-btn:hover {
-            background: rgba(76, 175, 80, 0.25);
-            transform: translateY(-2px);
-        }
-
         .empty-state {
             text-align: center;
             padding: 30px;
@@ -742,14 +662,7 @@
             display: flex;
         }
 
-        .alert.warning {
-            background: rgba(245, 158, 11, 0.12);
-            border-left: 3px solid #f59e0b;
-            color: #f59e0b;
-            display: flex;
-        }
-
-        /* Modal styles */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -768,6 +681,7 @@
             width: 90%;
         }
 
+        /* Admin panel */
         .admin-tabs {
             display: flex;
             gap: 10px;
@@ -848,6 +762,10 @@
         }
 
         @media (max-width: 850px) {
+            .dept-cards {
+                flex-direction: column;
+                align-items: center;
+            }
             .action-fields {
                 grid-template-columns: 1fr;
             }
@@ -857,64 +775,48 @@
             .period-row {
                 grid-template-columns: 1fr;
             }
-            .user-info, .logout-btn {
-                display: none;
-            }
-            .dept-cards {
+            .top-buttons {
+                position: relative;
                 flex-direction: column;
                 align-items: center;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            .left-buttons, .right-buttons {
+                justify-content: center;
+            }
+            body {
+                padding-top: 100px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Кнопки -->
-    <div class="theme-toggle" id="themeSwitch">
-        <i class="fas fa-sun"></i>
-        <span>Светлая тема</span>
-    </div>
-    
-    <div id="adminLoginBtn" class="admin-login-btn">
-        <i class="fas fa-user-shield"></i>
-        <span>Вход в админку</span>
-    </div>
-    
-    <div id="adminPanelBtn" class="admin-panel-btn" style="display: none;">
-        <i class="fas fa-cog"></i>
-        <span>Админ панель</span>
-    </div>
-    
-    <div id="userInfo" class="user-info" style="display: none;">
-        <i class="fas fa-user"></i>
-        <span id="userName"></span>
-        <span class="role-badge" id="userRole"></span>
-    </div>
-    
-    <div id="logoutBtn" class="logout-btn" style="display: none;">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Выйти</span>
-    </div>
-
-    <!-- Модальное окно входа -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <div class="glass-card">
-                <div class="card-header">
-                    <h2><i class="fas fa-key"></i> Вход в админ панель</h2>
-                </div>
-                <div class="card-body">
-                    <div id="loginModalAlert"></div>
-                    <div class="input-group">
-                        <label>Логин</label>
-                        <input type="text" id="modalLogin" placeholder="Введите логин">
-                    </div>
-                    <div class="input-group">
-                        <label>Пароль</label>
-                        <input type="password" id="modalPassword" placeholder="Введите пароль">
-                    </div>
-                    <button class="submit-btn" id="modalLoginBtn"><i class="fas fa-sign-in-alt"></i> Войти</button>
-                    <button class="back-btn" id="closeModalBtn" style="margin-top: 10px; width: 100%; justify-content: center;">Закрыть</button>
-                </div>
+    <!-- Верхние кнопки -->
+    <div class="top-buttons">
+        <div class="left-buttons">
+            <div class="icon-btn" id="themeSwitch">
+                <i class="fas fa-sun"></i>
+                <span>Светлая тема</span>
+            </div>
+            <div class="icon-btn admin-login-btn" id="adminLoginBtn">
+                <i class="fas fa-user-shield"></i>
+                <span>Вход в админку</span>
+            </div>
+            <div class="icon-btn admin-panel-btn" id="adminPanelBtn" style="display: none;">
+                <i class="fas fa-cog"></i>
+                <span>Админ панель</span>
+            </div>
+        </div>
+        <div class="right-buttons">
+            <div class="icon-btn user-info" id="userInfo" style="display: none;">
+                <i class="fas fa-user"></i>
+                <span id="userName"></span>
+                <span class="role-badge" id="userRole"></span>
+            </div>
+            <div class="icon-btn logout-btn" id="logoutBtn" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Выйти</span>
             </div>
         </div>
     </div>
@@ -928,42 +830,69 @@
             <p class="subtitle">Система подачи отчётов Delta</p>
         </div>
 
-        <!-- Главная страница с отделами -->
-        <div id="homePage" class="home-page">
-            <div class="dept-cards">
-                <div class="dept-card">
-                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>КМБ</h3>
-                    <p>Курс молодого бойца</p>
-                    <div class="action-buttons">
-                        <div class="action-mini-btn" data-dept="КМБ" data-action="promotion"><i class="fas fa-arrow-up"></i> Отчет на повышение</div>
-                        <div class="action-mini-btn" data-dept="КМБ" data-action="exam"><i class="fas fa-pen-clip"></i> Запись на экзамен</div>
+        <!-- Модальное окно входа -->
+        <div id="loginModal" class="modal">
+            <div class="modal-content">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-key"></i> Вход в админ панель</h2>
                     </div>
-                </div>
-                <div class="dept-card">
-                    <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>ACD</h3>
-                    <p>Академический отдел</p>
-                    <div class="action-buttons">
-                        <div class="action-mini-btn" data-dept="ACD" data-action="promotion"><i class="fas fa-arrow-up"></i> Отчет на повышение</div>
-                        <div class="action-mini-btn" data-dept="ACD" data-action="exam"><i class="fas fa-pen-clip"></i> Запись на экзамен</div>
-                    </div>
-                </div>
-                <div class="dept-card">
-                    <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
-                    <h3>MA</h3>
-                    <p>Медицинская академия</p>
-                    <div class="action-buttons">
-                        <div class="action-mini-btn" data-dept="MA" data-action="weekly"><i class="fas fa-calendar-week"></i> Еженедельный отчет</div>
-                        <div class="action-mini-btn" data-dept="MA" data-action="promotion"><i class="fas fa-arrow-up"></i> Отчет на повышение</div>
-                        <div class="action-mini-btn" data-dept="MA" data-action="exam"><i class="fas fa-pen-clip"></i> Запись на экзамен</div>
+                    <div class="card-body">
+                        <div id="loginModalAlert"></div>
+                        <div class="input-group">
+                            <label>Логин</label>
+                            <input type="text" id="modalLogin" placeholder="Введите логин">
+                        </div>
+                        <div class="input-group">
+                            <label>Пароль</label>
+                            <input type="password" id="modalPassword" placeholder="Введите пароль">
+                        </div>
+                        <button class="submit-btn" id="modalLoginBtn">Войти</button>
+                        <button class="back-btn" id="closeModalBtn" style="margin-top: 10px; width: 100%; justify-content: center;">Закрыть</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Страница формы (универсальная) -->
-        <div id="formPage" class="form-page" style="display: none;">
+        <!-- Главная страница с отделами -->
+        <div id="homePage" class="home-page">
+            <div class="dept-cards">
+                <!-- КМБ -->
+                <div class="dept-card">
+                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>КМБ</h3>
+                    <p>Курс молодого бойца</p>
+                    <div class="dept-buttons">
+                        <div class="dept-btn" data-dept="КМБ" data-action="promotion"><i class="fas fa-arrow-up"></i> Отчёт на повышение</div>
+                        <div class="dept-btn" data-dept="КМБ" data-action="exam"><i class="fas fa-pen-clip"></i> Запись на экзамен</div>
+                    </div>
+                </div>
+                <!-- ACD -->
+                <div class="dept-card">
+                    <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>ACD</h3>
+                    <p>Академический отдел</p>
+                    <div class="dept-buttons">
+                        <div class="dept-btn" data-dept="ACD" data-action="promotion"><i class="fas fa-arrow-up"></i> Отчёт на повышение</div>
+                        <div class="dept-btn" data-dept="ACD" data-action="exam"><i class="fas fa-pen-clip"></i> Запись на экзамен</div>
+                    </div>
+                </div>
+                <!-- MA -->
+                <div class="dept-card">
+                    <div class="card-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>MA</h3>
+                    <p>Медицинская академия</p>
+                    <div class="dept-buttons">
+                        <div class="dept-btn" data-dept="MA" data-action="weekly"><i class="fas fa-calendar-week"></i> Еженедельный отчёт</div>
+                        <div class="dept-btn" data-dept="MA" data-action="promotion"><i class="fas fa-arrow-up"></i> Отчёт на повышение</div>
+                        <div class="dept-btn" data-dept="MA" data-action="exam"><i class="fas fa-pen-clip"></i> Запись на экзамен</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Универсальная страница формы -->
+        <div id="formPage" class="form-page">
             <div class="back-btn" onclick="showHomePage()">
                 <i class="fas fa-arrow-left"></i> На главную
             </div>
@@ -997,7 +926,7 @@
         </div>
 
         <!-- Админ панель -->
-        <div id="adminPage" class="admin-page" style="display: none;">
+        <div id="adminPage" class="admin-page">
             <div class="back-btn" onclick="showHomePage()">
                 <i class="fas fa-arrow-left"></i> На главную
             </div>
@@ -1032,45 +961,40 @@
                             <div class="card-body">
                                 <div class="input-group"><label>Логин</label><input type="text" id="newLogin"></div>
                                 <div class="input-group"><label>Пароль</label><input type="text" id="newPassword"></div>
-                                <div class="input-group">
-                                    <label>Роль</label>
-                                    <select id="newRole">
-                                        <option value="Admin">Admin</option>
-                                        <option value="Командир">Командир</option>
-                                        <option value="Зам командира">Зам командира</option>
-                                        <option value="Инструктор МА">Инструктор МА</option>
-                                        <option value="Сотрудник МА">Сотрудник МА</option>
-                                    </select>
-                                </div>
+                                <div class="input-group"><label>Роль</label><select id="newRole">
+                                    <option value="Admin">Admin</option>
+                                    <option value="Командир">Командир</option>
+                                    <option value="Зам командира">Зам командира</option>
+                                    <option value="Инструктор МА">Инструктор МА</option>
+                                    <option value="Сотрудник МА">Сотрудник МА</option>
+                                </select></div>
                                 <div class="input-group"><label>Имя</label><input type="text" id="newFirstName"></div>
                                 <div class="input-group"><label>Фамилия</label><input type="text" id="newLastName"></div>
-                                <div class="input-group"><label>Discord ID (опционально)</label><input type="text" id="newDiscordId"></div>
-                                <button class="submit-btn" id="createAccountBtn">Создать аккаунт</button>
+                                <div class="input-group"><label>Discord ID</label><input type="text" id="newDiscordId"></div>
+                                <button class="submit-btn" id="createAccountBtn">Создать</button>
                             </div>
                         </div>
                     </div>
                     
                     <div id="settingsTabContent" class="admin-tab-content" style="display: none;">
-                        <h3>Настройки статусов экзаменов</h3>
-                        <div class="input-group"><label>Текст для статуса "Ожидание"</label><textarea id="settingWaitingText" rows="2"></textarea></div>
-                        <div class="input-group"><label>Текст для статуса "Пройдено"</label><textarea id="settingPassedText" rows="2"></textarea></div>
-                        <div class="input-group"><label>Текст для статуса "Отклонено"</label><textarea id="settingFailedText" rows="2"></textarea></div>
-                        <button class="submit-btn" id="saveSettingsBtn">Сохранить настройки</button>
+                        <h3>Настройки статусов</h3>
+                        <div class="input-group"><label>Текст "Ожидание"</label><textarea id="settingWaitingText" rows="2"></textarea></div>
+                        <div class="input-group"><label>Текст "Пройдено"</label><textarea id="settingPassedText" rows="2"></textarea></div>
+                        <div class="input-group"><label>Текст "Отклонено"</label><textarea id="settingFailedText" rows="2"></textarea></div>
+                        <button class="submit-btn" id="saveSettingsBtn">Сохранить</button>
                     </div>
                     
                     <div id="promotionFormTab" class="admin-tab-content" style="display: none;">
                         <h3>Отправить список на повышение</h3>
-                        <div class="input-group"><label>👤 Имя и фамилия (Отправитель)</label><input type="text" id="promoSenderName" placeholder="Иванов Иван"></div>
-                        <div class="input-group"><label>👤 Имя и фамилия (Повышаемый)</label><input type="text" id="promoPromotedName" placeholder="Петров Петр"></div>
-                        <div class="input-group"><label>🔗 Ссылка на отчет</label><input type="text" id="promoReportLink" placeholder="https://..."></div>
-                        <div class="input-group"><label>📁 Отдел</label>
-                            <select id="promoDepartment">
-                                <option value="MA">MA</option>
-                                <option value="КМБ">КМБ</option>
-                                <option value="ACD">ACD</option>
-                            </select>
-                        </div>
-                        <button class="submit-btn" id="sendPromotionListBtn">Отправить список</button>
+                        <div class="input-group"><label>Отправитель</label><input type="text" id="promoSenderName"></div>
+                        <div class="input-group"><label>Повышаемый</label><input type="text" id="promoPromotedName"></div>
+                        <div class="input-group"><label>Ссылка на отчет</label><input type="text" id="promoReportLink"></div>
+                        <div class="input-group"><label>Отдел</label><select id="promoDepartment">
+                            <option value="MA">MA</option>
+                            <option value="КМБ">КМБ</option>
+                            <option value="ACD">ACD</option>
+                        </select></div>
+                        <button class="submit-btn" id="sendPromotionListBtn">Отправить</button>
                     </div>
                 </div>
             </div>
@@ -1082,7 +1006,6 @@
         // ⚠️ ЗАМЕНИ НА СВОЙ URL ОТ APPS SCRIPT ⚠️
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxuBAph1pq4i9JMZS2Dka_nc_XBFZrtqCADpfO5CE4PEShaWF6kSoX8UQe8LsBOxq7O/exec';
         
-        // Вебхуки для каждого отдела и типа
         const WEBHOOKS = {
             КМБ: {
                 promotion: 'https://discord.com/api/webhooks/1505219072755896422/gqH9WV9rFf1BlpfITuxcduTT5GCqCZmgwhw2k8XL5_pDbXTceM5Z2QdZDRPbga3XOca9',
@@ -1099,20 +1022,16 @@
             }
         };
         
-        // Дополнительный вебхук для всех экзаменов
         const ADDITIONAL_EXAM_WEBHOOK = 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX';
         
-        // Вебхуки для уведомлений об изменении статуса
         const STATUS_WEBHOOKS = {
             MA: 'https://discord.com/api/webhooks/1505219475765592114/hvAP4uFpg_PyHnLnbMsUei3XUEefJM4vf1DoKL6hVXurZiD9OfLQqMHNiAKj0TCC_yHZ',
             ACD: 'https://discord.com/api/webhooks/1505219475765592114/hvAP4uFpg_PyHnLnbMsUei3XUEefJM4vf1DoKL6hVXurZiD9OfLQqMHNiAKj0TCC_yHZ',
             КМБ: 'https://discord.com/api/webhooks/1505219389820112928/pUbySSvWb3c4VC6lr6dGB2AL0htMMCZ8N1UoEAO_1w3wKCVw53wYE5PndStUf8DZQ5tQ'
         };
         
-        // Вебхук для списков на повышение
         const PROMOTION_LIST_WEBHOOK = 'https://discord.com/api/webhooks/1505217723175796858/TVPMTOvOiJA_oWcEWiA3ftoi2ShAII_nCLkI_mvRFK6eihqLVTzxd1viBVz4yaiaQp6B';
         
-        // Теги для уведомлений
         const TAGS = {
             КМБ: {
                 promotion: '<@&793440128906821672><@&792080799062556672>',
@@ -1152,118 +1071,91 @@
             { name: "Доп. работа", basePoints: 5 }
         ];
         
-        // Права доступа по ролям
         const ROLE_PERMISSIONS = {
-            Admin: ['all', 'admin_panel', 'manage_accounts', 'manage_settings', 'manage_exams', 'manage_promotion', 'send_promotion_list'],
-            Командир: ['all', 'admin_panel', 'manage_accounts', 'manage_settings', 'manage_exams', 'manage_promotion', 'send_promotion_list'],
-            'Зам командира': ['admin_panel', 'manage_exams', 'manage_promotion', 'send_promotion_list'],
+            Admin: ['all', 'admin_panel', 'manage_accounts', 'manage_settings', 'manage_exams', 'send_promotion_list'],
+            Командир: ['all', 'admin_panel', 'manage_accounts', 'manage_settings', 'manage_exams', 'send_promotion_list'],
+            'Зам командира': ['admin_panel', 'manage_exams', 'send_promotion_list'],
             'Инструктор МА': ['manage_exams'],
             'Сотрудник МА': ['manage_exams']
         };
         
-        // Глобальные переменные
         let currentUser = null;
         let currentDepartment = null;
         let currentActionType = null;
         let currentActions = [];
-        let settings = { waitingText: '', passedText: '', failedText: '' };
+        let settings = {};
         
-        // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
+        // ==================== ВСПОМОГАТЕЛЬНЫЕ ====================
         function escapeHtml(str) {
             if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
+            return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
         }
         
         function formatDate(dateStr) {
             if (!dateStr) return '';
-            const d = new Date(dateStr);
-            return d.toLocaleDateString('ru-RU');
+            return new Date(dateStr).toLocaleDateString('ru-RU');
         }
         
         function calculatePoints(action) {
-            let base = action.basePoints || 0;
-            let count = parseInt(action.count) || 1;
-            return base * count;
+            return (action.basePoints || 0) * (parseInt(action.count) || 1);
         }
         
         function calculateTotalPoints(actions) {
-            return actions.reduce((total, action) => total + calculatePoints(action), 0);
+            return actions.reduce((sum, a) => sum + calculatePoints(a), 0);
         }
         
-        async function sendToDiscordWithEmbed(webhookUrl, title, fields, color = 0x4CAF50, additionalContent = '') {
-            const embed = { 
-                title: title, 
-                color: color, 
-                fields: fields, 
-                footer: { text: "ARMY Delta System" }, 
-                timestamp: new Date().toISOString() 
-            };
+        async function sendToDiscord(webhookUrl, title, fields, color = 0x4CAF50, content = '') {
+            const embed = { title, color, fields, footer: { text: "ARMY Delta System" }, timestamp: new Date().toISOString() };
             const body = { embeds: [embed] };
-            if (additionalContent) body.content = additionalContent;
-            
+            if (content) body.content = content;
             try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body)
-                });
-                return response.ok;
-            } catch (error) {
-                console.error('Discord send error:', error);
-                return false;
-            }
+                const res = await fetch(webhookUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+                return res.ok;
+            } catch(e) { return false; }
         }
         
-        async function writeToGoogleSheet(type, department, actionType, data) {
+        async function writeToSheet(type, department, actionType, data) {
             if (!GOOGLE_SCRIPT_URL) return;
             try {
                 await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
+                    method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ type, department, actionType, ...data })
                 });
-            } catch (error) {
-                console.error('Google Sheets error:', error);
-            }
+            } catch(e) { console.error(e); }
         }
         
-        function showAlert(containerId, message, type) {
+        function showAlert(containerId, msg, type) {
             const container = document.getElementById(containerId);
             if (!container) return;
-            const alertDiv = document.createElement('div');
-            alertDiv.className = `alert ${type}`;
-            alertDiv.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
-            container.appendChild(alertDiv);
-            setTimeout(() => alertDiv.remove(), 5000);
+            const div = document.createElement('div');
+            div.className = `alert ${type}`;
+            div.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+            container.appendChild(div);
+            setTimeout(() => div.remove(), 5000);
         }
         
         // ==================== АВТОРИЗАЦИЯ ====================
         async function login(login, password) {
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                const res = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ type: 'auth', login, password })
                 });
-                const data = await response.json();
+                const data = await res.json();
                 if (data.success) {
                     currentUser = data.user;
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
                     updateUIForAdmin();
                     document.getElementById('loginModal').style.display = 'none';
-                    showAlert('loginModalAlert', 'Вход выполнен успешно!', 'success');
+                    showAlert('loginModalAlert', 'Вход выполнен!', 'success');
                     return true;
                 } else {
-                    showAlert('loginModalAlert', data.error || 'Ошибка входа', 'error');
+                    showAlert('loginModalAlert', data.error || 'Ошибка', 'error');
                     return false;
                 }
-            } catch (error) {
+            } catch(e) {
                 showAlert('loginModalAlert', 'Ошибка соединения', 'error');
                 return false;
             }
@@ -1292,23 +1184,22 @@
             }
         }
         
-        function hasPermission(permission) {
+        function hasPermission(perm) {
             if (!currentUser) return false;
-            const userRole = currentUser.role;
-            const permissions = ROLE_PERMISSIONS[userRole] || [];
-            return permissions.includes('all') || permissions.includes(permission);
+            const perms = ROLE_PERMISSIONS[currentUser.role] || [];
+            return perms.includes('all') || perms.includes(perm);
         }
         
-        // ==================== ОТОБРАЖЕНИЕ СТРАНИЦ ====================
+        // ==================== ОТОБРАЖЕНИЕ ====================
         function showHomePage() {
-            document.getElementById('homePage').style.display = 'block';
+            document.getElementById('homePage').style.display = 'flex';
             document.getElementById('formPage').style.display = 'none';
             document.getElementById('adminPage').style.display = 'none';
         }
         
-        function showFormPage(department, actionType) {
-            currentDepartment = department;
-            currentActionType = actionType;
+        function showFormPage(dept, action) {
+            currentDepartment = dept;
+            currentActionType = action;
             currentActions = [];
             
             document.getElementById('homePage').style.display = 'none';
@@ -1316,124 +1207,87 @@
             document.getElementById('adminPage').style.display = 'none';
             
             let title = '';
-            if (department === 'MA' && actionType === 'weekly') title = '📊 Еженедельный отчёт (MA)';
-            else if (actionType === 'promotion') title = `⬆️ Отчёт на повышение (${department})`;
-            else if (actionType === 'exam') title = `📝 Запись на экзамен (${department})`;
+            if (action === 'weekly') title = '📊 Еженедельный отчёт (MA)';
+            else if (action === 'promotion') title = `⬆️ Отчёт на повышение (${dept})`;
+            else if (action === 'exam') title = `📝 Запись на экзамен (${dept})`;
+            document.getElementById('formTitle').innerHTML = `<i class="fas ${action === 'weekly' ? 'fa-calendar-week' : action === 'promotion' ? 'fa-arrow-up' : 'fa-pen-clip'}"></i> ${title}`;
             
-            document.getElementById('formTitle').innerHTML = `<i class="fas ${actionType === 'weekly' ? 'fa-calendar-week' : actionType === 'promotion' ? 'fa-arrow-up' : 'fa-pen-clip'}"></i> ${title}`;
-            
-            // Генерация динамических полей
-            const dynamicFields = document.getElementById('formDynamicFields');
-            if (actionType === 'weekly') {
-                dynamicFields.innerHTML = `
-                    <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="formNickname" placeholder="Введите никнейм"></div>
-                    <div class="input-group">
-                        <label>🏅 РАНГ СОТРУДНИКА</label>
-                        <select id="formRank">
-                            <option value="">-- Выберите ранг --</option>
-                            <option value="Специалист (3)">Специалист (3)</option>
-                            <option value="Капрал (4)">Капрал (4)</option>
-                            <option value="Сержант (5)">Сержант (5)</option>
-                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
-                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
-                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
-                            <option value="Лейтенант (9)">Лейтенант (9)</option>
-                            <option value="Капитан (10)">Капитан (10)</option>
-                            <option value="Майор (11)">Майор (11)</option>
-                            <option value="Подполковник (12)">Подполковник (12)</option>
-                        </select>
-                    </div>
-                    <div class="period-row">
-                        <div class="input-group"><label>📅 ДАТА НАЧАЛА</label><input type="date" id="formDateStart"></div>
-                        <div class="input-group"><label>📅 ДАТА ОКОНЧАНИЯ</label><input type="date" id="formDateEnd"></div>
-                    </div>
-                    <div class="period-info" id="formPeriodInfo"></div>
-                `;
+            const dynFields = document.getElementById('formDynamicFields');
+            if (action === 'weekly') {
+                dynFields.innerHTML = `
+                    <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="formNickname"></div>
+                    <div class="input-group"><label>🏅 РАНГ</label><select id="formRank"><option value="">-- Выберите --</option>
+                        <option value="Специалист (3)">Специалист (3)</option><option value="Капрал (4)">Капрал (4)</option>
+                        <option value="Сержант (5)">Сержант (5)</option><option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+                        <option value="Уорент-офицер (7)">Уорент-офицер (7)</option><option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+                        <option value="Лейтенант (9)">Лейтенант (9)</option><option value="Капитан (10)">Капитан (10)</option>
+                        <option value="Майор (11)">Майор (11)</option><option value="Подполковник (12)">Подполковник (12)</option>
+                    </select></div>
+                    <div class="period-row"><div class="input-group"><label>📅 ДАТА НАЧАЛА</label><input type="date" id="formDateStart"></div>
+                    <div class="input-group"><label>📅 ДАТА ОКОНЧАНИЯ</label><input type="date" id="formDateEnd"></div></div>
+                    <div class="period-info" id="formPeriodInfo"></div>`;
                 document.getElementById('actionsSection').style.display = 'block';
                 document.getElementById('totalPointsBar').style.display = 'flex';
-                setDefaultWeeklyDates();
-            } else if (actionType === 'promotion') {
-                dynamicFields.innerHTML = `
-                    <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="formNickname" placeholder="Введите никнейм"></div>
-                    <div class="input-group">
-                        <label>🏅 ТЕКУЩИЙ РАНГ</label>
-                        <select id="formCurrentRank">
-                            <option value="">-- Выберите текущий ранг --</option>
-                            <option value="Специалист (3)">Специалист (3)</option>
-                            <option value="Капрал (4)">Капрал (4)</option>
-                            <option value="Сержант (5)">Сержант (5)</option>
-                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
-                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
-                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
-                            <option value="Лейтенант (9)">Лейтенант (9)</option>
-                            <option value="Капитан (10)">Капитан (10)</option>
-                            <option value="Майор (11)">Майор (11)</option>
-                            <option value="Подполковник (12)">Подполковник (12)</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>🎯 ЖЕЛАЕМЫЙ РАНГ</label>
-                        <select id="formDesiredRank">
-                            <option value="">-- Выберите желаемый ранг --</option>
-                            <option value="Специалист (3)">Специалист (3)</option>
-                            <option value="Капрал (4)">Капрал (4)</option>
-                            <option value="Сержант (5)">Сержант (5)</option>
-                            <option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
-                            <option value="Уорент-офицер (7)">Уорент-офицер (7)</option>
-                            <option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
-                            <option value="Лейтенант (9)">Лейтенант (9)</option>
-                            <option value="Капитан (10)">Капитан (10)</option>
-                            <option value="Майор (11)">Майор (11)</option>
-                            <option value="Подполковник (12)">Подполковник (12)</option>
-                        </select>
-                    </div>
+                setDefaultDates();
+            } else if (action === 'promotion') {
+                dynFields.innerHTML = `
+                    <div class="input-group"><label>🎮 ИГРОВОЙ НИКНЕЙМ</label><input type="text" id="formNickname"></div>
+                    <div class="input-group"><label>🏅 ТЕКУЩИЙ РАНГ</label><select id="formCurrentRank"><option value="">-- Выберите --</option>
+                        <option value="Специалист (3)">Специалист (3)</option><option value="Капрал (4)">Капрал (4)</option>
+                        <option value="Сержант (5)">Сержант (5)</option><option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+                        <option value="Уорент-офицер (7)">Уорент-офицер (7)</option><option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+                        <option value="Лейтенант (9)">Лейтенант (9)</option><option value="Капитан (10)">Капитан (10)</option>
+                        <option value="Майор (11)">Майор (11)</option><option value="Подполковник (12)">Подполковник (12)</option>
+                    </select></div>
+                    <div class="input-group"><label>🎯 ЖЕЛАЕМЫЙ РАНГ</label><select id="formDesiredRank"><option value="">-- Выберите --</option>
+                        <option value="Специалист (3)">Специалист (3)</option><option value="Капрал (4)">Капрал (4)</option>
+                        <option value="Сержант (5)">Сержант (5)</option><option value="Штаб-сержант (6)">Штаб-сержант (6)</option>
+                        <option value="Уорент-офицер (7)">Уорент-офицер (7)</option><option value="Старший Уорент-офицер (8)">Старший Уорент-офицер (8)</option>
+                        <option value="Лейтенант (9)">Лейтенант (9)</option><option value="Капитан (10)">Капитан (10)</option>
+                        <option value="Майор (11)">Майор (11)</option><option value="Подполковник (12)">Подполковник (12)</option>
+                    </select></div>
                     <div class="input-group"><label>📅 ДАТА ПОСЛЕДНЕГО ПОВЫШЕНИЯ</label><input type="date" id="formLastPromotion"></div>
-                    <div class="period-info" id="formPromotionInfo"></div>
-                `;
+                    <div class="period-info" id="formPromotionInfo"></div>`;
                 document.getElementById('actionsSection').style.display = 'block';
                 document.getElementById('totalPointsBar').style.display = 'flex';
-                document.getElementById('formLastPromotion').addEventListener('change', updatePromotionInfo);
-            } else if (actionType === 'exam') {
-                dynamicFields.innerHTML = `
-                    <div class="input-group"><label>👤 ИМЯ И ФАМИЛИЯ</label><input type="text" id="formFullName" placeholder="Иванов Иван"></div>
-                    <div class="input-group">
-                        <label>🎓 ТИП ЭКЗАМЕНА</label>
-                        <select id="formExamType">
-                            <option value="">-- Выберите экзамен --</option>
-                            <option value="Acd.Delta">🎓 Acd.Delta</option>
-                            <option value="Специалист (3) → Капрал (4)">📈 Специалист (3) → Капрал (4)</option>
-                            <option value="Капрал (4) → Сержант (5)">📈 Капрал (4) → Сержант (5)</option>
-                            <option value="Сержант (5) → Штаб-сержант (6)">📈 Сержант (5) → Штаб-сержант (6)</option>
-                            <option value="Штаб-сержант (6) → Уорент-офицер (7)">📈 Штаб-сержант (6) → Уорент-офицер (7)</option>
-                            <option value="Уорент-офицер (7) → Старший Уорент-офицер (8)">📈 Уорент-офицер (7) → Старший Уорент-офицер (8)</option>
-                            <option value="Старший Уорент-офицер (8) → Лейтенант (9)">📈 Старший Уорент-офицер (8) → Лейтенант (9)</option>
-                            <option value="Лейтенант (9) → Капитан (10)">📈 Лейтенант (9) → Капитан (10)</option>
-                            <option value="Капитан (10) → Майор (11)">📈 Капитан (10) → Майор (11)</option>
-                            <option value="Майор (11) → Подполковник (12)">📈 Майор (11) → Подполковник (12)</option>
-                        </select>
-                    </div>
-                    <div class="input-group"><label>💬 DISCORD @ТЕГ</label><input type="text" id="formDiscord" placeholder="@username"></div>
-                    <div class="input-group"><label>⏰ УДОБНОЕ ВРЕМЯ</label><input type="text" id="formTime" placeholder="Например: понедельник 18:00 МСК"></div>
-                `;
+                document.getElementById('formLastPromotion').addEventListener('change', updatePromoInfo);
+            } else if (action === 'exam') {
+                dynFields.innerHTML = `
+                    <div class="input-group"><label>👤 ИМЯ И ФАМИЛИЯ</label><input type="text" id="formFullName"></div>
+                    <div class="input-group"><label>🎓 ТИП ЭКЗАМЕНА</label><select id="formExamType">
+                        <option value="">-- Выберите --</option>
+                        <option value="Acd.Delta">🎓 Acd.Delta</option>
+                        <option value="Специалист (3) → Капрал (4)">📈 Специалист (3) → Капрал (4)</option>
+                        <option value="Капрал (4) → Сержант (5)">📈 Капрал (4) → Сержант (5)</option>
+                        <option value="Сержант (5) → Штаб-сержант (6)">📈 Сержант (5) → Штаб-сержант (6)</option>
+                        <option value="Штаб-сержант (6) → Уорент-офицер (7)">📈 Штаб-сержант (6) → Уорент-офицер (7)</option>
+                        <option value="Уорент-офицер (7) → Старший Уорент-офицер (8)">📈 Уорент-офицер (7) → Старший Уорент-офицер (8)</option>
+                        <option value="Старший Уорент-офицер (8) → Лейтенант (9)">📈 Старший Уорент-офицер (8) → Лейтенант (9)</option>
+                        <option value="Лейтенант (9) → Капитан (10)">📈 Лейтенант (9) → Капитан (10)</option>
+                        <option value="Капитан (10) → Майор (11)">📈 Капитан (10) → Майор (11)</option>
+                        <option value="Майор (11) → Подполковник (12)">📈 Майор (11) → Подполковник (12)</option>
+                    </select></div>
+                    <div class="input-group"><label>💬 DISCORD @ТЕГ</label><input type="text" id="formDiscord"></div>
+                    <div class="input-group"><label>⏰ УДОБНОЕ ВРЕМЯ</label><input type="text" id="formTime"></div>`;
                 document.getElementById('actionsSection').style.display = 'none';
                 document.getElementById('totalPointsBar').style.display = 'none';
             }
             
-            renderActionsList();
-            updateTotalPointsDisplay();
+            renderActions();
+            updateTotalPoints();
         }
         
-        function setDefaultWeeklyDates() {
+        function setDefaultDates() {
             const today = new Date();
             const monday = new Date(today);
             monday.setDate(today.getDate() - (today.getDay() === 0 ? 6 : today.getDay() - 1));
             const sunday = new Date(monday);
             sunday.setDate(monday.getDate() + 6);
-            const startInput = document.getElementById('formDateStart');
-            const endInput = document.getElementById('formDateEnd');
-            if (startInput && endInput) {
-                startInput.value = monday.toISOString().split('T')[0];
-                endInput.value = sunday.toISOString().split('T')[0];
+            const start = document.getElementById('formDateStart');
+            const end = document.getElementById('formDateEnd');
+            if (start && end) {
+                start.value = monday.toISOString().split('T')[0];
+                end.value = sunday.toISOString().split('T')[0];
                 updatePeriodInfo();
             }
         }
@@ -1441,303 +1295,220 @@
         function updatePeriodInfo() {
             const start = document.getElementById('formDateStart')?.value;
             const end = document.getElementById('formDateEnd')?.value;
-            const infoSpan = document.getElementById('formPeriodInfo');
-            if (infoSpan && start && end) {
-                const diffDays = Math.ceil((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24)) + 1;
-                infoSpan.innerHTML = `${formatDate(start)} – ${formatDate(end)} (${diffDays} дн.)`;
+            const info = document.getElementById('formPeriodInfo');
+            if (info && start && end) {
+                const days = Math.ceil((new Date(end) - new Date(start)) / (1000*60*60*24)) + 1;
+                info.innerHTML = `${formatDate(start)} – ${formatDate(end)} (${days} дн.)`;
             }
         }
         
-        function updatePromotionInfo() {
+        function updatePromoInfo() {
             const date = document.getElementById('formLastPromotion')?.value;
-            const infoSpan = document.getElementById('formPromotionInfo');
-            if (infoSpan && date) {
-                const d = new Date(date);
-                const monthsDiff = Math.floor((new Date() - d) / (1000 * 60 * 60 * 24 * 30));
-                infoSpan.innerHTML = `📅 Дата последнего повышения: ${formatDate(date)} (прошло ${monthsDiff} мес.)`;
+            const info = document.getElementById('formPromotionInfo');
+            if (info && date) {
+                const months = Math.floor((new Date() - new Date(date)) / (1000*60*60*24*30));
+                info.innerHTML = `📅 Последнее повышение: ${formatDate(date)} (${months} мес.)`;
             }
         }
         
         // ==================== ДЕЙСТВИЯ ====================
-        function createActionHTML(action, idx) {
-            const proofs = action.proofs || [''];
-            return `
-                <div class="action-item" data-idx="${idx}">
-                    <div class="action-header">
-                        <div class="action-title"><i class="fas fa-tag"></i> ДЕЙСТВИЕ #${idx + 1}</div>
-                        <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button>
-                    </div>
-                    <div class="action-fields">
-                        <div class="action-field">
-                            <label>ТИП</label>
-                            <select class="action-type" data-idx="${idx}">
-                                <option value="">-- Выберите --</option>
-                                ${ACTIVITY_TYPES.map(t => `<option value="${escapeHtml(t.name)}" data-points="${t.basePoints}" ${action.type === t.name ? 'selected' : ''}>${escapeHtml(t.name)}</option>`).join('')}
-                            </select>
-                        </div>
-                        <div class="action-field">
-                            <label>КОЛ-ВО</label>
-                            <input type="number" class="action-count" data-idx="${idx}" value="${action.count || 1}" min="1" step="1">
-                        </div>
-                        <div class="proofs-section">
-                            <label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
-                            <div class="proofs-list">
-                                ${proofs.map((proof, pIdx) => `
-                                    <div class="proof-item">
-                                        <i class="fas fa-link" style="color: var(--accent); font-size: 0.75rem;"></i>
-                                        <input type="text" class="proof-input" data-action="${idx}" data-proof="${pIdx}" value="${escapeHtml(proof)}" placeholder="https://пример.com/скриншот">
-                                        ${proofs.length > 1 ? `<button class="remove-proof" data-action="${idx}" data-proof="${pIdx}"><i class="fas fa-times"></i></button>` : ''}
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <button class="add-proof-btn" data-action="${idx}"><i class="fas fa-plus"></i> Добавить доказательство</button>
-                        </div>
-                    </div>
-                    <div class="points-row">
-                        <span class="count-badge"><i class="fas fa-hashtag"></i> КОЛ-ВО: ${action.count || 1}</span>
-                        <span class="points-badge"><i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(action)}</span>
-                    </div>
+        function createActionHTML(a, idx) {
+            const proofs = a.proofs || [''];
+            return `<div class="action-item">
+                <div class="action-header"><div class="action-title">ДЕЙСТВИЕ #${idx+1}</div>
+                <button class="remove-action" data-idx="${idx}"><i class="fas fa-trash"></i> Удалить</button></div>
+                <div class="action-fields">
+                    <div class="action-field"><label>ТИП</label><select class="action-type" data-idx="${idx}"><option value="">-- Выберите --</option>
+                        ${ACTIVITY_TYPES.map(t => `<option value="${t.name}" data-points="${t.basePoints}" ${a.type===t.name?'selected':''}>${t.name}</option>`).join('')}</select></div>
+                    <div class="action-field"><label>КОЛ-ВО</label><input type="number" class="action-count" data-idx="${idx}" value="${a.count||1}" min="1"></div>
+                    <div class="proofs-section"><label><i class="fas fa-images"></i> ДОКАЗАТЕЛЬСТВА</label>
+                    <div class="proofs-list">${proofs.map((p, pi) => `<div class="proof-item">
+                        <input type="text" class="proof-input" data-action="${idx}" data-proof="${pi}" value="${escapeHtml(p)}" placeholder="https://...">
+                        ${proofs.length>1 ? `<button class="remove-proof" data-action="${idx}" data-proof="${pi}"><i class="fas fa-times"></i></button>` : ''}
+                    </div>`).join('')}</div>
+                    <button class="add-proof-btn" data-action="${idx}"><i class="fas fa-plus"></i> Добавить</button></div>
                 </div>
-            `;
+                <div class="points-row"><span class="count-badge">Кол-во: ${a.count||1}</span>
+                <span class="points-badge">Баллы: ${calculatePoints(a)}</span></div>
+            </div>`;
         }
         
-        function attachActionEvents(element, idx) {
-            const removeBtn = element.querySelector('.remove-action');
-            if (removeBtn) {
-                removeBtn.addEventListener('click', async () => {
-                    element.classList.add('removing');
-                    await new Promise(resolve => setTimeout(resolve, 300));
-                    currentActions.splice(idx, 1);
-                    renderActionsList();
-                    updateTotalPointsDisplay();
-                });
-            }
+        function attachEvents(el, idx) {
+            const rm = el.querySelector('.remove-action');
+            if (rm) rm.onclick = () => { currentActions.splice(idx,1); renderActions(); updateTotalPoints(); };
             
-            const typeSelect = element.querySelector('.action-type');
-            if (typeSelect) {
-                typeSelect.addEventListener('change', (e) => {
-                    const selectedOption = typeSelect.options[typeSelect.selectedIndex];
-                    currentActions[idx].type = typeSelect.value;
-                    currentActions[idx].basePoints = parseInt(selectedOption.dataset.points) || 0;
-                    updateActionPointsDisplay(element, idx);
-                    updateTotalPointsDisplay();
-                });
-            }
+            const sel = el.querySelector('.action-type');
+            if (sel) sel.onchange = () => {
+                currentActions[idx].type = sel.value;
+                currentActions[idx].basePoints = parseInt(sel.options[sel.selectedIndex].dataset.points) || 0;
+                updatePointsDisplay(el, idx);
+                updateTotalPoints();
+            };
             
-            const countInput = element.querySelector('.action-count');
-            if (countInput) {
-                countInput.addEventListener('input', (e) => {
-                    let newCount = parseInt(countInput.value) || 1;
-                    if (newCount < 1) newCount = 1;
-                    currentActions[idx].count = newCount;
-                    updateActionPointsDisplay(element, idx);
-                    updateTotalPointsDisplay();
-                });
-            }
+            const cnt = el.querySelector('.action-count');
+            if (cnt) cnt.oninput = () => {
+                currentActions[idx].count = Math.max(1, parseInt(cnt.value)||1);
+                updatePointsDisplay(el, idx);
+                updateTotalPoints();
+            };
             
-            const addProofBtn = element.querySelector('.add-proof-btn');
-            if (addProofBtn) {
-                addProofBtn.addEventListener('click', () => {
-                    if (!currentActions[idx].proofs) currentActions[idx].proofs = [''];
-                    currentActions[idx].proofs.push('');
-                    renderActionsList();
-                });
-            }
+            const addProof = el.querySelector('.add-proof-btn');
+            if (addProof) addProof.onclick = () => {
+                if (!currentActions[idx].proofs) currentActions[idx].proofs = [''];
+                currentActions[idx].proofs.push('');
+                renderActions();
+            };
             
-            const proofInputs = element.querySelectorAll('.proof-input');
-            proofInputs.forEach(input => {
-                input.addEventListener('change', (e) => {
-                    const actionIdx = parseInt(input.dataset.action);
-                    const proofIdx = parseInt(input.dataset.proof);
-                    if (currentActions[actionIdx] && currentActions[actionIdx].proofs) {
-                        currentActions[actionIdx].proofs[proofIdx] = input.value;
-                    }
-                });
+            el.querySelectorAll('.proof-input').forEach(inp => {
+                inp.onchange = () => {
+                    const ai = parseInt(inp.dataset.action);
+                    const pi = parseInt(inp.dataset.proof);
+                    if (currentActions[ai]?.proofs) currentActions[ai].proofs[pi] = inp.value;
+                };
             });
             
-            const removeProofBtns = element.querySelectorAll('.remove-proof');
-            removeProofBtns.forEach(btn => {
-                btn.addEventListener('click', async () => {
-                    const actionIdx = parseInt(btn.dataset.action);
-                    const proofIdx = parseInt(btn.dataset.proof);
-                    if (currentActions[actionIdx] && currentActions[actionIdx].proofs && currentActions[actionIdx].proofs.length > 1) {
-                        currentActions[actionIdx].proofs.splice(proofIdx, 1);
-                        renderActionsList();
+            el.querySelectorAll('.remove-proof').forEach(btn => {
+                btn.onclick = () => {
+                    const ai = parseInt(btn.dataset.action);
+                    const pi = parseInt(btn.dataset.proof);
+                    if (currentActions[ai]?.proofs?.length > 1) {
+                        currentActions[ai].proofs.splice(pi,1);
+                        renderActions();
                     }
-                });
+                };
             });
         }
         
-        function updateActionPointsDisplay(element, idx) {
-            const countSpan = element.querySelector('.count-badge');
-            const pointsSpan = element.querySelector('.points-badge');
-            if (countSpan) countSpan.innerHTML = `<i class="fas fa-hashtag"></i> КОЛ-ВО: ${currentActions[idx].count || 1}`;
-            if (pointsSpan) pointsSpan.innerHTML = `<i class="fas fa-star"></i> БАЛЛЫ: ${calculatePoints(currentActions[idx])}`;
+        function updatePointsDisplay(el, idx) {
+            const cnt = el.querySelector('.count-badge');
+            const pts = el.querySelector('.points-badge');
+            if (cnt) cnt.innerHTML = `Кол-во: ${currentActions[idx].count||1}`;
+            if (pts) pts.innerHTML = `Баллы: ${calculatePoints(currentActions[idx])}`;
         }
         
-        function renderActionsList() {
+        function renderActions() {
             const container = document.getElementById('actionsList');
-            const emptyDiv = document.getElementById('emptyActions');
+            const empty = document.getElementById('emptyActions');
             if (!container) return;
-            
             if (currentActions.length === 0) {
-                emptyDiv.style.display = 'block';
+                empty.style.display = 'block';
                 container.innerHTML = '';
                 return;
             }
-            emptyDiv.style.display = 'none';
-            container.innerHTML = currentActions.map((action, idx) => createActionHTML(action, idx)).join('');
-            
-            const actionElements = container.querySelectorAll('.action-item');
-            actionElements.forEach((el, idx) => {
-                attachActionEvents(el, idx);
-            });
+            empty.style.display = 'none';
+            container.innerHTML = currentActions.map((a,i) => createActionHTML(a,i)).join('');
+            container.querySelectorAll('.action-item').forEach((el,i) => attachEvents(el,i));
         }
         
         function addAction() {
             currentActions.push({ type: '', basePoints: 0, count: 1, proofs: [''] });
-            renderActionsList();
-            updateTotalPointsDisplay();
+            renderActions();
+            updateTotalPoints();
         }
         
-        function updateTotalPointsDisplay() {
-            const totalSpan = document.getElementById('totalPoints');
-            if (totalSpan) totalSpan.textContent = calculateTotalPoints(currentActions);
+        function updateTotalPoints() {
+            const span = document.getElementById('totalPoints');
+            if (span) span.textContent = calculateTotalPoints(currentActions);
         }
         
-        // ==================== ОТПРАВКА ФОРМ ====================
+        // ==================== ОТПРАВКА ====================
         async function submitForm() {
-            const alertContainer = 'formAlert';
-            
+            const alertId = 'formAlert';
             if (currentActionType === 'weekly') {
-                const nickname = document.getElementById('formNickname')?.value.trim();
-                if (!nickname) { showAlert(alertContainer, 'Введите игровой никнейм', 'error'); return; }
-                const rank = document.getElementById('formRank')?.value || 'Не выбран';
-                const start = document.getElementById('formDateStart')?.value;
-                const end = document.getElementById('formDateEnd')?.value;
-                const period = start && end ? `${formatDate(start)} – ${formatDate(end)}` : 'Не указан';
-                
-                let actionsText = '';
-                let totalPoints = 0;
-                currentActions.forEach((action, idx) => {
-                    const points = calculatePoints(action);
-                    totalPoints += points;
-                    let proofsText = (action.proofs && action.proofs.length) ? action.proofs.filter(p => p).map(p => `• ${p}`).join('\n') : 'Нет доказательств';
-                    actionsText += `**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n\n`;
+                const nick = document.getElementById('formNickname')?.value.trim();
+                if (!nick) { showAlert(alertId, 'Введите никнейм', 'error'); return; }
+                const rank = document.getElementById('formRank')?.value || '';
+                const start = document.getElementById('formDateStart')?.value || '';
+                const end = document.getElementById('formDateEnd')?.value || '';
+                let actionsText = '', totalPoints = 0;
+                currentActions.forEach((a,i) => {
+                    const pts = calculatePoints(a);
+                    totalPoints += pts;
+                    actionsText += `**${i+1}. ${a.type || 'Не выбран'}** x${a.count||1} = ${pts} баллов\n`;
+                    if (a.proofs?.length) actionsText += `📎 Доказательства: ${a.proofs.filter(p=>p).join(', ')}\n`;
                 });
-                if (currentActions.length === 0) actionsText = 'Нет действий';
-                
                 const fields = [
-                    { name: "🎮 Игровой никнейм", value: nickname, inline: true },
+                    { name: "🎮 Никнейм", value: nick, inline: true },
                     { name: "🏅 Ранг", value: rank, inline: true },
-                    { name: "📅 Период", value: period, inline: true },
-                    { name: "📊 Действия", value: actionsText.substring(0, 1024) },
-                    { name: "🏆 Итого баллов", value: `${totalPoints}`, inline: true }
+                    { name: "📅 Период", value: `${formatDate(start)} - ${formatDate(end)}`, inline: true },
+                    { name: "📊 Действия", value: actionsText.substring(0,1024) || "Нет действий" },
+                    { name: "🏆 Баллы", value: `${totalPoints}`, inline: true }
                 ];
-                
-                const tag = TAGS.MA.weekly;
-                await sendToDiscordWithEmbed(WEBHOOKS.MA.weekly, "📊 Еженедельный отчёт (MA)", fields, 0x4CAF50, tag);
-                await writeToGoogleSheet('report', 'MA', 'weekly', {
-                    nickname, rank, periodStart: start, periodEnd: end, totalPoints, actions: actionsText, senderName: 'Гость'
-                });
-                showAlert(alertContainer, '✅ Отчёт отправлен!', 'success');
-                
+                await sendToDiscord(WEBHOOKS.MA.weekly, "📊 Еженедельный отчёт (MA)", fields, 0x4CAF50, TAGS.MA.weekly);
+                await writeToSheet('report', 'MA', 'weekly', { nickname: nick, rank, periodStart: start, periodEnd: end, actions: actionsText, totalPoints });
+                showAlert(alertId, '✅ Отчёт отправлен!', 'success');
+                clearForm();
             } else if (currentActionType === 'promotion') {
-                const nickname = document.getElementById('formNickname')?.value.trim();
-                if (!nickname) { showAlert(alertContainer, 'Введите игровой никнейм', 'error'); return; }
-                const currentRank = document.getElementById('formCurrentRank')?.value || 'Не выбран';
-                const desiredRank = document.getElementById('formDesiredRank')?.value || 'Не выбран';
-                const lastPromotion = document.getElementById('formLastPromotion')?.value;
-                const lastPromotionFormatted = lastPromotion ? formatDate(lastPromotion) : 'Не указана';
-                
-                let actionsText = '';
-                let totalPoints = 0;
-                currentActions.forEach((action, idx) => {
-                    const points = calculatePoints(action);
-                    totalPoints += points;
-                    let proofsText = (action.proofs && action.proofs.length) ? action.proofs.filter(p => p).map(p => `• ${p}`).join('\n') : 'Нет доказательств';
-                    actionsText += `**${idx + 1}. ${action.type || 'Не выбран'}** | Кол-во: ${action.count || 1} | Баллы: ${points}\n📎 Доказательства:\n${proofsText}\n\n`;
+                const nick = document.getElementById('formNickname')?.value.trim();
+                if (!nick) { showAlert(alertId, 'Введите никнейм', 'error'); return; }
+                const curRank = document.getElementById('formCurrentRank')?.value || '';
+                const desRank = document.getElementById('formDesiredRank')?.value || '';
+                const lastProm = document.getElementById('formLastPromotion')?.value || '';
+                let actionsText = '', totalPoints = 0;
+                currentActions.forEach((a,i) => {
+                    const pts = calculatePoints(a);
+                    totalPoints += pts;
+                    actionsText += `**${i+1}. ${a.type || 'Не выбран'}** x${a.count||1} = ${pts} баллов\n`;
                 });
-                if (currentActions.length === 0) actionsText = 'Нет действий';
-                
                 const fields = [
-                    { name: "🎮 Игровой никнейм", value: nickname, inline: true },
-                    { name: "🏅 Текущий ранг", value: currentRank, inline: true },
-                    { name: "🎯 Желаемый ранг", value: desiredRank, inline: true },
-                    { name: "📅 Дата последнего повышения", value: lastPromotionFormatted, inline: true },
-                    { name: "📊 Действия", value: actionsText.substring(0, 1024) },
-                    { name: "🏆 Итого баллов", value: `${totalPoints}`, inline: true }
+                    { name: "🎮 Никнейм", value: nick, inline: true },
+                    { name: "🏅 Текущий ранг", value: curRank, inline: true },
+                    { name: "🎯 Желаемый ранг", value: desRank, inline: true },
+                    { name: "📅 Последнее повышение", value: formatDate(lastProm) || "Не указано", inline: true },
+                    { name: "📊 Достижения", value: actionsText.substring(0,1024) || "Нет действий" },
+                    { name: "🏆 Баллы", value: `${totalPoints}`, inline: true }
                 ];
-                
-                const tag = TAGS[currentDepartment]?.promotion || '';
                 const webhook = WEBHOOKS[currentDepartment]?.promotion;
-                if (webhook) {
-                    await sendToDiscordWithEmbed(webhook, `⬆️ Запрос на повышение (${currentDepartment})`, fields, 0x4CAF50, tag);
-                }
-                await writeToGoogleSheet('report', currentDepartment, 'promotion', {
-                    nickname, currentRank, desiredRank, lastPromotion: lastPromotionFormatted, totalPoints, actions: actionsText, senderName: 'Гость'
-                });
-                showAlert(alertContainer, '✅ Запрос на повышение отправлен!', 'success');
-                
+                if (webhook) await sendToDiscord(webhook, `⬆️ Запрос на повышение (${currentDepartment})`, fields, 0x4CAF50, TAGS[currentDepartment]?.promotion);
+                await writeToSheet('report', currentDepartment, 'promotion', { nickname: nick, currentRank: curRank, desiredRank: desRank, lastPromotion: lastProm, actions: actionsText, totalPoints });
+                showAlert(alertId, '✅ Запрос отправлен!', 'success');
+                clearForm();
             } else if (currentActionType === 'exam') {
                 const fullName = document.getElementById('formFullName')?.value.trim();
-                if (!fullName) { showAlert(alertContainer, 'Введите имя и фамилию', 'error'); return; }
-                const examType = document.getElementById('formExamType')?.value || 'Не выбран';
-                const discordTag = document.getElementById('formDiscord')?.value.trim() || 'Не указан';
-                const examTime = document.getElementById('formTime')?.value.trim() || 'Не указано';
-                
+                if (!fullName) { showAlert(alertId, 'Введите имя и фамилию', 'error'); return; }
+                const examType = document.getElementById('formExamType')?.value || '';
+                const discord = document.getElementById('formDiscord')?.value.trim() || '';
+                const time = document.getElementById('formTime')?.value.trim() || '';
                 const fields = [
                     { name: "👤 Имя и фамилия", value: fullName, inline: true },
                     { name: "🎓 Тип экзамена", value: examType, inline: true },
-                    { name: "💬 Discord @тег", value: discordTag, inline: true },
-                    { name: "⏰ Удобное время", value: examTime }
+                    { name: "💬 Discord", value: discord, inline: true },
+                    { name: "⏰ Время", value: time, inline: true }
                 ];
-                
-                const tag = TAGS[currentDepartment]?.exam || '';
                 const webhook = WEBHOOKS[currentDepartment]?.exam;
-                if (webhook) {
-                    await sendToDiscordWithEmbed(webhook, `📝 Запись на экзамен (${currentDepartment})`, fields, 0x4CAF50, tag);
-                }
-                await sendToDiscordWithEmbed(ADDITIONAL_EXAM_WEBHOOK, `📝 Запись на экзамен (${currentDepartment})`, fields, 0x4CAF50, tag);
-                await writeToGoogleSheet('report', currentDepartment, 'exam', {
-                    fullName, examType, discordTag, examTime, senderName: 'Гость'
-                });
-                showAlert(alertContainer, '✅ Заявка на экзамен отправлена!', 'success');
-            }
-            
-            // Очистка формы
-            currentActions = [];
-            renderActionsList();
-            updateTotalPointsDisplay();
-            if (currentActionType === 'weekly') setDefaultWeeklyDates();
-            if (currentActionType === 'promotion') {
-                const lastPromotionInput = document.getElementById('formLastPromotion');
-                if (lastPromotionInput) lastPromotionInput.value = '';
-            }
-            if (currentActionType === 'exam') {
-                const fullNameInput = document.getElementById('formFullName');
-                const examTypeSelect = document.getElementById('formExamType');
-                const discordInput = document.getElementById('formDiscord');
-                const timeInput = document.getElementById('formTime');
-                if (fullNameInput) fullNameInput.value = '';
-                if (examTypeSelect) examTypeSelect.value = '';
-                if (discordInput) discordInput.value = '';
-                if (timeInput) timeInput.value = '';
+                if (webhook) await sendToDiscord(webhook, `📝 Запись на экзамен (${currentDepartment})`, fields, 0x4CAF50, TAGS[currentDepartment]?.exam);
+                await sendToDiscord(ADDITIONAL_EXAM_WEBHOOK, `📝 Запись на экзамен (${currentDepartment})`, fields, 0x4CAF50);
+                await writeToSheet('report', currentDepartment, 'exam', { fullName, examType, discordTag: discord, examTime: time });
+                showAlert(alertId, '✅ Заявка отправлена!', 'success');
+                clearForm();
             }
         }
         
-        // ==================== АДМИН ПАНЕЛЬ ====================
+        function clearForm() {
+            currentActions = [];
+            renderActions();
+            updateTotalPoints();
+            if (currentActionType === 'weekly') setDefaultDates();
+            if (currentActionType === 'promotion') {
+                const lp = document.getElementById('formLastPromotion');
+                if (lp) lp.value = '';
+            }
+            if (currentActionType === 'exam') {
+                const inputs = ['formFullName', 'formExamType', 'formDiscord', 'formTime'];
+                inputs.forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+            }
+        }
+        
+        // ==================== АДМИНКА ====================
         function showAdminPage() {
             if (!hasPermission('admin_panel')) {
-                showAlert('homePage', 'У вас нет доступа к админ панели', 'error');
+                showAlert('homePage', 'Нет доступа', 'error');
                 return;
             }
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('formPage').style.display = 'none';
             document.getElementById('adminPage').style.display = 'block';
             loadAdminData();
-            
-            // Настройка видимости вкладок по правам
             document.getElementById('accountsTab').style.display = hasPermission('manage_accounts') ? 'inline-block' : 'none';
             document.getElementById('settingsTab').style.display = hasPermission('manage_settings') ? 'inline-block' : 'none';
         }
@@ -1752,368 +1523,192 @@
         async function loadExams() {
             const container = document.getElementById('examsList');
             if (!container) return;
-            
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'getExams', department: 'all' })
-                });
-                const data = await response.json();
-                
-                if (data.exams && data.exams.length > 0) {
-                    container.innerHTML = data.exams.map((exam, idx) => `
-                        <div class="exam-item">
-                            <div><strong>${exam.fullName}</strong> | ${exam.examType} | ${exam.date ? new Date(exam.date).toLocaleString() : ''}</div>
-                            <div>Discord: ${exam.discordTag} | Время: ${exam.examTime} | Отдел: ${exam.department}</div>
-                            <div>Статус: <span class="status-badge status-${exam.status === 'Пройдено' ? 'passed' : exam.status === 'Отклонено' ? 'failed' : 'waiting'}">${exam.status || 'Ожидание'}</span></div>
-                            <select class="status-select" data-idx="${idx}" data-fullname="${exam.fullName}" data-date="${exam.date}" data-dept="${exam.department}">
-                                <option value="Ожидание" ${exam.status === 'Ожидание' ? 'selected' : ''}>Ожидание</option>
-                                <option value="Пройдено" ${exam.status === 'Пройдено' ? 'selected' : ''}>Пройдено</option>
-                                <option value="Отклонено" ${exam.status === 'Отклонено' ? 'selected' : ''}>Отклонено</option>
-                            </select>
-                            <div id="examForm_${idx}" style="display: none; margin-top: 10px;">
-                                <input type="text" placeholder="Принимавший экзамен (Имя Фамилия)" id="examiner_${idx}" style="padding: 8px; margin-right: 5px;">
-                                <input type="number" placeholder="Балл" id="score_${idx}" style="padding: 8px; margin-right: 5px; width: 80px;">
-                                <select id="result_${idx}" style="padding: 8px;">
-                                    <option value="Сдал">Сдал</option>
-                                    <option value="Не сдал">Не сдал</option>
-                                </select>
-                                <button class="submit-btn" onclick="updateExamStatusWithForm(${idx}, '${exam.fullName}', '${exam.date}', '${exam.department}')" style="margin-top: 10px; padding: 8px;">Подтвердить</button>
-                            </div>
+                const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getExams' }) });
+                const data = await res.json();
+                if (data.exams?.length) {
+                    container.innerHTML = data.exams.map((e, i) => `<div class="exam-item">
+                        <div><strong>${e.fullName}</strong> | ${e.examType}</div>
+                        <div>Discord: ${e.discordTag} | Время: ${e.examTime}</div>
+                        <div>Статус: <span class="status-badge status-${e.status==='Пройдено'?'passed':e.status==='Отклонено'?'failed':'waiting'}">${e.status||'Ожидание'}</span></div>
+                        <select class="status-select" data-idx="${i}" data-name="${e.fullName}" data-date="${e.date}" data-dept="${e.department}">
+                            <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>Ожидание</option>
+                            <option value="Пройдено" ${e.status==='Пройдено'?'selected':''}>Пройдено</option>
+                            <option value="Отклонено" ${e.status==='Отклонено'?'selected':''}>Отклонено</option>
+                        </select>
+                        <div id="examForm_${i}" style="display:none; margin-top:10px;">
+                            <input type="text" id="examiner_${i}" placeholder="Принимавший экзамен">
+                            <input type="number" id="score_${i}" placeholder="Балл">
+                            <select id="result_${i}"><option>Сдал</option><option>Не сдал</option></select>
+                            <button onclick="updateExamStatusFn(${i}, '${e.fullName}', '${e.date}', '${e.department}')">Подтвердить</button>
                         </div>
-                    `).join('');
-                    
-                    document.querySelectorAll('.status-select').forEach(select => {
-                        select.addEventListener('change', (e) => {
-                            const idx = select.dataset.idx;
-                            const formDiv = document.getElementById(`examForm_${idx}`);
-                            if (select.value === 'Пройдено') {
-                                formDiv.style.display = 'block';
-                            } else {
-                                formDiv.style.display = 'none';
-                                updateExamStatus(select.dataset.fullname, select.dataset.date, select.value, '', '', '', select.dataset.dept);
-                            }
-                        });
+                    </div>`).join('');
+                    document.querySelectorAll('.status-select').forEach(sel => {
+                        sel.onchange = () => {
+                            const form = document.getElementById(`examForm_${sel.dataset.idx}`);
+                            if (sel.value === 'Пройдено') form.style.display = 'block';
+                            else { form.style.display = 'none'; updateExamStatus(sel.dataset.name, sel.dataset.date, sel.value, '', '', '', sel.dataset.dept); }
+                        };
                     });
-                } else {
-                    container.innerHTML = '<div class="empty-state">Нет записей на экзамен</div>';
-                }
-            } catch (error) {
-                container.innerHTML = '<div class="empty-state">Ошибка загрузки</div>';
-            }
+                } else container.innerHTML = '<div class="empty-state">Нет записей</div>';
+            } catch(e) { container.innerHTML = '<div class="empty-state">Ошибка</div>'; }
         }
         
-        window.updateExamStatusWithForm = async function(idx, fullName, date, department) {
-            const examinerName = document.getElementById(`examiner_${idx}`)?.value || '';
+        window.updateExamStatusFn = async (idx, name, date, dept) => {
+            const examiner = document.getElementById(`examiner_${idx}`)?.value || '';
             const score = document.getElementById(`score_${idx}`)?.value || '';
             const result = document.getElementById(`result_${idx}`)?.value || 'Сдал';
-            await updateExamStatus(fullName, date, 'Пройдено', examinerName, score, result, department);
+            await updateExamStatus(name, date, 'Пройдено', examiner, score, result, dept);
             document.getElementById(`examForm_${idx}`).style.display = 'none';
-            await loadExams();
+            loadExams();
         };
         
-        async function updateExamStatus(fullName, date, status, examinerName, score, result, department) {
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'examStatus', fullName, date, status, examinerName, score, result, department })
-                });
-                
-                const webhook = STATUS_WEBHOOKS[department] || STATUS_WEBHOOKS.MA;
-                const statusText = status === 'Пройдено' ? (settings.passedText || 'Поздравляем! Вы успешно сдали экзамен!') : 
-                                  status === 'Отклонено' ? (settings.failedText || 'К сожалению, вы не сдали экзамен. Попробуйте снова.') :
-                                  (settings.waitingText || 'Ваша заявка на экзамен принята! Ожидайте ответа.');
-                
-                await sendToDiscordWithEmbed(webhook, `📝 Результат экзамена (${department})`, [
-                    { name: "Участник", value: fullName, inline: true },
-                    { name: "Статус", value: status, inline: true },
-                    { name: "Принимавший", value: examinerName || 'Не указан', inline: true },
-                    { name: "Результат", value: result || (status === 'Пройдено' ? 'Сдал' : 'Не сдал'), inline: true },
-                    { name: "Балл", value: score || 'Не указан', inline: true },
-                    { name: "Комментарий", value: statusText }
-                ], status === 'Пройдено' ? 0x10b981 : status === 'Отклонено' ? 0xef4444 : 0xf59e0b);
-                
-                showAlert('examsList', `Статус экзамена обновлен на "${status}"`, 'success');
-            } catch (error) {
-                console.error('Update exam status error:', error);
-            }
+        async function updateExamStatus(name, date, status, examiner, score, result, dept) {
+            await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'examStatus', fullName: name, date, status, examinerName: examiner, score, result, department: dept }) });
+            const webhook = STATUS_WEBHOOKS[dept] || STATUS_WEBHOOKS.MA;
+            await sendToDiscord(webhook, `📝 Результат экзамена (${dept})`, [
+                { name: "Участник", value: name }, { name: "Статус", value: status },
+                { name: "Принимавший", value: examiner || '-' }, { name: "Результат", value: result }
+            ], status === 'Пройдено' ? 0x10b981 : 0xef4444);
         }
         
         async function loadPromotionLists() {
-            const container = document.getElementById('promotionListsList');
-            if (!container) return;
-            
+            const c = document.getElementById('promotionListsList');
+            if (!c) return;
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'getPromotionLists' })
-                });
-                const data = await response.json();
-                
-                if (data.lists && data.lists.length > 0) {
-                    container.innerHTML = `
-                        <table>
-                            <thead>
-                                <tr><th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th><th>Статус</th><th>Отдел</th></tr>
-                            </thead>
-                            <tbody>
-                                ${data.lists.map(list => `
-                                    <tr>
-                                        <td>${list.number}</td>
-                                        <td>${new Date(list.date).toLocaleString()}</td>
-                                        <td>${list.senderName}</td>
-                                        <td>${list.promotedName}</td>
-                                        <td><a href="${list.reportLink}" target="_blank">Ссылка</a></td>
-                                        <td><span class="status-badge status-waiting">${list.status}</span></td>
-                                        <td>${list.department}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    `;
-                } else {
-                    container.innerHTML = '<div class="empty-state">Нет списков на повышение</div>';
-                }
-            } catch (error) {
-                container.innerHTML = '<div class="empty-state">Ошибка загрузки</div>';
-            }
+                const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getPromotionLists' }) });
+                const data = await res.json();
+                if (data.lists?.length) {
+                    c.innerHTML = `<table><thead><tr><th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th><th>Отдел</th></tr></thead><tbody>
+                        ${data.lists.map(l => `<tr><td>${l.number}</td><td>${new Date(l.date).toLocaleString()}</td><td>${l.senderName}</td><td>${l.promotedName}</td><td><a href="${l.reportLink}" target="_blank">Ссылка</a></td><td>${l.department}</td></tr>`).join('')}
+                    </tbody></table>`;
+                } else c.innerHTML = '<div class="empty-state">Нет списков</div>';
+            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка</div>'; }
         }
         
         async function loadAccounts() {
-            const container = document.getElementById('accountsList');
-            if (!container) return;
-            
+            const c = document.getElementById('accountsList');
+            if (!c) return;
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'getAccounts' })
-                });
-                const data = await response.json();
-                
-                if (data.accounts && data.accounts.length > 0) {
-                    container.innerHTML = `
-                        <table>
-                            <thead><tr><th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th><th>Discord ID</th><th>Дата создания</th></tr></thead>
-                            <tbody>
-                                ${data.accounts.map(acc => `
-                                    <tr>
-                                        <td>${acc.login}</td>
-                                        <td>${acc.role}</td>
-                                        <td>${acc.firstName || ''}</td>
-                                        <td>${acc.lastName || ''}</td>
-                                        <td>${acc.discordId || ''}</td>
-                                        <td>${acc.createdAt ? new Date(acc.createdAt).toLocaleString() : ''}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    `;
-                } else {
-                    container.innerHTML = '<div class="empty-state">Нет аккаунтов</div>';
-                }
-            } catch (error) {
-                container.innerHTML = '<div class="empty-state">Ошибка загрузки</div>';
-            }
-        }
-        
-        async function createAccount() {
-            const login = document.getElementById('newLogin')?.value;
-            const password = document.getElementById('newPassword')?.value;
-            const role = document.getElementById('newRole')?.value;
-            const firstName = document.getElementById('newFirstName')?.value;
-            const lastName = document.getElementById('newLastName')?.value;
-            const discordId = document.getElementById('newDiscordId')?.value;
-            
-            if (!login || !password) {
-                showAlert('accountsList', 'Заполните логин и пароль', 'error');
-                return;
-            }
-            
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'createAccount', login, password, role, firstName, lastName, discordId })
-                });
-                const data = await response.json();
-                if (data.success) {
-                    showAlert('accountsList', 'Аккаунт создан', 'success');
-                    document.getElementById('newLogin').value = '';
-                    document.getElementById('newPassword').value = '';
-                    document.getElementById('newFirstName').value = '';
-                    document.getElementById('newLastName').value = '';
-                    document.getElementById('newDiscordId').value = '';
-                    await loadAccounts();
-                } else {
-                    showAlert('accountsList', data.error || 'Ошибка создания', 'error');
-                }
-            } catch (error) {
-                showAlert('accountsList', 'Ошибка создания', 'error');
-            }
+                const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getAccounts' }) });
+                const data = await res.json();
+                if (data.accounts?.length) {
+                    c.innerHTML = `<table><thead><tr><th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th></tr></thead><tbody>
+                        ${data.accounts.map(a => `<tr><td>${a.login}</td><td>${a.role}</td><td>${a.firstName||''}</td><td>${a.lastName||''}</td></tr>`).join('')}
+                    </tbody></table>`;
+                } else c.innerHTML = '<div class="empty-state">Нет аккаунтов</div>';
+            } catch(e) { c.innerHTML = '<div class="empty-state">Ошибка</div>'; }
         }
         
         async function loadSettings() {
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'getSettings' })
-                });
-                const data = await response.json();
+                const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'getSettings' }) });
+                const data = await res.json();
                 settings = data.settings || {};
-                document.getElementById('settingWaitingText').value = settings.exam_waiting_text || 'Ваша заявка на экзамен принята! Ожидайте ответа.';
-                document.getElementById('settingPassedText').value = settings.exam_passed_text || 'Поздравляем! Вы успешно сдали экзамен!';
-                document.getElementById('settingFailedText').value = settings.exam_failed_text || 'К сожалению, вы не сдали экзамен. Попробуйте снова.';
-            } catch (error) {
-                console.error('Load settings error:', error);
-            }
+                document.getElementById('settingWaitingText').value = settings.exam_waiting_text || '';
+                document.getElementById('settingPassedText').value = settings.exam_passed_text || '';
+                document.getElementById('settingFailedText').value = settings.exam_failed_text || '';
+            } catch(e) {}
         }
         
         async function saveSettings() {
-            const newSettings = {
+            const newSet = {
                 exam_waiting_text: document.getElementById('settingWaitingText').value,
                 exam_passed_text: document.getElementById('settingPassedText').value,
                 exam_failed_text: document.getElementById('settingFailedText').value
             };
-            
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'saveSettings', settings: newSettings })
-                });
-                showAlert('settingsTabContent', 'Настройки сохранены', 'success');
-            } catch (error) {
-                showAlert('settingsTabContent', 'Ошибка сохранения', 'error');
-            }
+            await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'saveSettings', settings: newSet }) });
+            showAlert('settingsTabContent', 'Сохранено', 'success');
+        }
+        
+        async function createAccount() {
+            const login = document.getElementById('newLogin')?.value;
+            const pass = document.getElementById('newPassword')?.value;
+            if (!login || !pass) { showAlert('accountsList', 'Заполните логин/пароль', 'error'); return; }
+            await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+                type: 'createAccount', login, password: pass, role: document.getElementById('newRole').value,
+                firstName: document.getElementById('newFirstName').value, lastName: document.getElementById('newLastName').value,
+                discordId: document.getElementById('newDiscordId').value
+            }) });
+            showAlert('accountsList', 'Аккаунт создан', 'success');
+            document.querySelectorAll('#newLogin, #newPassword, #newFirstName, #newLastName, #newDiscordId').forEach(i => i.value = '');
+            loadAccounts();
         }
         
         async function sendPromotionList() {
-            const senderName = document.getElementById('promoSenderName')?.value;
-            const promotedName = document.getElementById('promoPromotedName')?.value;
-            const reportLink = document.getElementById('promoReportLink')?.value;
-            const department = document.getElementById('promoDepartment')?.value;
-            
-            if (!senderName || !promotedName || !reportLink) {
-                showAlert('promotionFormTab', 'Заполните все поля', 'error');
-                return;
-            }
-            
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'promotionList', senderName, promotedName, reportLink, department })
-                });
-                const data = await response.json();
-                
-                await sendToDiscordWithEmbed(PROMOTION_LIST_WEBHOOK, `📋 Список на повышение #${data.listNumber}`, [
-                    { name: "Отправитель", value: senderName, inline: true },
-                    { name: "Повышаемый", value: promotedName, inline: true },
-                    { name: "Ссылка на отчет", value: reportLink, inline: true },
-                    { name: "Отдел", value: department, inline: true },
-                    { name: "Номер списка", value: `#${data.listNumber}`, inline: true }
-                ], 0x4CAF50, '<@&793440128906821672><@&792080799062556672>');
-                
-                showAlert('promotionFormTab', `Список #${data.listNumber} отправлен`, 'success');
-                document.getElementById('promoSenderName').value = '';
-                document.getElementById('promoPromotedName').value = '';
-                document.getElementById('promoReportLink').value = '';
-                await loadPromotionLists();
-            } catch (error) {
-                showAlert('promotionFormTab', 'Ошибка отправки', 'error');
-            }
+            const sender = document.getElementById('promoSenderName')?.value;
+            const promoted = document.getElementById('promoPromotedName')?.value;
+            const link = document.getElementById('promoReportLink')?.value;
+            const dept = document.getElementById('promoDepartment')?.value;
+            if (!sender || !promoted || !link) { showAlert('promotionFormTab', 'Заполните все поля', 'error'); return; }
+            const res = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'promotionList', senderName: sender, promotedName: promoted, reportLink: link, department: dept }) });
+            const data = await res.json();
+            await sendToDiscord(PROMOTION_LIST_WEBHOOK, `📋 Список на повышение #${data.listNumber}`, [
+                { name: "Отправитель", value: sender }, { name: "Повышаемый", value: promoted },
+                { name: "Ссылка", value: link }, { name: "Отдел", value: dept }
+            ], 0x4CAF50, '<@&793440128906821672><@&792080799062556672>');
+            showAlert('promotionFormTab', `Список #${data.listNumber} отправлен`, 'success');
+            ['promoSenderName', 'promoPromotedName', 'promoReportLink'].forEach(id => document.getElementById(id).value = '');
+            loadPromotionLists();
         }
         
         // ==================== ИНИЦИАЛИЗАЦИЯ ====================
         document.addEventListener('DOMContentLoaded', () => {
-            // Тема
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'light') {
                 document.body.classList.add('light');
                 document.querySelector('#themeSwitch i').className = 'fas fa-moon';
                 document.querySelector('#themeSwitch span').innerText = 'Тёмная тема';
             }
-            document.getElementById('themeSwitch').addEventListener('click', () => {
+            document.getElementById('themeSwitch').onclick = () => {
                 document.body.classList.toggle('light');
                 const isLight = document.body.classList.contains('light');
                 localStorage.setItem('theme', isLight ? 'light' : 'dark');
                 const icon = document.querySelector('#themeSwitch i');
-                const text = document.querySelector('#themeSwitch span');
-                if (isLight) { icon.className = 'fas fa-moon'; text.innerText = 'Тёмная тема'; }
-                else { icon.className = 'fas fa-sun'; text.innerText = 'Светлая тема'; }
+                const span = document.querySelector('#themeSwitch span');
+                if (isLight) { icon.className = 'fas fa-moon'; span.innerText = 'Тёмная тема'; }
+                else { icon.className = 'fas fa-sun'; span.innerText = 'Светлая тема'; }
+            };
+            
+            document.querySelectorAll('.dept-btn').forEach(btn => {
+                btn.onclick = () => showFormPage(btn.dataset.dept, btn.dataset.action);
             });
             
-            // Кнопки отделов
-            document.querySelectorAll('.action-mini-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const dept = btn.dataset.dept;
-                    const action = btn.dataset.action;
-                    showFormPage(dept, action);
-                });
-            });
-            
-            // Кнопки навигации
-            document.getElementById('adminLoginBtn').addEventListener('click', () => {
-                document.getElementById('loginModal').style.display = 'flex';
-            });
-            document.getElementById('closeModalBtn').addEventListener('click', () => {
-                document.getElementById('loginModal').style.display = 'none';
-            });
-            document.getElementById('modalLoginBtn').addEventListener('click', () => {
-                const login = document.getElementById('modalLogin').value;
-                const password = document.getElementById('modalPassword').value;
-                login(login, password);
-            });
-            document.getElementById('adminPanelBtn').addEventListener('click', showAdminPage);
-            document.getElementById('logoutBtn').addEventListener('click', logout);
-            document.getElementById('addActionBtn').addEventListener('click', addAction);
-            document.getElementById('submitFormBtn').addEventListener('click', submitForm);
-            
-            // Закрытие модалки при клике вне
-            window.addEventListener('click', (e) => {
-                const modal = document.getElementById('loginModal');
-                if (e.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-            
-            // Админ вкладки
-            document.querySelectorAll('.admin-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    document.querySelectorAll('.admin-tab-content').forEach(content => content.style.display = 'none');
-                    const tabId = tab.dataset.tab;
-                    document.getElementById(`${tabId}Tab`).style.display = 'block';
-                    if (tabId === 'exams') loadExams();
-                    if (tabId === 'promotionLists') loadPromotionLists();
-                    if (tabId === 'accounts') loadAccounts();
-                });
-            });
-            
+            document.getElementById('adminLoginBtn').onclick = () => document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('closeModalBtn').onclick = () => document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('modalLoginBtn').onclick = () => login(document.getElementById('modalLogin').value, document.getElementById('modalPassword').value);
+            document.getElementById('adminPanelBtn').onclick = showAdminPage;
+            document.getElementById('logoutBtn').onclick = logout;
+            document.getElementById('addActionBtn').onclick = addAction;
+            document.getElementById('submitFormBtn').onclick = submitForm;
             document.getElementById('createAccountBtn')?.addEventListener('click', createAccount);
             document.getElementById('saveSettingsBtn')?.addEventListener('click', saveSettings);
             document.getElementById('sendPromotionListBtn')?.addEventListener('click', sendPromotionList);
             
-            // Обновление информации при изменении дат
-            document.addEventListener('change', (e) => {
-                if (e.target.id === 'formDateStart' || e.target.id === 'formDateEnd') updatePeriodInfo();
-                if (e.target.id === 'formLastPromotion') updatePromotionInfo();
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.onclick = () => {
+                    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
+                    document.getElementById(`${tab.dataset.tab}Tab`).style.display = 'block';
+                    if (tab.dataset.tab === 'exams') loadExams();
+                    if (tab.dataset.tab === 'promotionLists') loadPromotionLists();
+                    if (tab.dataset.tab === 'accounts') loadAccounts();
+                };
             });
             
-            // Проверка сохраненного пользователя
+            document.addEventListener('change', e => {
+                if (e.target.id === 'formDateStart' || e.target.id === 'formDateEnd') updatePeriodInfo();
+                if (e.target.id === 'formLastPromotion') updatePromoInfo();
+            });
+            
+            window.onclick = e => { if (e.target === document.getElementById('loginModal')) document.getElementById('loginModal').style.display = 'none'; };
+            
             const savedUser = localStorage.getItem('currentUser');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 updateUIForAdmin();
             }
-            
             showHomePage();
         });
     </script>
