@@ -1456,7 +1456,7 @@
         function calcPoints(a) { return (a.points || 0) * (parseInt(a.count) || 1); }
         function totalPoints() { return currentActions.reduce((s,a) => s + calcPoints(a), 0); }
         
-        async function sendDiscord(webhook, title, fields, color = 0x4CAF50, content = '', isTextOnly = false) {
+        async function sendDiscord(webhook, content, isTextOnly = false, embed = null) {
             try {
                 if (isTextOnly) {
                     const res = await fetch(webhook, {
@@ -1468,14 +1468,24 @@
                         })
                     });
                     return res.ok;
-                } else {
+                } else if (embed) {
                     const res = await fetch(webhook, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ 
                             content: content,
                             avatar_url: WEBHOOK_AVATAR,
-                            embeds: [{ title, color, fields, footer: { text: "ARMY" }, timestamp: new Date().toISOString() }] 
+                            embeds: [embed]
+                        })
+                    });
+                    return res.ok;
+                } else {
+                    const res = await fetch(webhook, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            content: content,
+                            avatar_url: WEBHOOK_AVATAR
                         })
                     });
                     return res.ok;
@@ -1880,13 +1890,7 @@
                         nickname: nick, rank: rank, periodStart: start, periodEnd: end, 
                         actions: acts, totalPoints: total 
                     });
-                    await sendDiscord(WEBHOOKS.MA.weekly, "Еженедельный отчёт (MA)", [
-                        { name: "Никнейм", value: nick, inline: true },
-                        { name: "Ранг", value: rank, inline: true },
-                        { name: "Период", value: `${formatDate(start)} - ${formatDate(end)}`, inline: true },
-                        { name: "Действия", value: acts.substring(0,1024) || "Нет" },
-                        { name: "Баллы", value: `${total}`, inline: true }
-                    ], 0x4CAF50, TAGS.MA.weekly);
+                    await sendDiscord(WEBHOOKS.MA.weekly, `📊 **Еженедельный отчёт (MA)**\n👤 Никнейм: ${nick}\n🏅 Ранг: ${rank}\n📅 Период: ${formatDate(start)} - ${formatDate(end)}\n📝 Действия:\n${acts}\n⭐ Баллы: ${total}`, false);
                     showAlert(alertId, 'Отчёт отправлен!', 'success');
                     resetForm();
                 } catch(e) {
@@ -1913,14 +1917,7 @@
                         lastPromotion: lastProm, actions: acts, totalPoints: total
                     });
                     const webhook = WEBHOOKS[currentDept]?.promotion;
-                    if (webhook) await sendDiscord(webhook, `Запрос на повышение (${currentDept})`, [
-                        { name: "Никнейм", value: nick, inline: true },
-                        { name: "Текущий ранг", value: curRank, inline: true },
-                        { name: "Желаемый ранг", value: desRank, inline: true },
-                        { name: "Последнее повышение", value: formatDate(lastProm) || "Не указано", inline: true },
-                        { name: "Достижения", value: acts.substring(0,1024) || "Нет" },
-                        { name: "Баллы", value: `${total}`, inline: true }
-                    ], 0x4CAF50, TAGS[currentDept]?.promotion);
+                    if (webhook) await sendDiscord(webhook, `⬆️ **Запрос на повышение (${currentDept})**\n👤 Никнейм: ${nick}\n🏅 Текущий ранг: ${curRank}\n🎯 Желаемый ранг: ${desRank}\n📅 Последнее повышение: ${formatDate(lastProm) || 'Не указано'}\n📝 Достижения:\n${acts}\n⭐ Баллы: ${total}`, false);
                     showAlert(alertId, 'Запрос отправлен!', 'success');
                     resetForm();
                 } catch(e) {
@@ -1942,19 +1939,9 @@
                     });
                     const webhook = WEBHOOKS[currentDept]?.exam;
                     if (webhook) {
-                        await sendDiscord(webhook, `Запись на экзамен (${currentDept})`, [
-                            { name: "Имя", value: fullName, inline: true },
-                            { name: "Экзамен", value: examType, inline: true },
-                            { name: "Discord", value: discord, inline: true },
-                            { name: "Время", value: time, inline: true }
-                        ], 0x4CAF50, TAGS[currentDept]?.exam);
+                        await sendDiscord(webhook, `📝 **Запись на экзамен (${currentDept})**\n👤 Имя: ${fullName}\n🎓 Экзамен: ${examType}\n💬 Discord: ${discord}\n⏰ Время: ${time}`, false);
                     }
-                    await sendDiscord(ADDITIONAL_EXAM_WEBHOOK, `Запись на экзамен (${currentDept})`, [
-                        { name: "Имя", value: fullName, inline: true },
-                        { name: "Экзамен", value: examType, inline: true },
-                        { name: "Discord", value: discord, inline: true },
-                        { name: "Время", value: time, inline: true }
-                    ], 0x4CAF50, '');
+                    await sendDiscord(ADDITIONAL_EXAM_WEBHOOK, `📝 **Запись на экзамен (${currentDept})**\n👤 Имя: ${fullName}\n🎓 Экзамен: ${examType}\n💬 Discord: ${discord}\n⏰ Время: ${time}`, false);
                     showAlert(alertId, 'Заявка отправлена!', 'success');
                     resetForm();
                 } catch(e) {
@@ -2011,7 +1998,7 @@
                 const result = await callGoogleScript('getExams', {});
                 if (result.exams && result.exams.length > 0) {
                     container.innerHTML = result.exams.map((e, i) => `
-                        <div class="exam-item" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}">
+                        <div class="exam-item" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}" data-discord="${escapeHtml(e.discordTag)}">
                             <div><strong>👤 ${escapeHtml(e.fullName)}</strong> | 📝 ${escapeHtml(e.examType)} | 🏢 ${escapeHtml(e.department)}</div>
                             <div>💬 Discord: ${escapeHtml(e.discordTag)} | ⏰ Время: ${escapeHtml(e.examTime)} | 📅 Дата: ${e.date}</div>
                             <div>📊 Статус: <span class="status-badge status-${e.status==='Принят'?'passed':e.status==='Отклонен'?'failed':e.status==='Проводится'?'inprogress':'waiting'}">${e.status || 'Ожидание'}</span></div>
@@ -2022,7 +2009,7 @@
                                     <option value="Принят" ${e.status==='Принят'?'selected':''}>✅ Принят</option>
                                     <option value="Отклонен" ${e.status==='Отклонен'?'selected':''}>❌ Отклонен</option>
                                 </select>
-                                <button class="exam-confirm-btn" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}"><i class="fas fa-save"></i> Сохранить</button>
+                                <button class="exam-confirm-btn" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}" data-discord="${escapeHtml(e.discordTag)}"><i class="fas fa-save"></i> Сохранить</button>
                             </div>
                             <div class="exam-result-form" id="resultForm-${i}">
                                 <select class="exam-result">
@@ -2030,7 +2017,7 @@
                                     <option value="Не сдал">❌ Не сдал</option>
                                 </select>
                                 <input type="number" class="exam-score" placeholder="Кол-во баллов" min="0" max="100">
-                                <button class="exam-submit-result" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}">Подтвердить результат</button>
+                                <button class="exam-submit-result" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}" data-discord="${escapeHtml(e.discordTag)}">Подтвердить результат</button>
                             </div>
                         </div>
                     `).join('');
@@ -2041,23 +2028,24 @@
                             const name = btn.dataset.name;
                             const date = btn.dataset.date;
                             const dept = btn.dataset.dept;
+                            const discordTag = btn.dataset.discord;
                             const select = btn.parentElement.querySelector('.exam-status-select');
                             const status = select.value;
                             const resultForm = examDiv.querySelector('.exam-result-form');
                             
                             if (status === 'Проводится') {
-                                await updateExamStatus(name, date, 'Проводится', dept, null, null, null);
+                                await updateExamStatus(name, date, 'Проводится', dept, null, null, null, null, discordTag);
                                 showAlert('examsTab', `Статус экзамена изменен на "Проводится"`, 'success');
                                 loadExams();
                             } else if (status === 'Отклонен') {
                                 const adminName = currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор';
-                                await updateExamStatus(name, date, 'Отклонен', dept, null, null, null, adminName);
+                                await updateExamStatus(name, date, 'Отклонен', dept, null, null, adminName, null, discordTag);
                                 showAlert('examsTab', 'Экзамен отклонен', 'success');
                                 loadExams();
                             } else if (status === 'Принят') {
                                 resultForm.style.display = 'block';
                             } else {
-                                await updateExamStatus(name, date, status, dept);
+                                await updateExamStatus(name, date, status, dept, null, null, null, null, discordTag);
                                 showAlert('examsTab', `Статус экзамена изменен на "${status}"`, 'success');
                                 loadExams();
                             }
@@ -2070,13 +2058,14 @@
                             const name = btn.dataset.name;
                             const date = btn.dataset.date;
                             const dept = btn.dataset.dept;
+                            const discordTag = btn.dataset.discord;
                             const resultSelect = examDiv.querySelector('.exam-result');
                             const scoreInput = examDiv.querySelector('.exam-score');
                             const result = resultSelect ? resultSelect.value : 'Сдал';
                             const score = scoreInput ? scoreInput.value : '0';
                             const adminName = currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор';
                             
-                            await updateExamStatus(name, date, 'Принят', dept, result, score, adminName);
+                            await updateExamStatus(name, date, 'Принят', dept, result, score, adminName, true, discordTag);
                             showAlert('examsTab', `Результат экзамена сохранен`, 'success');
                             loadExams();
                         };
@@ -2090,67 +2079,31 @@
             }
         }
         
-        async function updateExamStatus(name, date, status, dept, result, score, adminName, rejectReasonAdmin = null) {
+        async function updateExamStatus(name, date, status, dept, result, score, adminName, isAccepted = false, discordTag = null) {
             try {
                 await callGoogleScript('updateExamStatus', { 
-                    fullName: name, date: date, status: status, 
+                    fullName: name, date: date, status: status === 'Принят' ? 'Принят' : (status === 'Отклонен' ? 'Отклонен' : status), 
                     examinerName: adminName || '', score: score || '', result: result || '', department: dept 
                 });
                 
-                let message = '';
-                let isTextOnly = false;
-                
-                if (status === 'Принят') {
-                    message = `✅ **Результат экзамена**\n👤 Принимавший: ${adminName || 'Администратор'}\n👤 Студент: ${name}\n📊 Результат: ${result || 'Сдал'}\n⭐ Баллы: ${score || '0'}`;
-                } else if (status === 'Отклонен') {
-                    const rejectorName = rejectReasonAdmin || (currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор');
-                    message = `❌ Заявка отклонена\n👤 Отклонил: ${rejectorName}\n👤 Студент: ${name}\n📝 Причина: уточните у ${rejectorName}`;
-                } else if (status === 'Проводится') {
-                    message = `https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)`;
-                    isTextOnly = true;
-                } else {
-                    message = '⏳ Ваша заявка на экзамен принята! Ожидайте ответа.';
-                }
-                
                 const webhook = STATUS_WEBHOOKS[dept];
-                if (webhook) {
-                    if (isTextOnly) {
-                        await fetch(webhook, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ 
-                                content: message,
-                                avatar_url: WEBHOOK_AVATAR
-                            })
-                        });
-                    } else {
-                        await fetch(webhook, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ 
-                                content: message,
-                                avatar_url: WEBHOOK_AVATAR,
-                                embeds: [{ 
-                                    title: `Результат экзамена (${dept})`, 
-                                    color: status === 'Принят' ? 0x10b981 : (status === 'Отклонен' ? 0xef4444 : 0xf59e0b), 
-                                    fields: status === 'Принят' ? [
-                                        { name: "👤 Принимавший", value: adminName || 'Администратор', inline: true },
-                                        { name: "👤 Студент", value: name, inline: true },
-                                        { name: "📊 Результат", value: result || 'Сдал', inline: true },
-                                        { name: "⭐ Баллы", value: score || '0', inline: true }
-                                    ] : (status === 'Отклонен' ? [
-                                        { name: "👤 Отклонил", value: rejectReasonAdmin || (currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Администратор'), inline: true },
-                                        { name: "👤 Студент", value: name, inline: true },
-                                        { name: "📝 Причина", value: `уточните у ${rejectReasonAdmin || (currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Администратора')}`, inline: false }
-                                    ] : [
-                                        { name: "👤 Участник", value: name, inline: true }, 
-                                        { name: "📊 Статус", value: status, inline: true }
-                                    ]),
-                                    footer: { text: "ARMY" }, 
-                                    timestamp: new Date().toISOString() 
-                                }]
-                            })
-                        });
+                const adminFullName = adminName || (currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор');
+                const discordMention = discordTag && discordTag.trim() ? discordTag : '';
+                
+                if (status === 'Проводится') {
+                    const message = `https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)`;
+                    if (webhook) {
+                        await sendDiscord(webhook, message, true);
+                    }
+                } else if (status === 'Отклонен') {
+                    const message = `❌ Заявка отклонена, причину узнайте от ${adminFullName}`;
+                    if (webhook) {
+                        await sendDiscord(webhook, message, true);
+                    }
+                } else if (status === 'Принят' && isAccepted) {
+                    const message = `${discordMention} ✅ Заявка принята!`;
+                    if (webhook) {
+                        await sendDiscord(webhook, message, true);
                     }
                 }
             } catch(e) { console.error(e); }
@@ -2199,7 +2152,7 @@
                 if (allReports.length > 0) {
                     container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Тип</th><th>Дата</th><th>Пользователь</th><th>Детали</th><th>Баллы</th><th>Отдел</th>
-                    </tr></thead><tbody>
+                    </table></thead><tbody>
                         ${allReports.map(r => `
                             <tr>
                                 <td>${r.type}</td>
@@ -2247,7 +2200,7 @@
                     accountsList = result.accounts;
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th><th>Действия</th>
-                    <tr></thead><tbody>
+                    </tr></thead><tbody>
                         ${result.accounts.map(a => `<tr>
                             <td>${escapeHtml(a.login)}</td>
                             <td>${escapeHtml(a.role)}</td>
@@ -2352,11 +2305,7 @@
                 senderName: sender, promotedName: promoted, reportLink: link, department: currentDept || 'MA'
             });
             const discordMention = discordId && discordId.match(/^\d+$/) ? `<@${discordId}> ` : '';
-            sendDiscord(PROMOTION_LIST_WEBHOOK, `Список на повышение #${result.listNumber}`, [
-                { name: "Отправитель", value: sender }, 
-                { name: "Повышаемый", value: promoted },
-                { name: "Ссылка", value: link }
-            ], 0x4CAF50, `${discordMention}🎫 Заявка на повышение №${result.listNumber}`);
+            await sendDiscord(PROMOTION_LIST_WEBHOOK, `${discordMention}🎫 Заявка на повышение №${result.listNumber}`, true);
             showAlert('sendListTab', `Список #${result.listNumber} отправлен!`, 'success');
             document.querySelectorAll('#listSender, #listPromoted, #listLink, #listDiscordId').forEach(i => i.value = '');
             document.getElementById('discordPreview').style.display = 'none';
