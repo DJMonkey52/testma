@@ -1358,6 +1358,8 @@
         
         const WEBHOOK_AVATAR = 'https://i.yapx.ru/dogYP.png';
         
+        const ROLES_TO_TAG = '<@&792077657469747220> <@&792080799062556672> <@&793440128906821672>';
+        
         const TAGS = {
             КМБ: { promotion: '<@&793440128906821672><@&792080799062556672>', exam: '<@&713076174112161836>' },
             ACD: { promotion: '<@&713076174112161836>', exam: '<@&713076174112161836>' },
@@ -1449,45 +1451,35 @@
             return input;
         }
         
-        async function sendDiscord(webhook, content, isTextOnly = false, embed = null, tagRole = null) {
+        async function sendDiscordEmbed(webhook, embed, content = null) {
             try {
-                let finalContent = content;
-                if (tagRole) {
-                    finalContent = `${tagRole}\n${content}`;
+                const payload = {
+                    avatar_url: WEBHOOK_AVATAR,
+                    embeds: [embed]
+                };
+                if (content) {
+                    payload.content = content;
                 }
-                
-                if (isTextOnly) {
-                    const res = await fetch(webhook, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            content: finalContent,
-                            avatar_url: WEBHOOK_AVATAR
-                        })
-                    });
-                    return res.ok;
-                } else if (embed) {
-                    const res = await fetch(webhook, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            content: finalContent,
-                            avatar_url: WEBHOOK_AVATAR,
-                            embeds: [embed]
-                        })
-                    });
-                    return res.ok;
-                } else {
-                    const res = await fetch(webhook, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            content: finalContent,
-                            avatar_url: WEBHOOK_AVATAR
-                        })
-                    });
-                    return res.ok;
-                }
+                const res = await fetch(webhook, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                return res.ok;
+            } catch(e) { console.error('Discord error:', e); return false; }
+        }
+        
+        async function sendDiscordText(webhook, content) {
+            try {
+                const res = await fetch(webhook, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        content: content,
+                        avatar_url: WEBHOOK_AVATAR
+                    })
+                });
+                return res.ok;
             } catch(e) { console.error('Discord error:', e); return false; }
         }
         
@@ -1888,7 +1880,21 @@
                         nickname: nick, rank: rank, periodStart: start, periodEnd: end, 
                         actions: acts, totalPoints: total 
                     });
-                    await sendDiscord(WEBHOOKS.MA.weekly, `📊 **Еженедельный отчёт (MA)**\n👤 Никнейм: ${nick}\n🏅 Ранг: ${rank}\n📅 Период: ${formatDate(start)} - ${formatDate(end)}\n📝 Действия:\n${acts}\n⭐ Баллы: ${total}`, false);
+                    
+                    const weeklyEmbed = {
+                        title: "📊 Еженедельный отчёт (MA)",
+                        color: 0x4CAF50,
+                        fields: [
+                            { name: "👤 Никнейм", value: nick, inline: true },
+                            { name: "🏅 Ранг", value: rank, inline: true },
+                            { name: "📅 Период", value: `${formatDate(start)} - ${formatDate(end)}`, inline: true },
+                            { name: "📝 Действия", value: acts.substring(0, 1024) || "Нет" },
+                            { name: "⭐ Баллы", value: `${total}`, inline: true }
+                        ],
+                        footer: { text: "ARMY" },
+                        timestamp: new Date().toISOString()
+                    };
+                    await sendDiscordEmbed(WEBHOOKS.MA.weekly, weeklyEmbed, ROLES_TO_TAG);
                     showAlert(alertId, 'Отчёт отправлен!', 'success');
                     resetForm();
                 } catch(e) {
@@ -1914,8 +1920,23 @@
                         nickname: nick, currentRank: curRank, desiredRank: desRank,
                         lastPromotion: lastProm, actions: acts, totalPoints: total
                     });
+                    
+                    const promotionEmbed = {
+                        title: `⬆️ Запрос на повышение (${currentDept})`,
+                        color: 0x4CAF50,
+                        fields: [
+                            { name: "👤 Никнейм", value: nick, inline: true },
+                            { name: "🏅 Текущий ранг", value: curRank, inline: true },
+                            { name: "🎯 Желаемый ранг", value: desRank, inline: true },
+                            { name: "📅 Последнее повышение", value: formatDate(lastProm) || "Не указано", inline: true },
+                            { name: "📝 Достижения", value: acts.substring(0, 1024) || "Нет" },
+                            { name: "⭐ Баллы", value: `${total}`, inline: true }
+                        ],
+                        footer: { text: "ARMY" },
+                        timestamp: new Date().toISOString()
+                    };
                     const webhook = WEBHOOKS[currentDept]?.promotion;
-                    if (webhook) await sendDiscord(webhook, `⬆️ **Запрос на повышение (${currentDept})**\n👤 Никнейм: ${nick}\n🏅 Текущий ранг: ${curRank}\n🎯 Желаемый ранг: ${desRank}\n📅 Последнее повышение: ${formatDate(lastProm) || 'Не указано'}\n📝 Достижения:\n${acts}\n⭐ Баллы: ${total}`, false);
+                    if (webhook) await sendDiscordEmbed(webhook, promotionEmbed, ROLES_TO_TAG);
                     showAlert(alertId, 'Запрос отправлен!', 'success');
                     resetForm();
                 } catch(e) {
@@ -1930,7 +1951,7 @@
                 const time = document.getElementById('fTime')?.value.trim() || '';
                 
                 const discordMention = convertToMention(discord);
-                const tagRole = TAGS[currentDept]?.exam || '';
+                const tagRole = TAGS[currentDept]?.exam || ROLES_TO_TAG;
                 
                 try {
                     await callGoogleScript('saveReport', {
@@ -1938,11 +1959,25 @@
                         fullName: fullName, examType: examType,
                         discordTag: discord, examTime: time
                     });
+                    
+                    const examEmbed = {
+                        title: `📝 Запись на экзамен (${currentDept})`,
+                        color: 0x4CAF50,
+                        fields: [
+                            { name: "👤 Имя", value: fullName, inline: true },
+                            { name: "🎓 Экзамен", value: examType, inline: true },
+                            { name: "💬 Discord", value: discordMention || discord || "Не указан", inline: true },
+                            { name: "⏰ Время", value: time || "Не указано", inline: true }
+                        ],
+                        footer: { text: "ARMY" },
+                        timestamp: new Date().toISOString()
+                    };
+                    
                     const webhook = WEBHOOKS[currentDept]?.exam;
                     if (webhook) {
-                        await sendDiscord(webhook, `📝 **Запись на экзамен (${currentDept})**\n👤 Имя: ${fullName}\n🎓 Экзамен: ${examType}\n💬 Discord: ${discordMention || discord}\n⏰ Время: ${time}`, false, null, tagRole);
+                        await sendDiscordEmbed(webhook, examEmbed, tagRole);
                     }
-                    await sendDiscord(ADDITIONAL_EXAM_WEBHOOK, `📝 **Запись на экзамен (${currentDept})**\n👤 Имя: ${fullName}\n🎓 Экзамен: ${examType}\n💬 Discord: ${discordMention || discord}\n⏰ Время: ${time}`, false);
+                    await sendDiscordEmbed(ADDITIONAL_EXAM_WEBHOOK, examEmbed);
                     showAlert(alertId, 'Заявка отправлена!', 'success');
                     resetForm();
                 } catch(e) {
@@ -1998,12 +2033,13 @@
             try {
                 const result = await callGoogleScript('getExams', {});
                 if (result.exams && result.exams.length > 0) {
+                    const now = new Date();
+                    const fourHoursAgo = new Date(now.getTime() - 4 * 60 * 60 * 1000);
+                    
                     container.innerHTML = result.exams.map((e, i) => {
-                        const createdAt = new Date(e.date);
-                        const now = new Date();
-                        const hoursDiff = (now - createdAt) / (1000 * 60 * 60);
-                        const isExpired = hoursDiff > 4;
-                        if (isExpired && e.status !== 'Принят' && e.status !== 'Отклонен') {
+                        const examDate = new Date(e.date + 'T' + (e.time || '00:00:00'));
+                        const isExpired = examDate < fourHoursAgo && e.status !== 'Принят' && e.status !== 'Отклонен';
+                        if (isExpired) {
                             callGoogleScript('deleteExam', { id: e.id, sheet: e.department === 'MA' ? 'MA_Экзамены' : (e.department === 'КМБ' ? 'КМБ_Экзамены' : 'ACD_Экзамены') });
                             return '';
                         }
@@ -2104,7 +2140,7 @@
                 if (status === 'Проводится') {
                     const message = `https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)`;
                     if (webhook) {
-                        await sendDiscord(webhook, message, true);
+                        await sendDiscordText(webhook, message);
                     }
                 } else if (status === 'Отклонен') {
                     const embed = {
@@ -2118,7 +2154,7 @@
                         timestamp: new Date().toISOString()
                     };
                     if (webhook) {
-                        await sendDiscord(webhook, null, false, embed);
+                        await sendDiscordEmbed(webhook, embed);
                     }
                 } else if (status === 'Принят' && isAccepted) {
                     const embed = {
@@ -2134,7 +2170,7 @@
                         timestamp: new Date().toISOString()
                     };
                     if (webhook) {
-                        await sendDiscord(webhook, discordMention ? `${discordMention}` : null, false, embed);
+                        await sendDiscordEmbed(webhook, embed, discordMention ? discordMention : null);
                     }
                 }
             } catch(e) { console.error(e); }
@@ -2183,7 +2219,7 @@
                 if (allReports.length > 0) {
                     container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Тип</th><th>Дата</th><th>Пользователь</th><th>Детали</th><th>Баллы</th><th>Отдел</th>
-                    </td></thead><tbody>
+                    </tr></thead><tbody>
                         ${allReports.map(r => `
                             <tr>
                                 <td>${r.type}</td>
@@ -2210,7 +2246,7 @@
                 if (result.lists && result.lists.length > 0) {
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th>
-                    </tr></thead><tbody>
+                    <tr></thead><tbody>
                         ${result.lists.map(l => `<tr>
                             <td>${l.number}</td>
                             <td>${new Date(l.date).toLocaleString()}</td>
@@ -2231,7 +2267,7 @@
                     accountsList = result.accounts;
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th><th>Действия</th>
-                    </tr></thead><tbody>
+                    <tr></thead><tbody>
                         ${result.accounts.map(a => `<tr>
                             <td>${escapeHtml(a.login)}</td>
                             <td>${escapeHtml(a.role)}</td>
@@ -2266,7 +2302,7 @@
                 if (Object.keys(settings).length > 0) {
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Ключ</th><th>Значение</th><th>Действия</th>
-                    </table></thead><tbody>
+                    </tr></thead><tbody>
                         ${Object.entries(settings).map(([key, value]) => `<tr>
                             <td>${escapeHtml(key)}</td>
                             <td>${escapeHtml(value)}</td>
@@ -2336,7 +2372,7 @@
                 senderName: sender, promotedName: promoted, reportLink: link, department: currentDept || 'MA'
             });
             const discordMention = convertToMention(discordInput);
-            await sendDiscord(PROMOTION_LIST_WEBHOOK, `${discordMention ? discordMention + ' ' : ''}🎫 Заявка на повышение №${result.listNumber}`, true);
+            await sendDiscordText(PROMOTION_LIST_WEBHOOK, `${discordMention ? discordMention + ' ' : ''}🎫 Заявка на повышение №${result.listNumber}`);
             showAlert('sendListTab', `Список #${result.listNumber} отправлен!`, 'success');
             document.querySelectorAll('#listSender, #listPromoted, #listLink, #listDiscordId').forEach(i => i.value = '');
             document.getElementById('discordPreview').style.display = 'none';
