@@ -1236,7 +1236,6 @@
                         <div class="admin-tab" data-tab="promotions">📋 Списки на повышение</div>
                         <div class="admin-tab" data-tab="accounts" id="accountsTab">👥 Аккаунты</div>
                         <div class="admin-tab" data-tab="settings" id="settingsTab">⚙️ Настройки</div>
-                        <div class="admin-tab" data-tab="sendList">📤 Отправить список</div>
                     </div>
                     
                     <div id="examsTab" class="admin-tab-content">
@@ -1292,19 +1291,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div id="sendListTab" class="admin-tab-content" style="display: none;">
-                        <h3>Отправить список на повышение</h3>
-                        <div class="input-group"><label><i class="fas fa-user"></i> Отправитель</label><input type="text" id="listSender" placeholder="Введите имя отправителя"></div>
-                        <div class="input-group"><label><i class="fas fa-arrow-up"></i> Повышаемый</label><input type="text" id="listPromoted" placeholder="Введите имя повышаемого"></div>
-                        <div class="input-group"><label><i class="fas fa-link"></i> Ссылка на отчет</label><input type="text" id="listLink" placeholder="https://..."></div>
-                        <div class="input-group"><label><i class="fab fa-discord"></i> Discord ID/тег</label><input type="text" id="listDiscordId" placeholder="Введите Discord ID или @тег"></div>
-                        <div class="discord-preview" id="discordPreview" style="display: none;">
-                            <i class="fab fa-discord"></i>
-                            <span id="discordTag"></span>
-                        </div>
-                        <button class="submit-btn" id="sendListBtn"><i class="fas fa-paper-plane"></i> Отправить список</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1328,7 +1314,7 @@
     </div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoFQWYJspO_vHROyBig1VUgmxnS2sxXbDkVyAZju8rsgs9eUe_s-_JVEZq2a16g27S/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynrQv1QhyEFkuU4bPA1RnQS9D8JDyCOkwaW-ubivYZkbiMYKzVghlnCuP-mKMVUUJ1/exec';
         
         const WEBHOOKS = {
             КМБ: {
@@ -1680,7 +1666,7 @@
                 fieldsDiv.innerHTML = `
                     <div class="input-group"><label><i class="fas fa-user"></i> ИМЯ И ФАМИЛИЯ</label><input type="text" id="fFullName" placeholder="Введите имя и фамилию"></div>
                     <div class="input-group"><label><i class="fas fa-graduation-cap"></i> ТИП ЭКЗАМЕНА</label><select id="fExamType">${examOptions}</select></div>
-                    <div class="input-group"><label><i class="fab fa-discord"></i> DISCORD ТЕГ</label><input type="text" id="fDiscord" placeholder="Введите Discord тег или ID"></div>
+                    <div class="input-group"><label><i class="fab fa-discord"></i> DISCORD ТЕГ/ID</label><input type="text" id="fDiscord" placeholder="Введите Discord ID или @тег"></div>
                     <div class="input-group"><label><i class="fas fa-clock"></i> УДОБНОЕ ВРЕМЯ</label><input type="text" id="fTime" placeholder="Например: 20:00 МСК"></div>
                 `;
                 document.getElementById('actionsSection').style.display = 'none';
@@ -2049,7 +2035,7 @@
                                 <div>💬 Discord: ${escapeHtml(e.discordTag)} | ⏰ Время: ${escapeHtml(e.examTime)} | 📅 Дата: ${e.date}</div>
                                 <div>📊 Статус: <span class="status-badge status-${e.status==='Принят'?'passed':e.status==='Отклонен'?'failed':e.status==='Проводится'?'inprogress':'waiting'}">${e.status || 'Ожидание'}</span></div>
                                 <div class="exam-actions">
-                                    <select class="exam-status-select" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}">
+                                    <select class="exam-status-select" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}" data-discord="${escapeHtml(e.discordTag)}">
                                         <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>⏳ Ожидание</option>
                                         <option value="Проводится" ${e.status==='Проводится'?'selected':''}>🔄 Проводится</option>
                                         <option value="Принят" ${e.status==='Принят'?'selected':''}>✅ Принят</option>
@@ -2135,10 +2121,10 @@
                 
                 const webhook = STATUS_WEBHOOKS[dept];
                 const adminFullName = adminName || (currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор');
-                const discordMention = convertToMention(discordTag);
+                const userMention = convertToMention(discordTag);
                 
                 if (status === 'Проводится') {
-                    const message = `https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)`;
+                    const message = `${userMention ? userMention + ' ' : ''}https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)`;
                     if (webhook) {
                         await sendDiscordText(webhook, message);
                     }
@@ -2170,7 +2156,7 @@
                         timestamp: new Date().toISOString()
                     };
                     if (webhook) {
-                        await sendDiscordEmbed(webhook, embed, discordMention ? discordMention : null);
+                        await sendDiscordEmbed(webhook, embed, userMention ? userMention : null);
                     }
                 }
             } catch(e) { console.error(e); }
@@ -2246,7 +2232,7 @@
                 if (result.lists && result.lists.length > 0) {
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th>
-                    <tr></thead><tbody>
+                    </tr></thead><tbody>
                         ${result.lists.map(l => `<tr>
                             <td>${l.number}</td>
                             <td>${new Date(l.date).toLocaleString()}</td>
@@ -2265,9 +2251,9 @@
                 const result = await callGoogleScript('getAccounts', {});
                 if (result.accounts && result.accounts.length > 0) {
                     accountsList = result.accounts;
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
+                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead></table>
                         <th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th><th>Действия</th>
-                    <tr></thead><tbody>
+                    </tr></thead><tbody>
                         ${result.accounts.map(a => `<tr>
                             <td>${escapeHtml(a.login)}</td>
                             <td>${escapeHtml(a.role)}</td>
@@ -2307,7 +2293,7 @@
                             <td>${escapeHtml(key)}</td>
                             <td>${escapeHtml(value)}</td>
                             <td><div class="setting-actions"><button class="edit-setting" data-key="${escapeHtml(key)}" data-value="${escapeHtml(value)}">✏️ Ред.</button><button class="delete-setting" data-key="${escapeHtml(key)}">🗑️ Удал.</button></div></td>
-                        </tr>`).join('')}
+                        <tr>`).join('')}
                     </tbody></table></div>`;
                     
                     document.querySelectorAll('.edit-setting').forEach(btn => {
@@ -2362,41 +2348,6 @@
             loadSettingsList();
         }
         
-        async function sendPromotionList() {
-            const sender = document.getElementById('listSender')?.value;
-            const promoted = document.getElementById('listPromoted')?.value;
-            const link = document.getElementById('listLink')?.value;
-            const discordInput = document.getElementById('listDiscordId')?.value;
-            if (!sender || !promoted || !link) { showAlert('sendListTab', 'Заполните все поля', 'error'); return; }
-            const result = await callGoogleScript('savePromotionList', { 
-                senderName: sender, promotedName: promoted, reportLink: link, department: currentDept || 'MA'
-            });
-            const discordMention = convertToMention(discordInput);
-            await sendDiscordText(PROMOTION_LIST_WEBHOOK, `${discordMention ? discordMention + ' ' : ''}🎫 Заявка на повышение №${result.listNumber}`);
-            showAlert('sendListTab', `Список #${result.listNumber} отправлен!`, 'success');
-            document.querySelectorAll('#listSender, #listPromoted, #listLink, #listDiscordId').forEach(i => i.value = '');
-            document.getElementById('discordPreview').style.display = 'none';
-            loadPromotions();
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const discordInput = document.getElementById('listDiscordId');
-            if (discordInput) {
-                discordInput.addEventListener('input', () => {
-                    const discordValue = discordInput.value.trim();
-                    const preview = document.getElementById('discordPreview');
-                    const tagSpan = document.getElementById('discordTag');
-                    if (discordValue) {
-                        const mention = convertToMention(discordValue);
-                        tagSpan.innerHTML = `<i class="fab fa-discord"></i> Будет тегнут: ${mention}`;
-                        preview.style.display = 'flex';
-                    } else {
-                        preview.style.display = 'none';
-                    }
-                });
-            }
-        });
-        
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('theme') === 'light') {
                 document.body.classList.add('light');
@@ -2429,7 +2380,6 @@
             document.getElementById('logoutBtn').onclick = logout;
             document.getElementById('createAccountBtn')?.addEventListener('click', createAccount);
             document.getElementById('saveSettingBtn')?.addEventListener('click', saveSetting);
-            document.getElementById('sendListBtn')?.addEventListener('click', sendPromotionList);
             
             document.querySelectorAll('.admin-tab').forEach(tab => {
                 tab.onclick = () => {
