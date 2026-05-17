@@ -1263,7 +1263,6 @@
                     <div id="examsTab" class="admin-tab-content">
                         <div class="card-header" style="padding: 15px 20px;">
                             <h3>Управление экзаменами</h3>
-                            <button class="take-report-btn" id="takeExamsReportBtn"><i class="fas fa-download"></i> Взять отчеты</button>
                         </div>
                         <div id="examsList" style="padding: 15px;"></div>
                     </div>
@@ -2096,12 +2095,12 @@
                         await sendDiscord(webhook, message, true);
                     }
                 } else if (status === 'Отклонен') {
-                    const message = `❌ Заявка отклонена, причину узнайте от ${adminFullName}`;
+                    const message = `❌ **Заявка отклонена**\n👤 Принимавший: ${adminFullName}\n👤 Студент: ${name}`;
                     if (webhook) {
                         await sendDiscord(webhook, message, true);
                     }
                 } else if (status === 'Принят' && isAccepted) {
-                    const message = `${discordMention} ✅ Заявка принята!`;
+                    const message = `${discordMention} ✅ **Результат экзамена (${dept})**\n👤 Принимавший: ${adminFullName}\n👤 Студент: ${name}\n📊 Результат: ${result}\n⭐ Баллы: ${score}`;
                     if (webhook) {
                         await sendDiscord(webhook, message, true);
                     }
@@ -2152,7 +2151,7 @@
                 if (allReports.length > 0) {
                     container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Тип</th><th>Дата</th><th>Пользователь</th><th>Детали</th><th>Баллы</th><th>Отдел</th>
-                    </table></thead><tbody>
+                    </tr></thead><tbody>
                         ${allReports.map(r => `
                             <tr>
                                 <td>${r.type}</td>
@@ -2187,7 +2186,7 @@
                             <td>${escapeHtml(l.promotedName)}</td>
                             <td><a href="${l.reportLink}" target="_blank">Открыть</a></td>
                         </tr>`).join('')}
-                    </tbody></table></div>`;
+                    </tbody></td></div>`;
                 } else c.innerHTML = '<div class="empty-state">📭 Нет списков на повышение</div>';
             } catch(e) { c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки списков</div>'; }
         }
