@@ -1002,6 +1002,36 @@
             filter: brightness(1.1);
         }
 
+        .exam-result-form {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-light);
+            display: none;
+        }
+
+        .exam-result-form select, .exam-result-form input {
+            padding: 8px 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .exam-submit-result {
+            background: var(--accent);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            width: 100%;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -1419,6 +1449,7 @@
         let currentAction = null;
         let currentActions = [];
         let settings = {};
+        let accountsList = [];
         
         function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
         function formatDate(d) { if (!d) return ''; return new Date(d).toLocaleDateString('ru-RU'); }
@@ -1980,7 +2011,7 @@
                 const result = await callGoogleScript('getExams', {});
                 if (result.exams && result.exams.length > 0) {
                     container.innerHTML = result.exams.map((e, i) => `
-                        <div class="exam-item">
+                        <div class="exam-item" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}">
                             <div><strong>👤 ${escapeHtml(e.fullName)}</strong> | 📝 ${escapeHtml(e.examType)} | 🏢 ${escapeHtml(e.department)}</div>
                             <div>💬 Discord: ${escapeHtml(e.discordTag)} | ⏰ Время: ${escapeHtml(e.examTime)} | 📅 Дата: ${e.date}</div>
                             <div>📊 Статус: <span class="status-badge status-${e.status==='Принят'?'passed':e.status==='Отклонен'?'failed':e.status==='Проводится'?'inprogress':'waiting'}">${e.status || 'Ожидание'}</span></div>
@@ -1993,19 +2024,61 @@
                                 </select>
                                 <button class="exam-confirm-btn" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}"><i class="fas fa-save"></i> Сохранить</button>
                             </div>
+                            <div class="exam-result-form" id="resultForm-${i}">
+                                <select class="exam-result">
+                                    <option value="Сдал">✅ Сдал</option>
+                                    <option value="Не сдал">❌ Не сдал</option>
+                                </select>
+                                <input type="number" class="exam-score" placeholder="Кол-во баллов" min="0" max="100">
+                                <button class="exam-submit-result" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}">Подтвердить результат</button>
+                            </div>
                         </div>
                     `).join('');
                     
                     document.querySelectorAll('.exam-confirm-btn').forEach(btn => {
                         btn.onclick = async () => {
+                            const examDiv = btn.closest('.exam-item');
                             const name = btn.dataset.name;
                             const date = btn.dataset.date;
                             const dept = btn.dataset.dept;
                             const select = btn.parentElement.querySelector('.exam-status-select');
                             const status = select.value;
-                            await updateExamStatus(name, date, status, dept);
-                            showAlert('examsTab', `Статус экзамена изменен на "${status}"`, 'success');
-                            setTimeout(() => loadExams(), 500);
+                            const resultForm = examDiv.querySelector('.exam-result-form');
+                            
+                            if (status === 'Проводится') {
+                                await updateExamStatus(name, date, 'Проводится', dept, null, null, null);
+                                showAlert('examsTab', `Статус экзамена изменен на "Проводится"`, 'success');
+                                loadExams();
+                            } else if (status === 'Отклонен') {
+                                const adminName = currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор';
+                                await updateExamStatus(name, date, 'Отклонен', dept, null, null, null, adminName);
+                                showAlert('examsTab', 'Экзамен отклонен', 'success');
+                                loadExams();
+                            } else if (status === 'Принят') {
+                                resultForm.style.display = 'block';
+                            } else {
+                                await updateExamStatus(name, date, status, dept);
+                                showAlert('examsTab', `Статус экзамена изменен на "${status}"`, 'success');
+                                loadExams();
+                            }
+                        };
+                    });
+                    
+                    document.querySelectorAll('.exam-submit-result').forEach(btn => {
+                        btn.onclick = async () => {
+                            const examDiv = btn.closest('.exam-item');
+                            const name = btn.dataset.name;
+                            const date = btn.dataset.date;
+                            const dept = btn.dataset.dept;
+                            const resultSelect = examDiv.querySelector('.exam-result');
+                            const scoreInput = examDiv.querySelector('.exam-score');
+                            const result = resultSelect ? resultSelect.value : 'Сдал';
+                            const score = scoreInput ? scoreInput.value : '0';
+                            const adminName = currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор';
+                            
+                            await updateExamStatus(name, date, 'Принят', dept, result, score, adminName);
+                            showAlert('examsTab', `Результат экзамена сохранен`, 'success');
+                            loadExams();
                         };
                     });
                 } else {
@@ -2017,53 +2090,68 @@
             }
         }
         
-        async function updateExamStatus(name, date, status, dept) {
+        async function updateExamStatus(name, date, status, dept, result, score, adminName, rejectReasonAdmin = null) {
             try {
                 await callGoogleScript('updateExamStatus', { 
                     fullName: name, date: date, status: status, 
-                    examinerName: '', score: '', result: '', department: dept 
+                    examinerName: adminName || '', score: score || '', result: result || '', department: dept 
                 });
                 
                 let message = '';
+                let isTextOnly = false;
+                
                 if (status === 'Принят') {
-                    message = '✅ Поздравляем! Вы успешно сдали экзамен!';
+                    message = `✅ **Результат экзамена**\n👤 Принимавший: ${adminName || 'Администратор'}\n👤 Студент: ${name}\n📊 Результат: ${result || 'Сдал'}\n⭐ Баллы: ${score || '0'}`;
                 } else if (status === 'Отклонен') {
-                    message = '❌ К сожалению, вы не сдали экзамен. Попробуйте снова.';
+                    const rejectorName = rejectReasonAdmin || (currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор');
+                    message = `❌ Заявка отклонена\n👤 Отклонил: ${rejectorName}\n👤 Студент: ${name}\n📝 Причина: уточните у ${rejectorName}`;
                 } else if (status === 'Проводится') {
-                    message = 'https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)';
+                    message = `https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)`;
+                    isTextOnly = true;
                 } else {
                     message = '⏳ Ваша заявка на экзамен принята! Ожидайте ответа.';
                 }
                 
                 const webhook = STATUS_WEBHOOKS[dept];
-                if (webhook && status !== 'Проводится') {
-                    await fetch(webhook, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            content: message,
-                            avatar_url: WEBHOOK_AVATAR,
-                            embeds: [{ 
-                                title: `Результат экзамена (${dept})`, 
-                                color: status === 'Принят' ? 0x10b981 : (status === 'Отклонен' ? 0xef4444 : 0xf59e0b), 
-                                fields: [
-                                    { name: "👤 Участник", value: name, inline: true }, 
-                                    { name: "📊 Статус", value: status, inline: true }
-                                ],
-                                footer: { text: "ARMY" }, 
-                                timestamp: new Date().toISOString() 
-                            }]
-                        })
-                    });
-                } else if (webhook && status === 'Проводится') {
-                    await fetch(webhook, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            content: message,
-                            avatar_url: WEBHOOK_AVATAR
-                        })
-                    });
+                if (webhook) {
+                    if (isTextOnly) {
+                        await fetch(webhook, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                content: message,
+                                avatar_url: WEBHOOK_AVATAR
+                            })
+                        });
+                    } else {
+                        await fetch(webhook, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                content: message,
+                                avatar_url: WEBHOOK_AVATAR,
+                                embeds: [{ 
+                                    title: `Результат экзамена (${dept})`, 
+                                    color: status === 'Принят' ? 0x10b981 : (status === 'Отклонен' ? 0xef4444 : 0xf59e0b), 
+                                    fields: status === 'Принят' ? [
+                                        { name: "👤 Принимавший", value: adminName || 'Администратор', inline: true },
+                                        { name: "👤 Студент", value: name, inline: true },
+                                        { name: "📊 Результат", value: result || 'Сдал', inline: true },
+                                        { name: "⭐ Баллы", value: score || '0', inline: true }
+                                    ] : (status === 'Отклонен' ? [
+                                        { name: "👤 Отклонил", value: rejectReasonAdmin || (currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Администратор'), inline: true },
+                                        { name: "👤 Студент", value: name, inline: true },
+                                        { name: "📝 Причина", value: `уточните у ${rejectReasonAdmin || (currentUser ? `${currentUser.firstName} ${currentUser.lastName}` : 'Администратора')}`, inline: false }
+                                    ] : [
+                                        { name: "👤 Участник", value: name, inline: true }, 
+                                        { name: "📊 Статус", value: status, inline: true }
+                                    ]),
+                                    footer: { text: "ARMY" }, 
+                                    timestamp: new Date().toISOString() 
+                                }]
+                            })
+                        });
+                    }
                 }
             } catch(e) { console.error(e); }
         }
@@ -2156,15 +2244,16 @@
             try {
                 const result = await callGoogleScript('getAccounts', {});
                 if (result.accounts && result.accounts.length > 0) {
+                    accountsList = result.accounts;
                     c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
                         <th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th><th>Действия</th>
-                    </tr></thead><tbody>
+                    <tr></thead><tbody>
                         ${result.accounts.map(a => `<tr>
                             <td>${escapeHtml(a.login)}</td>
                             <td>${escapeHtml(a.role)}</td>
                             <td>${escapeHtml(a.firstName || '')}</td>
                             <td>${escapeHtml(a.lastName || '')}</td>
-                            <td><div class="account-actions"><button class="edit-btn" data-login="${escapeHtml(a.login)}">✏️ Ред.</button><button class="delete-btn" data-login="${escapeHtml(a.login)}">🗑️ Удал.</button></div></td>
+                            <td><div class="account-actions"><button class="delete-btn" data-login="${escapeHtml(a.login)}">🗑️ Удал.</button></div></td>
                         </tr>`).join('')}
                     </tbody></table></div>`;
                     
