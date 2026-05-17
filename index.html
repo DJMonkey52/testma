@@ -44,7 +44,7 @@
         }
 
         body.light {
-            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-bg: rgba(245, 255, 245, 0.95);
             --glass-border: rgba(76, 175, 80, 0.3);
             --text-primary: #1f2937;
             --text-secondary: #4b5563;
@@ -125,35 +125,10 @@
             margin-top: 5px;
         }
 
-        .top-bar {
+        .theme-toggle {
             position: fixed;
             top: 20px;
-            left: 20px;
             right: 20px;
-            display: flex;
-            justify-content: space-between;
-            z-index: 100;
-            gap: 10px;
-            flex-wrap: wrap;
-            animation: slideInDown 0.5s ease;
-        }
-
-        .top-bar-left {
-            display: flex;
-            gap: 10px;
-        }
-
-        .top-bar-right {
-            display: flex;
-            gap: 10px;
-        }
-
-        @keyframes slideInDown {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .btn-icon {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
@@ -167,44 +142,13 @@
             font-weight: 500;
             font-size: 0.85rem;
             transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            z-index: 100;
         }
 
-        .btn-icon:hover {
+        .theme-toggle:hover {
             border-color: var(--accent);
             transform: scale(1.05) translateY(-2px);
             box-shadow: 0 0 25px rgba(76, 175, 80, 0.4);
-        }
-
-        .btn-admin {
-            border-color: var(--accent);
-            color: var(--accent-glow);
-        }
-
-        .btn-admin:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        .btn-logout {
-            background: rgba(239, 68, 68, 0.8);
-            border-color: var(--danger);
-            color: white;
-        }
-
-        .user-badge {
-            background: var(--glass-bg);
-            border-color: var(--accent);
-            color: var(--accent-glow);
-        }
-
-        .role-tag {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            background: var(--accent);
-            color: white;
-            margin-left: 8px;
         }
 
         .page {
@@ -406,14 +350,9 @@
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(46, 125, 50, 0.08));
             padding: 18px 25px;
             border-bottom: 1px solid var(--border-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
         }
 
-        .card-header h2, .card-header h3 {
+        .card-header h2 {
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-primary);
@@ -836,230 +775,6 @@
             display: flex;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            max-width: 450px;
-            width: 90%;
-            animation: zoomIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .admin-tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .admin-tab {
-            background: rgba(76, 175, 80, 0.12);
-            border: 1px solid var(--border-light);
-            border-radius: 50px;
-            padding: 10px 24px;
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .admin-tab:hover {
-            background: rgba(76, 175, 80, 0.25);
-            transform: translateY(-3px);
-        }
-
-        .admin-tab.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        .admin-tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .admin-tab-content:first-of-type {
-            display: block;
-        }
-
-        .admin-tab-content h3 {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        .exam-item {
-            background: var(--card-hover);
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-light);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            color: var(--text-primary);
-        }
-
-        .exam-item:hover {
-            border-color: var(--accent);
-            transform: translateX(6px);
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .status-waiting { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-        .status-passed { background: rgba(16, 185, 129, 0.2); color: #10b981; }
-        .status-failed { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .status-inprogress { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
-
-        .exam-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-
-        .exam-status-select {
-            padding: 8px 14px;
-            background: var(--input-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-        }
-
-        .exam-status-select:hover {
-            border-color: var(--accent);
-        }
-
-        .exam-confirm-btn {
-            background: var(--accent);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 12px;
-            color: white;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .exam-confirm-btn:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-        }
-
-        .exam-result-form {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid var(--border-light);
-            display: none;
-        }
-
-        .exam-result-form select, .exam-result-form input {
-            padding: 8px 12px;
-            background: var(--input-bg);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 0.8rem;
-            width: 100%;
-            margin-bottom: 8px;
-        }
-
-        .exam-submit-result {
-            background: var(--accent);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 600;
-            width: 100%;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 12px 10px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-light);
-            color: var(--text-primary);
-        }
-
-        th {
-            color: var(--accent-glow);
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .account-actions, .setting-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-        }
-
-        .edit-btn, .delete-btn {
-            padding: 5px 12px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .edit-btn {
-            background: var(--accent);
-            color: white;
-        }
-
-        .delete-btn {
-            background: rgba(239, 68, 68, 0.8);
-            color: white;
-        }
-
-        .edit-btn:hover, .delete-btn:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-        }
-
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -1092,16 +807,6 @@
             .period-row {
                 grid-template-columns: 1fr;
             }
-            .top-bar {
-                position: relative;
-                margin-bottom: 20px;
-                justify-content: center;
-                flex-direction: column;
-                align-items: center;
-            }
-            .top-bar-left, .top-bar-right {
-                justify-content: center;
-            }
             .page {
                 margin-top: 20px;
             }
@@ -1124,32 +829,9 @@
     </style>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="top-bar-left">
-            <div class="btn-icon btn-admin" id="adminPanelBtn" style="display: none;">
-                <i class="fas fa-cog"></i>
-                <span>Админ панель</span>
-            </div>
-            <div class="btn-icon btn-logout" id="logoutBtn" style="display: none;">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Выйти</span>
-            </div>
-        </div>
-        <div class="top-bar-right">
-            <div class="btn-icon" id="adminLoginBtn">
-                <i class="fas fa-user-shield"></i>
-                <span>Вход в админку</span>
-            </div>
-            <div class="btn-icon user-badge" id="userInfo" style="display: none;">
-                <i class="fas fa-user"></i>
-                <span id="userName"></span>
-                <span class="role-tag" id="userRole"></span>
-            </div>
-            <div class="btn-icon" id="themeBtn">
-                <i class="fas fa-sun"></i>
-                <span>Светлая тема</span>
-            </div>
-        </div>
+    <div class="theme-toggle" id="themeBtn">
+        <i class="fas fa-sun"></i>
+        <span>Светлая тема</span>
     </div>
 
     <div class="container">
@@ -1220,110 +902,18 @@
                 </div>
             </div>
         </div>
-
-        <div id="adminPage" class="page">
-            <div class="back-btn" id="backFromAdminBtn">
-                <i class="fas fa-arrow-left"></i> На главную
-            </div>
-            <div class="glass-card">
-                <div class="card-header">
-                    <h2><i class="fas fa-cog"></i> Админ панель</h2>
-                </div>
-                <div class="card-body">
-                    <div class="admin-tabs">
-                        <div class="admin-tab active" data-tab="exams">📝 Экзамены</div>
-                        <div class="admin-tab" data-tab="reports">📊 Отчеты</div>
-                        <div class="admin-tab" data-tab="promotions">📋 Списки на повышение</div>
-                        <div class="admin-tab" data-tab="accounts" id="accountsTab">👥 Аккаунты</div>
-                        <div class="admin-tab" data-tab="settings" id="settingsTab">⚙️ Настройки</div>
-                    </div>
-                    
-                    <div id="examsTab" class="admin-tab-content">
-                        <div class="card-header" style="padding: 15px 20px;">
-                            <h3>Управление экзаменами</h3>
-                        </div>
-                        <div id="examsList" style="padding: 15px;"></div>
-                    </div>
-                    
-                    <div id="reportsTab" class="admin-tab-content" style="display: none;">
-                        <h3>Все отчеты</h3>
-                        <div id="reportsList"></div>
-                    </div>
-                    
-                    <div id="promotionsTab" class="admin-tab-content" style="display: none;">
-                        <h3>Списки на повышение</h3>
-                        <div id="promotionsList"></div>
-                    </div>
-                    
-                    <div id="accountsTabContent" class="admin-tab-content" style="display: none;">
-                        <h3>Управление аккаунтами</h3>
-                        <div id="accountsList"></div>
-                        <div class="glass-card" style="margin-top: 25px;">
-                            <div class="card-header"><h4>➕ Создать аккаунт</h4></div>
-                            <div class="card-body">
-                                <div class="input-group"><label><i class="fas fa-user"></i> Логин</label><input type="text" id="newLogin" placeholder="Введите логин"></div>
-                                <div class="input-group"><label><i class="fas fa-lock"></i> Пароль</label><input type="password" id="newPassword" placeholder="Введите пароль"></div>
-                                <div class="input-group"><label><i class="fas fa-tag"></i> Роль</label>
-                                    <select id="newRole">
-                                        <option value="Admin">👑 Admin</option>
-                                        <option value="Командир">🎖️ Командир</option>
-                                        <option value="Зам командира">📋 Зам командира</option>
-                                        <option value="Инструктор МА">📚 Инструктор МА</option>
-                                        <option value="Сотрудник МА">👨‍⚕️ Сотрудник МА</option>
-                                    </select>
-                                </div>
-                                <div class="input-group"><label><i class="fas fa-user-circle"></i> Имя</label><input type="text" id="newFirstName" placeholder="Введите имя"></div>
-                                <div class="input-group"><label><i class="fas fa-user-circle"></i> Фамилия</label><input type="text" id="newLastName" placeholder="Введите фамилию"></div>
-                                <button class="submit-btn" id="createAccountBtn">✅ Создать аккаунт</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="settingsTabContent" class="admin-tab-content" style="display: none;">
-                        <h3>Настройки системы</h3>
-                        <div id="settingsList"></div>
-                        <div class="glass-card" style="margin-top: 25px;">
-                            <div class="card-header"><h4>⚙️ Редактировать настройку</h4></div>
-                            <div class="card-body">
-                                <div class="input-group"><label><i class="fas fa-key"></i> Ключ настройки</label><input type="text" id="settingKey" placeholder="exam_waiting_text"></div>
-                                <div class="input-group"><label><i class="fas fa-text-height"></i> Значение</label><textarea id="settingValue" rows="3" placeholder="Текст настройки"></textarea></div>
-                                <button class="submit-btn" id="saveSettingBtn">💾 Сохранить настройку</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <div class="glass-card">
-                <div class="card-header">
-                    <h2><i class="fas fa-key"></i> Вход в админку</h2>
-                </div>
-                <div class="card-body">
-                    <div id="loginAlert"></div>
-                    <div class="input-group"><label><i class="fas fa-user"></i> Логин</label><input type="text" id="loginUser" placeholder="Введите логин"></div>
-                    <div class="input-group"><label><i class="fas fa-lock"></i> Пароль</label><input type="password" id="loginPass" placeholder="Введите пароль"></div>
-                    <button class="submit-btn" id="doLoginBtn"><i class="fas fa-sign-in-alt"></i> Войти</button>
-                    <button class="back-btn" id="closeModalBtn" style="margin-top: 12px; width: 100%; justify-content: center;">Закрыть</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzoFQWYJspO_vHROyBig1VUgmxnS2sxXbDkVyAZju8rsgs9eUe_s-_JVEZq2a16g27S/exec';
-        
+        // Вебхуки для разных отделов
         const WEBHOOKS = {
             КМБ: {
                 promotion: 'https://discord.com/api/webhooks/1505219072755896422/gqH9WV9rFf1BlpfITuxcduTT5GCqCZmgwhw2k8XL5_pDbXTceM5Z2QdZDRPbga3XOca9',
-                exam: 'https://discord.com/api/webhooks/1505218938319929417/BwOepAI1PdcyxpTaD02asQ57VwM1qfKWAGSr0sSBfsWbV1pJeftsPihR5Ayif7DhpQGX'
+                exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX'
             },
             ACD: {
                 promotion: 'https://discord.com/api/webhooks/1505219260538949723/T8zsvY2gphEkDl8TzaHP3LaIAsr7Sg6wuhOG1LiwfHnE5wQZuqe9l_S87QcoxBDnPhP-',
-                exam: 'https://discord.com/api/webhooks/1505067583173558304/8JbLzqSvnvboSpQJfZ5MTsjXupymcnLpRS0Je_JA_HYenE-ydruK1ucGOyNxLKnZU7Gu'
+                exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX'
             },
             MA: {
                 weekly: 'https://discord.com/api/webhooks/1505218721549914164/Y_8vV1cCMVfgqmTVsLzCUgFEyclmslwITCsXQZd7J8d5EA4WymhgcXUQEPjcILPDe23b',
@@ -1332,25 +922,15 @@
             }
         };
         
-        const ADDITIONAL_EXAM_WEBHOOK = 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX';
-        
-        const STATUS_WEBHOOKS = {
-            MA: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX',
-            ACD: 'https://discord.com/api/webhooks/1505067583173558304/8JbLzqSvnvboSpQJfZ5MTsjXupymcnLpRS0Je_JA_HYenE-ydruK1ucGOyNxLKnZU7Gu',
-            КМБ: 'https://discord.com/api/webhooks/1505218938319929417/BwOepAI1PdcyxpTaD02asQ57VwM1qfKWAGSr0sSBfsWbV1pJeftsPihR5Ayif7DhpQGX'
+        // Роли для тегов в заявках на экзамен
+        const ROLE_TAGS = {
+            КМБ: '<@&713076174112161836>',
+            ACD: '<@&713076174112161836>',
+            MA: '<@&792077657469747220> <@&792080799062556672> <@&793440128906821672>'
         };
         
-        const PROMOTION_LIST_WEBHOOK = 'https://discord.com/api/webhooks/1505217723175796858/TVPMTOvOiJA_oWcEWiA3ftoi2ShAII_nCLkI_mvRFK6eihqLVTzxd1viBVz4yaiaQp6B';
-        
-        const WEBHOOK_AVATAR = 'https://i.yapx.ru/dogYP.png';
-        
-        const ROLES_TO_TAG = '<@&792077657469747220> <@&792080799062556672> <@&793440128906821672>';
-        
-        const TAGS = {
-            КМБ: { promotion: '<@&793440128906821672><@&792080799062556672>', exam: '<@&713076174112161836>' },
-            ACD: { promotion: '<@&713076174112161836>', exam: '<@&713076174112161836>' },
-            MA: { weekly: '<@&793440128906821672><@&792080799062556672>', promotion: '<@&793440128906821672><@&792080799062556672>', exam: '<@&792077657469747220> <@&792080799062556672> <@&793440128906821672>' }
-        };
+        const ROLES_TO_TAG_WEEKLY = '<@&793440128906821672><@&792080799062556672>';
+        const ROLES_TO_TAG_PROMOTION = '<@&793440128906821672><@&792080799062556672>';
         
         const ACTIVITY_TYPES_MA = [
             { name: "Принятие экзамена", points: 4 },
@@ -1402,47 +982,18 @@
         const RANKS_ACD = ["Рекрут (1)", "Рядовой (2)", "Специалист (3)"];
         const RANKS_MA = ["Специалист (3)", "Капрал (4)", "Сержант (5)", "Штаб-сержант (6)", "Уорент-офицер (7)", "Старший Уорент-офицер (8)", "Лейтенант (9)", "Капитан (10)", "Майор (11)", "Подполковник (12)"];
         
-        const ROLE_PERMS = {
-            Admin: ['all', 'admin', 'accounts', 'settings', 'exams', 'sendList', 'reports'],
-            Командир: ['all', 'admin', 'accounts', 'settings', 'exams', 'sendList', 'reports'],
-            'Зам командира': ['admin', 'exams', 'sendList', 'reports'],
-            'Инструктор МА': ['exams', 'reports'],
-            'Сотрудник МА': ['exams', 'reports']
-        };
-        
-        let currentUser = null;
         let currentDept = null;
         let currentAction = null;
         let currentActions = [];
-        let settings = {};
-        let accountsList = [];
         
         function escapeHtml(s) { if (!s) return ''; return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
         function formatDate(d) { if (!d) return ''; return new Date(d).toLocaleDateString('ru-RU'); }
         function calcPoints(a) { return (a.points || 0) * (parseInt(a.count) || 1); }
         function totalPoints() { return currentActions.reduce((s,a) => s + calcPoints(a), 0); }
         
-        function convertToMention(input) {
-            if (!input) return '';
-            input = input.trim();
-            if (input.match(/^<@!?(\d+)>$/)) {
-                return input;
-            }
-            if (input.match(/^@/)) {
-                return input;
-            }
-            if (input.match(/^\d+$/)) {
-                return `<@${input}>`;
-            }
-            return input;
-        }
-        
         async function sendDiscordEmbed(webhook, embed, content = null) {
             try {
-                const payload = {
-                    avatar_url: WEBHOOK_AVATAR,
-                    embeds: [embed]
-                };
+                const payload = { embeds: [embed] };
                 if (content) {
                     payload.content = content;
                 }
@@ -1455,55 +1006,6 @@
             } catch(e) { console.error('Discord error:', e); return false; }
         }
         
-        async function sendDiscordText(webhook, content) {
-            try {
-                const res = await fetch(webhook, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        content: content,
-                        avatar_url: WEBHOOK_AVATAR
-                    })
-                });
-                return res.ok;
-            } catch(e) { console.error('Discord error:', e); return false; }
-        }
-        
-        function callGoogleScript(action, data) {
-            return new Promise((resolve, reject) => {
-                const callbackName = 'callback_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
-                const script = document.createElement('script');
-                
-                window[callbackName] = function(response) {
-                    delete window[callbackName];
-                    document.body.removeChild(script);
-                    resolve(response);
-                };
-                
-                const params = new URLSearchParams();
-                params.append('action', action);
-                params.append('data', JSON.stringify(data));
-                params.append('callback', callbackName);
-                
-                script.src = `${GOOGLE_SCRIPT_URL}?${params.toString()}`;
-                script.onerror = () => {
-                    delete window[callbackName];
-                    document.body.removeChild(script);
-                    reject(new Error('Ошибка соединения с сервером'));
-                };
-                
-                document.body.appendChild(script);
-                
-                setTimeout(() => {
-                    if (window[callbackName]) {
-                        delete window[callbackName];
-                        document.body.removeChild(script);
-                        reject(new Error('Таймаут соединения'));
-                    }
-                }, 30000);
-            });
-        }
-        
         function showAlert(container, msg, type) {
             const c = document.getElementById(container);
             if (!c) return;
@@ -1512,56 +1014,6 @@
             div.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
             c.appendChild(div);
             setTimeout(() => div.remove(), 5000);
-        }
-        
-        async function doLogin(login, pass) {
-            const alertContainer = 'loginAlert';
-            try {
-                const result = await callGoogleScript('auth', { login: login, password: pass });
-                if (result.success) {
-                    currentUser = result.user;
-                    localStorage.setItem('deltaUser', JSON.stringify(currentUser));
-                    updateAdminUI();
-                    document.getElementById('loginModal').style.display = 'none';
-                    showAlert(alertContainer, 'Вход выполнен!', 'success');
-                    return true;
-                } else {
-                    showAlert(alertContainer, result.error || 'Ошибка входа', 'error');
-                    return false;
-                }
-            } catch(e) {
-                showAlert(alertContainer, 'Ошибка соединения: ' + e.message, 'error');
-                return false;
-            }
-        }
-        
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('deltaUser');
-            updateAdminUI();
-            showDeptsPage();
-        }
-        
-        function updateAdminUI() {
-            if (currentUser) {
-                document.getElementById('adminLoginBtn').style.display = 'none';
-                document.getElementById('adminPanelBtn').style.display = 'flex';
-                document.getElementById('userInfo').style.display = 'flex';
-                document.getElementById('logoutBtn').style.display = 'flex';
-                document.getElementById('userName').textContent = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`;
-                document.getElementById('userRole').textContent = currentUser.role || '';
-            } else {
-                document.getElementById('adminLoginBtn').style.display = 'flex';
-                document.getElementById('adminPanelBtn').style.display = 'none';
-                document.getElementById('userInfo').style.display = 'none';
-                document.getElementById('logoutBtn').style.display = 'none';
-            }
-        }
-        
-        function hasPerm(perm) {
-            if (!currentUser) return false;
-            const perms = ROLE_PERMS[currentUser.role] || [];
-            return perms.includes('all') || perms.includes(perm);
         }
         
         function showDeptsPage() {
@@ -1666,7 +1118,7 @@
                 fieldsDiv.innerHTML = `
                     <div class="input-group"><label><i class="fas fa-user"></i> ИМЯ И ФАМИЛИЯ</label><input type="text" id="fFullName" placeholder="Введите имя и фамилию"></div>
                     <div class="input-group"><label><i class="fas fa-graduation-cap"></i> ТИП ЭКЗАМЕНА</label><select id="fExamType">${examOptions}</select></div>
-                    <div class="input-group"><label><i class="fab fa-discord"></i> DISCORD ТЕГ/ID</label><input type="text" id="fDiscord" placeholder="Введите Discord ID или @тег"></div>
+                    <div class="input-group"><label><i class="fab fa-discord"></i> DISCORD ID</label><input type="text" id="fDiscord" placeholder="Введите Discord ID (только цифры)"></div>
                     <div class="input-group"><label><i class="fas fa-clock"></i> УДОБНОЕ ВРЕМЯ</label><input type="text" id="fTime" placeholder="Например: 20:00 МСК"></div>
                 `;
                 document.getElementById('actionsSection').style.display = 'none';
@@ -1861,12 +1313,6 @@
                 });
                 
                 try {
-                    await callGoogleScript('saveReport', { 
-                        department: 'MA', actionType: 'weekly',
-                        nickname: nick, rank: rank, periodStart: start, periodEnd: end, 
-                        actions: acts, totalPoints: total 
-                    });
-                    
                     const weeklyEmbed = {
                         title: "📊 Еженедельный отчёт (MA)",
                         color: 0x4CAF50,
@@ -1880,7 +1326,7 @@
                         footer: { text: "ARMY" },
                         timestamp: new Date().toISOString()
                     };
-                    await sendDiscordEmbed(WEBHOOKS.MA.weekly, weeklyEmbed, ROLES_TO_TAG);
+                    await sendDiscordEmbed(WEBHOOKS.MA.weekly, weeklyEmbed, ROLES_TO_TAG_WEEKLY);
                     showAlert(alertId, 'Отчёт отправлен!', 'success');
                     resetForm();
                 } catch(e) {
@@ -1901,12 +1347,6 @@
                 });
                 
                 try {
-                    await callGoogleScript('saveReport', {
-                        department: currentDept, actionType: 'promotion',
-                        nickname: nick, currentRank: curRank, desiredRank: desRank,
-                        lastPromotion: lastProm, actions: acts, totalPoints: total
-                    });
-                    
                     const promotionEmbed = {
                         title: `⬆️ Запрос на повышение (${currentDept})`,
                         color: 0x4CAF50,
@@ -1922,7 +1362,7 @@
                         timestamp: new Date().toISOString()
                     };
                     const webhook = WEBHOOKS[currentDept]?.promotion;
-                    if (webhook) await sendDiscordEmbed(webhook, promotionEmbed, ROLES_TO_TAG);
+                    if (webhook) await sendDiscordEmbed(webhook, promotionEmbed, ROLES_TO_TAG_PROMOTION);
                     showAlert(alertId, 'Запрос отправлен!', 'success');
                     resetForm();
                 } catch(e) {
@@ -1933,26 +1373,20 @@
                 const fullName = document.getElementById('fFullName')?.value.trim();
                 if (!fullName) { showAlert(alertId, 'Введите имя и фамилию', 'error'); resetButton(); return; }
                 const examType = document.getElementById('fExamType')?.value || '';
-                let discord = document.getElementById('fDiscord')?.value.trim() || '';
+                let discordId = document.getElementById('fDiscord')?.value.trim() || '';
                 const time = document.getElementById('fTime')?.value.trim() || '';
                 
-                const discordMention = convertToMention(discord);
-                const tagRole = TAGS[currentDept]?.exam || ROLES_TO_TAG;
+                const discordMention = discordId && discordId.match(/^\d+$/) ? `<@${discordId}>` : '';
+                const roleTag = ROLE_TAGS[currentDept];
                 
                 try {
-                    await callGoogleScript('saveReport', {
-                        department: currentDept, actionType: 'exam',
-                        fullName: fullName, examType: examType,
-                        discordTag: discord, examTime: time
-                    });
-                    
                     const examEmbed = {
                         title: `📝 Запись на экзамен (${currentDept})`,
                         color: 0x4CAF50,
                         fields: [
                             { name: "👤 Имя", value: fullName, inline: true },
                             { name: "🎓 Экзамен", value: examType, inline: true },
-                            { name: "💬 Discord", value: discordMention || discord || "Не указан", inline: true },
+                            { name: "💬 Discord", value: discordMention || discordId || "Не указан", inline: true },
                             { name: "⏰ Время", value: time || "Не указано", inline: true }
                         ],
                         footer: { text: "ARMY" },
@@ -1961,9 +1395,8 @@
                     
                     const webhook = WEBHOOKS[currentDept]?.exam;
                     if (webhook) {
-                        await sendDiscordEmbed(webhook, examEmbed, tagRole);
+                        await sendDiscordEmbed(webhook, examEmbed, roleTag);
                     }
-                    await sendDiscordEmbed(ADDITIONAL_EXAM_WEBHOOK, examEmbed);
                     showAlert(alertId, 'Заявка отправлена!', 'success');
                     resetForm();
                 } catch(e) {
@@ -2000,354 +1433,6 @@
             }
         }
         
-        async function showAdminPage() {
-            if (!hasPerm('admin')) {
-                showAlert('deptsPage', 'Нет доступа к админке', 'error');
-                return;
-            }
-            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-            document.getElementById('adminPage').style.display = 'block';
-            await loadExams();
-            await loadReports();
-            await loadPromotions();
-            await loadAccounts();
-            await loadSettingsList();
-        }
-        
-        async function loadExams() {
-            const container = document.getElementById('examsList');
-            try {
-                const result = await callGoogleScript('getExams', {});
-                if (result.exams && result.exams.length > 0) {
-                    const now = new Date();
-                    const fourHoursAgo = new Date(now.getTime() - 4 * 60 * 60 * 1000);
-                    
-                    container.innerHTML = result.exams.map((e, i) => {
-                        const examDate = new Date(e.date + 'T' + (e.time || '00:00:00'));
-                        const isExpired = examDate < fourHoursAgo && e.status !== 'Принят' && e.status !== 'Отклонен';
-                        if (isExpired) {
-                            callGoogleScript('deleteExam', { id: e.id, sheet: e.department === 'MA' ? 'MA_Экзамены' : (e.department === 'КМБ' ? 'КМБ_Экзамены' : 'ACD_Экзамены') });
-                            return '';
-                        }
-                        return `
-                            <div class="exam-item" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}" data-discord="${escapeHtml(e.discordTag)}">
-                                <div><strong>👤 ${escapeHtml(e.fullName)}</strong> | 📝 ${escapeHtml(e.examType)} | 🏢 ${escapeHtml(e.department)}</div>
-                                <div>💬 Discord: ${escapeHtml(e.discordTag)} | ⏰ Время: ${escapeHtml(e.examTime)} | 📅 Дата: ${e.date}</div>
-                                <div>📊 Статус: <span class="status-badge status-${e.status==='Принят'?'passed':e.status==='Отклонен'?'failed':e.status==='Проводится'?'inprogress':'waiting'}">${e.status || 'Ожидание'}</span></div>
-                                <div class="exam-actions">
-                                    <select class="exam-status-select" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}" data-discord="${escapeHtml(e.discordTag)}">
-                                        <option value="Ожидание" ${e.status==='Ожидание'?'selected':''}>⏳ Ожидание</option>
-                                        <option value="Проводится" ${e.status==='Проводится'?'selected':''}>🔄 Проводится</option>
-                                        <option value="Принят" ${e.status==='Принят'?'selected':''}>✅ Принят</option>
-                                        <option value="Отклонен" ${e.status==='Отклонен'?'selected':''}>❌ Отклонен</option>
-                                    </select>
-                                    <button class="exam-confirm-btn" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}" data-discord="${escapeHtml(e.discordTag)}"><i class="fas fa-save"></i> Сохранить</button>
-                                </div>
-                                <div class="exam-result-form" id="resultForm-${i}">
-                                    <select class="exam-result">
-                                        <option value="Сдал">✅ Сдал</option>
-                                        <option value="Не сдал">❌ Не сдал</option>
-                                    </select>
-                                    <input type="number" class="exam-score" placeholder="Кол-во баллов" min="0" max="100">
-                                    <button class="exam-submit-result" data-name="${escapeHtml(e.fullName)}" data-date="${e.date}" data-dept="${escapeHtml(e.department)}" data-discord="${escapeHtml(e.discordTag)}">Подтвердить результат</button>
-                                </div>
-                            </div>
-                        `;
-                    }).filter(item => item !== '').join('');
-                    
-                    document.querySelectorAll('.exam-confirm-btn').forEach(btn => {
-                        btn.onclick = async () => {
-                            const examDiv = btn.closest('.exam-item');
-                            const name = btn.dataset.name;
-                            const date = btn.dataset.date;
-                            const dept = btn.dataset.dept;
-                            const discordTag = btn.dataset.discord;
-                            const select = btn.parentElement.querySelector('.exam-status-select');
-                            const status = select.value;
-                            const resultForm = examDiv.querySelector('.exam-result-form');
-                            
-                            if (status === 'Проводится') {
-                                await updateExamStatus(name, date, 'Проводится', dept, null, null, null, null, discordTag);
-                                showAlert('examsTab', `Статус экзамена изменен на "Проводится"`, 'success');
-                                loadExams();
-                            } else if (status === 'Отклонен') {
-                                const adminName = currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор';
-                                await updateExamStatus(name, date, 'Отклонен', dept, null, null, adminName, null, discordTag);
-                                showAlert('examsTab', 'Экзамен отклонен', 'success');
-                                loadExams();
-                            } else if (status === 'Принят') {
-                                resultForm.style.display = 'block';
-                            } else {
-                                await updateExamStatus(name, date, status, dept, null, null, null, null, discordTag);
-                                showAlert('examsTab', `Статус экзамена изменен на "${status}"`, 'success');
-                                loadExams();
-                            }
-                        };
-                    });
-                    
-                    document.querySelectorAll('.exam-submit-result').forEach(btn => {
-                        btn.onclick = async () => {
-                            const examDiv = btn.closest('.exam-item');
-                            const name = btn.dataset.name;
-                            const date = btn.dataset.date;
-                            const dept = btn.dataset.dept;
-                            const discordTag = btn.dataset.discord;
-                            const resultSelect = examDiv.querySelector('.exam-result');
-                            const scoreInput = examDiv.querySelector('.exam-score');
-                            const result = resultSelect ? resultSelect.value : 'Сдал';
-                            const score = scoreInput ? scoreInput.value : '0';
-                            const adminName = currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор';
-                            
-                            await updateExamStatus(name, date, 'Принят', dept, result, score, adminName, true, discordTag);
-                            showAlert('examsTab', `Результат экзамена сохранен`, 'success');
-                            loadExams();
-                        };
-                    });
-                } else {
-                    container.innerHTML = '<div class="empty-state">📭 Нет записей на экзамен</div>';
-                }
-            } catch(e) { 
-                container.innerHTML = '<div class="empty-state">❌ Ошибка загрузки экзаменов</div>';
-                console.error(e);
-            }
-        }
-        
-        async function updateExamStatus(name, date, status, dept, result, score, adminName, isAccepted = false, discordTag = null) {
-            try {
-                await callGoogleScript('updateExamStatus', { 
-                    fullName: name, date: date, status: status === 'Принят' ? 'Принят' : (status === 'Отклонен' ? 'Отклонен' : status), 
-                    examinerName: adminName || '', score: score || '', result: result || '', department: dept 
-                });
-                
-                const webhook = STATUS_WEBHOOKS[dept];
-                const adminFullName = adminName || (currentUser ? `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim() : 'Администратор');
-                const userMention = convertToMention(discordTag);
-                
-                if (status === 'Проводится') {
-                    const message = `${userMention ? userMention + ' ' : ''}https://discord.com/channels/713076174108229712/781234675452477502 жду в течении 15 минут, в ином случае ставлю отказ (по причине не явки на экзамен)`;
-                    if (webhook) {
-                        await sendDiscordText(webhook, message);
-                    }
-                } else if (status === 'Отклонен') {
-                    const embed = {
-                        title: `❌ Заявка отклонена`,
-                        color: 0xef4444,
-                        fields: [
-                            { name: "👤 Принимавший", value: adminFullName, inline: true },
-                            { name: "👤 Студент", value: name, inline: true }
-                        ],
-                        footer: { text: "ARMY" },
-                        timestamp: new Date().toISOString()
-                    };
-                    if (webhook) {
-                        await sendDiscordEmbed(webhook, embed);
-                    }
-                } else if (status === 'Принят' && isAccepted) {
-                    const embed = {
-                        title: `✅ Результат экзамена (${dept})`,
-                        color: 0x10b981,
-                        fields: [
-                            { name: "👤 Принимавший", value: adminFullName, inline: true },
-                            { name: "👤 Студент", value: name, inline: true },
-                            { name: "📊 Результат", value: result, inline: true },
-                            { name: "⭐ Баллы", value: score, inline: true }
-                        ],
-                        footer: { text: "ARMY" },
-                        timestamp: new Date().toISOString()
-                    };
-                    if (webhook) {
-                        await sendDiscordEmbed(webhook, embed, userMention ? userMention : null);
-                    }
-                }
-            } catch(e) { console.error(e); }
-        }
-        
-        async function loadReports() {
-            const container = document.getElementById('reportsList');
-            try {
-                const [weeklyReports, promotionReports] = await Promise.all([
-                    callGoogleScript('getWeeklyReports', {}),
-                    callGoogleScript('getPromotionReports', {})
-                ]);
-                
-                let allReports = [];
-                
-                if (weeklyReports.reports && weeklyReports.reports.length > 0) {
-                    weeklyReports.reports.forEach(r => {
-                        allReports.push({
-                            type: 'Еженедельный',
-                            date: r.date,
-                            nickname: r.nickname,
-                            rank: r.rank,
-                            period: `${r.periodStart} - ${r.periodEnd}`,
-                            points: r.totalPoints,
-                            department: r.department
-                        });
-                    });
-                }
-                
-                if (promotionReports.reports && promotionReports.reports.length > 0) {
-                    promotionReports.reports.forEach(r => {
-                        allReports.push({
-                            type: 'Повышение',
-                            date: r.date,
-                            nickname: r.nickname,
-                            currentRank: r.currentRank,
-                            desiredRank: r.desiredRank,
-                            points: r.totalPoints,
-                            department: r.department
-                        });
-                    });
-                }
-                
-                allReports.sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                if (allReports.length > 0) {
-                    container.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
-                        <th>Тип</th><th>Дата</th><th>Пользователь</th><th>Детали</th><th>Баллы</th><th>Отдел</th>
-                    </tr></thead><tbody>
-                        ${allReports.map(r => `
-                            <tr>
-                                <td>${r.type}</td>
-                                <td>${new Date(r.date).toLocaleString()}</td>
-                                <td>${r.nickname || '-'}</td>
-                                <td>${r.rank ? `Ранг: ${r.rank}` : r.currentRank ? `${r.currentRank} → ${r.desiredRank}` : '-'}</td>
-                                <td>${r.points || 0}</td>
-                                <td>${r.department || '-'}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody></table></div>`;
-                } else {
-                    container.innerHTML = '<div class="empty-state">📭 Нет отчетов</div>';
-                }
-            } catch(e) { 
-                container.innerHTML = '<div class="empty-state">❌ Ошибка загрузки отчетов</div>';
-            }
-        }
-        
-        async function loadPromotions() {
-            const c = document.getElementById('promotionsList');
-            try {
-                const result = await callGoogleScript('getPromotionLists', {});
-                if (result.lists && result.lists.length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
-                        <th>№</th><th>Дата</th><th>Отправитель</th><th>Повышаемый</th><th>Ссылка</th>
-                    </tr></thead><tbody>
-                        ${result.lists.map(l => `<tr>
-                            <td>${l.number}</td>
-                            <td>${new Date(l.date).toLocaleString()}</td>
-                            <td>${escapeHtml(l.senderName)}</td>
-                            <td>${escapeHtml(l.promotedName)}</td>
-                            <td><a href="${l.reportLink}" target="_blank">Открыть</a></td>
-                        </tr>`).join('')}
-                    </tbody></table></div>`;
-                } else c.innerHTML = '<div class="empty-state">📭 Нет списков на повышение</div>';
-            } catch(e) { c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки списков</div>'; }
-        }
-        
-        async function loadAccounts() {
-            const c = document.getElementById('accountsList');
-            try {
-                const result = await callGoogleScript('getAccounts', {});
-                if (result.accounts && result.accounts.length > 0) {
-                    accountsList = result.accounts;
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead></table>
-                        <th>Логин</th><th>Роль</th><th>Имя</th><th>Фамилия</th><th>Действия</th>
-                    </tr></thead><tbody>
-                        ${result.accounts.map(a => `<tr>
-                            <td>${escapeHtml(a.login)}</td>
-                            <td>${escapeHtml(a.role)}</td>
-                            <td>${escapeHtml(a.firstName || '')}</td>
-                            <td>${escapeHtml(a.lastName || '')}</td>
-                            <td><div class="account-actions"><button class="delete-btn" data-login="${escapeHtml(a.login)}">🗑️ Удал.</button></div></td>
-                        </tr>`).join('')}
-                    </tbody></table></div>`;
-                    
-                    document.querySelectorAll('.delete-btn').forEach(btn => {
-                        btn.onclick = async () => {
-                            if (confirm('Удалить аккаунт?')) {
-                                await callGoogleScript('deleteAccount', { login: btn.dataset.login });
-                                loadAccounts();
-                                showAlert('accountsTabContent', 'Аккаунт удален', 'success');
-                            }
-                        };
-                    });
-                } else {
-                    c.innerHTML = '<div class="empty-state">📭 Нет аккаунтов</div>';
-                }
-            } catch(e) { 
-                c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки аккаунтов</div>';
-            }
-        }
-        
-        async function loadSettingsList() {
-            const c = document.getElementById('settingsList');
-            try {
-                const result = await callGoogleScript('getSettings', {});
-                settings = result.settings || {};
-                if (Object.keys(settings).length > 0) {
-                    c.innerHTML = `<div style="overflow-x:auto;"><table style="width:100%"><thead><tr>
-                        <th>Ключ</th><th>Значение</th><th>Действия</th>
-                    </tr></thead><tbody>
-                        ${Object.entries(settings).map(([key, value]) => `<tr>
-                            <td>${escapeHtml(key)}</td>
-                            <td>${escapeHtml(value)}</td>
-                            <td><div class="setting-actions"><button class="edit-setting" data-key="${escapeHtml(key)}" data-value="${escapeHtml(value)}">✏️ Ред.</button><button class="delete-setting" data-key="${escapeHtml(key)}">🗑️ Удал.</button></div></td>
-                        <tr>`).join('')}
-                    </tbody></table></div>`;
-                    
-                    document.querySelectorAll('.edit-setting').forEach(btn => {
-                        btn.onclick = () => {
-                            document.getElementById('settingKey').value = btn.dataset.key;
-                            document.getElementById('settingValue').value = btn.dataset.value;
-                        };
-                    });
-                    document.querySelectorAll('.delete-setting').forEach(btn => {
-                        btn.onclick = async () => {
-                            if (confirm('Удалить настройку?')) {
-                                const newSettings = { ...settings };
-                                delete newSettings[btn.dataset.key];
-                                await callGoogleScript('saveSettings', { settings: newSettings });
-                                loadSettingsList();
-                                showAlert('settingsTabContent', 'Настройка удалена', 'success');
-                            }
-                        };
-                    });
-                } else {
-                    c.innerHTML = '<div class="empty-state">⚙️ Нет настроек</div>';
-                }
-            } catch(e) { 
-                c.innerHTML = '<div class="empty-state">❌ Ошибка загрузки настроек</div>';
-            }
-        }
-        
-        async function createAccount() {
-            const login = document.getElementById('newLogin')?.value;
-            const pass = document.getElementById('newPassword')?.value;
-            if (!login || !pass) { showAlert('accountsTabContent', 'Заполните логин и пароль', 'error'); return; }
-            await callGoogleScript('createAccount', { 
-                login: login, password: pass, 
-                role: document.getElementById('newRole').value,
-                firstName: document.getElementById('newFirstName').value, 
-                lastName: document.getElementById('newLastName').value 
-            });
-            showAlert('accountsTabContent', 'Аккаунт создан!', 'success');
-            document.querySelectorAll('#newLogin, #newPassword, #newFirstName, #newLastName').forEach(i => i.value = '');
-            loadAccounts();
-        }
-        
-        async function saveSetting() {
-            const key = document.getElementById('settingKey')?.value;
-            const value = document.getElementById('settingValue')?.value;
-            if (!key) { showAlert('settingsTabContent', 'Введите ключ настройки', 'error'); return; }
-            const newSettings = { ...settings, [key]: value };
-            await callGoogleScript('saveSettings', { settings: newSettings });
-            showAlert('settingsTabContent', 'Настройка сохранена!', 'success');
-            document.getElementById('settingKey').value = '';
-            document.getElementById('settingValue').value = '';
-            loadSettingsList();
-        }
-        
         document.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('theme') === 'light') {
                 document.body.classList.add('light');
@@ -2369,40 +1454,9 @@
             });
             document.getElementById('backToDeptsBtn').onclick = showDeptsPage;
             document.getElementById('backToActionsBtn').onclick = () => showActionsPage(currentDept);
-            document.getElementById('backFromAdminBtn').onclick = showDeptsPage;
             document.getElementById('addActionBtn').onclick = addAction;
             document.getElementById('submitBtn').onclick = submitForm;
             
-            document.getElementById('adminLoginBtn').onclick = () => document.getElementById('loginModal').style.display = 'flex';
-            document.getElementById('closeModalBtn').onclick = () => document.getElementById('loginModal').style.display = 'none';
-            document.getElementById('doLoginBtn').onclick = () => doLogin(document.getElementById('loginUser').value, document.getElementById('loginPass').value);
-            document.getElementById('adminPanelBtn').onclick = showAdminPage;
-            document.getElementById('logoutBtn').onclick = logout;
-            document.getElementById('createAccountBtn')?.addEventListener('click', createAccount);
-            document.getElementById('saveSettingBtn')?.addEventListener('click', saveSetting);
-            
-            document.querySelectorAll('.admin-tab').forEach(tab => {
-                tab.onclick = () => {
-                    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
-                    const tabName = tab.dataset.tab;
-                    document.getElementById(`${tabName}Tab`).style.display = 'block';
-                    if (tabName === 'exams') loadExams();
-                    if (tabName === 'reports') loadReports();
-                    if (tabName === 'promotions') loadPromotions();
-                    if (tabName === 'accounts') loadAccounts();
-                    if (tabName === 'settings') loadSettingsList();
-                };
-            });
-            
-            window.onclick = e => { if (e.target === document.getElementById('loginModal')) document.getElementById('loginModal').style.display = 'none'; };
-            
-            const saved = localStorage.getItem('deltaUser');
-            if (saved) {
-                currentUser = JSON.parse(saved);
-                updateAdminUI();
-            }
             showDeptsPage();
         });
     </script>
