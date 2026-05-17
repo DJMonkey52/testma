@@ -909,17 +909,25 @@
         const WEBHOOKS = {
             КМБ: {
                 promotion: 'https://discord.com/api/webhooks/1505219072755896422/gqH9WV9rFf1BlpfITuxcduTT5GCqCZmgwhw2k8XL5_pDbXTceM5Z2QdZDRPbga3XOca9',
-                exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX'
+                exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX',
+                examAdditional: 'https://discord.com/api/webhooks/1505218938319929417/BwOepAI1PdcyxpTaD02asQ57VwM1qfKWAGSr0sSBfsWbV1pJeftsPihR5Ayif7DhpQGX'
             },
             ACD: {
                 promotion: 'https://discord.com/api/webhooks/1505219260538949723/T8zsvY2gphEkDl8TzaHP3LaIAsr7Sg6wuhOG1LiwfHnE5wQZuqe9l_S87QcoxBDnPhP-',
-                exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX'
+                exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX',
+                examAdditional: 'https://discord.com/api/webhooks/1505219260538949723/T8zsvY2gphEkDl8TzaHP3LaIAsr7Sg6wuhOG1LiwfHnE5wQZuqe9l_S87QcoxBDnPhP-'
             },
             MA: {
                 weekly: 'https://discord.com/api/webhooks/1505218721549914164/Y_8vV1cCMVfgqmTVsLzCUgFEyclmslwITCsXQZd7J8d5EA4WymhgcXUQEPjcILPDe23b',
                 promotion: 'https://discord.com/api/webhooks/1505218524803633385/_okac354m1RX82FkQH94Yr80jqASRilRKf8VZcueLFhLHhslUnwmskfQKSqW2exIKhMr',
-                exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX'
+                exam: 'https://discord.com/api/webhooks/1505218249447706725/P79mzH-R6jiV2zTYw2k5OaJIeofhU4exH50uXq0U99w_pzroPQ2CSwZcFcCdt73a3AwX',
+                examResult: 'https://discord.com/api/webhooks/1505219475765592114/hvAP4uFpg_PyHnLnbMsUei3XUEefJM4vf1DoKL6hVXurZiD9OfLQqMHNiAKj0TCC_yHZ'
             }
+        };
+        
+        const EXAM_RESULT_WEBHOOKS = {
+            ACD: 'https://discord.com/api/webhooks/1505219475765592114/hvAP4uFpg_PyHnLnbMsUei3XUEefJM4vf1DoKL6hVXurZiD9OfLQqMHNiAKj0TCC_yHZ',
+            КМБ: 'https://discord.com/api/webhooks/1505219389820112928/pUbySSvWb3c4VC6lr6dGB2AL0htMMCZ8N1UoEAO_1w3wKCVw53wYE5PndStUf8DZQ5tQ'
         };
         
         // Роли для тегов в заявках на экзамен
@@ -1006,6 +1014,17 @@
             } catch(e) { console.error('Discord error:', e); return false; }
         }
         
+        async function sendDiscordText(webhook, content) {
+            try {
+                const res = await fetch(webhook, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ content: content })
+                });
+                return res.ok;
+            } catch(e) { console.error('Discord error:', e); return false; }
+        }
+        
         function showAlert(container, msg, type) {
             const c = document.getElementById(container);
             if (!c) return;
@@ -1031,7 +1050,8 @@
                 actions = [
                     { id: 'weekly', name: '📊 Еженедельный отчёт', desc: 'Отчёт о еженедельной работе', icon: 'fa-calendar-week' },
                     { id: 'promotion', name: '⬆️ Отчёт на повышение', desc: 'Заявка на повышение должности', icon: 'fa-arrow-up' },
-                    { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' }
+                    { id: 'exam', name: '📝 Запись на экзамен', desc: 'Запись на экзамен', icon: 'fa-pen-clip' },
+                    { id: 'examResult', name: '📋 Результат экзамена', desc: 'Отчёт о результате экзамена', icon: 'fa-clipboard-list' }
                 ];
             } else {
                 actions = [
@@ -1063,8 +1083,9 @@
             let title = '';
             if (action === 'weekly') title = '📊 Еженедельный отчёт';
             else if (action === 'promotion') title = '⬆️ Отчёт на повышение';
-            else title = '📝 Запись на экзамен';
-            document.getElementById('formTitle').innerHTML = `<i class="fas ${action === 'weekly' ? 'fa-calendar-week' : action === 'promotion' ? 'fa-arrow-up' : 'fa-pen-clip'}"></i> ${title} (${currentDept})`;
+            else if (action === 'exam') title = '📝 Запись на экзамен';
+            else title = '📋 Результат экзамена';
+            document.getElementById('formTitle').innerHTML = `<i class="fas ${action === 'weekly' ? 'fa-calendar-week' : action === 'promotion' ? 'fa-arrow-up' : action === 'exam' ? 'fa-pen-clip' : 'fa-clipboard-list'}"></i> ${title} (${currentDept})`;
             
             const fieldsDiv = document.getElementById('formFields');
             if (action === 'weekly') {
@@ -1102,10 +1123,10 @@
                     <div class="period-info" id="promoInfo"></div>
                 `;
                 document.getElementById('actionsSection').style.display = 'block';
-                document.getElementById('totalPointsBar').style.display = 'flex';
+                document.getElementById('totalPointsBar').style.display = currentDept === 'MA' ? 'flex' : 'none';
                 
                 window.activityOptionsHtml = activityOptions;
-            } else {
+            } else if (action === 'exam') {
                 let examOptions = '';
                 if (currentDept === 'КМБ') {
                     examOptions = EXAM_TYPES_KMB.map(e => `<option>${e}</option>`).join('');
@@ -1120,6 +1141,26 @@
                     <div class="input-group"><label><i class="fas fa-graduation-cap"></i> ТИП ЭКЗАМЕНА</label><select id="fExamType">${examOptions}</select></div>
                     <div class="input-group"><label><i class="fab fa-discord"></i> DISCORD ID</label><input type="text" id="fDiscord" placeholder="Введите Discord ID (только цифры)"></div>
                     <div class="input-group"><label><i class="fas fa-clock"></i> УДОБНОЕ ВРЕМЯ</label><input type="text" id="fTime" placeholder="Например: 20:00 МСК"></div>
+                `;
+                document.getElementById('actionsSection').style.display = 'none';
+                document.getElementById('totalPointsBar').style.display = 'none';
+            } else if (action === 'examResult') {
+                fieldsDiv.innerHTML = `
+                    <div class="input-group"><label><i class="fas fa-user"></i> ПРИНИМАВШИЙ (Имя и фамилия)</label><input type="text" id="rExaminer" placeholder="Введите имя и фамилию принимавшего"></div>
+                    <div class="input-group"><label><i class="fas fa-user"></i> СДАЮЩИЙ (Имя и фамилия)</label><input type="text" id="rStudent" placeholder="Введите имя и фамилию сдающего"></div>
+                    <div class="input-group"><label><i class="fas fa-building"></i> ОТДЕЛ</label>
+                        <select id="rDepartment">
+                            <option value="ACD">ACD</option>
+                            <option value="КМБ">КМБ</option>
+                        </select>
+                    </div>
+                    <div class="input-group"><label><i class="fas fa-question-circle"></i> РЕЗУЛЬТАТ</label>
+                        <select id="rResult">
+                            <option value="Сдал">✅ Сдал</option>
+                            <option value="Не сдал">❌ Не сдал</option>
+                        </select>
+                    </div>
+                    <div class="input-group"><label><i class="fas fa-star"></i> КОЛ-ВО БАЛЛОВ</label><input type="number" id="rScore" placeholder="Введите количество баллов" min="0" max="100"></div>
                 `;
                 document.getElementById('actionsSection').style.display = 'none';
                 document.getElementById('totalPointsBar').style.display = 'none';
@@ -1339,25 +1380,33 @@
                 const curRank = document.getElementById('fCurrentRank')?.value || '';
                 const desRank = document.getElementById('fDesiredRank')?.value || '';
                 const lastProm = document.getElementById('fLastProm')?.value || '';
-                let acts = '', total = 0;
+                let acts = '';
+                let total = 0;
                 currentActions.forEach((a,i) => {
                     const pts = calcPoints(a);
-                    total += pts;
-                    acts += `${i+1}. ${a.type || 'Не выбран'} x${a.count||1} = ${pts} баллов\n`;
+                    if (currentDept === 'MA') total += pts;
+                    acts += `${i+1}. ${a.type || 'Не выбран'} x${a.count||1}`;
+                    if (currentDept === 'MA') acts += ` = ${pts} баллов`;
+                    acts += `\n`;
+                    if (a.proofs?.length) acts += `Доказательства: ${a.proofs.filter(p=>p).join(', ')}\n`;
                 });
                 
                 try {
+                    const fields = [
+                        { name: "👤 Никнейм", value: nick, inline: true },
+                        { name: "🏅 Текущий ранг", value: curRank, inline: true },
+                        { name: "🎯 Желаемый ранг", value: desRank, inline: true },
+                        { name: "📅 Последнее повышение", value: formatDate(lastProm) || "Не указано", inline: true },
+                        { name: "📝 Достижения", value: acts.substring(0, 1024) || "Нет" }
+                    ];
+                    if (currentDept === 'MA') {
+                        fields.push({ name: "⭐ Баллы", value: `${total}`, inline: true });
+                    }
+                    
                     const promotionEmbed = {
                         title: `⬆️ Запрос на повышение (${currentDept})`,
                         color: 0x4CAF50,
-                        fields: [
-                            { name: "👤 Никнейм", value: nick, inline: true },
-                            { name: "🏅 Текущий ранг", value: curRank, inline: true },
-                            { name: "🎯 Желаемый ранг", value: desRank, inline: true },
-                            { name: "📅 Последнее повышение", value: formatDate(lastProm) || "Не указано", inline: true },
-                            { name: "📝 Достижения", value: acts.substring(0, 1024) || "Нет" },
-                            { name: "⭐ Баллы", value: `${total}`, inline: true }
-                        ],
+                        fields: fields,
                         footer: { text: "ARMY" },
                         timestamp: new Date().toISOString()
                     };
@@ -1394,10 +1443,50 @@
                     };
                     
                     const webhook = WEBHOOKS[currentDept]?.exam;
+                    const additionalWebhook = WEBHOOKS[currentDept]?.examAdditional;
+                    
                     if (webhook) {
                         await sendDiscordEmbed(webhook, examEmbed, roleTag);
                     }
+                    if (additionalWebhook && currentDept !== 'MA') {
+                        await sendDiscordEmbed(additionalWebhook, examEmbed);
+                    }
                     showAlert(alertId, 'Заявка отправлена!', 'success');
+                    resetForm();
+                } catch(e) {
+                    showAlert(alertId, 'Ошибка отправки: ' + e.message, 'error');
+                }
+                
+            } else if (currentAction === 'examResult') {
+                const examiner = document.getElementById('rExaminer')?.value.trim();
+                const student = document.getElementById('rStudent')?.value.trim();
+                const department = document.getElementById('rDepartment')?.value;
+                const result = document.getElementById('rResult')?.value;
+                const score = document.getElementById('rScore')?.value;
+                
+                if (!examiner) { showAlert(alertId, 'Введите имя принимавшего', 'error'); resetButton(); return; }
+                if (!student) { showAlert(alertId, 'Введите имя сдающего', 'error'); resetButton(); return; }
+                if (!score) { showAlert(alertId, 'Введите количество баллов', 'error'); resetButton(); return; }
+                
+                try {
+                    const resultEmbed = {
+                        title: `📋 Результат экзамена (${department})`,
+                        color: result === 'Сдал' ? 0x10b981 : 0xef4444,
+                        fields: [
+                            { name: "👤 Принимавший", value: examiner, inline: true },
+                            { name: "👤 Сдающий", value: student, inline: true },
+                            { name: "📊 Результат", value: result, inline: true },
+                            { name: "⭐ Баллы", value: score, inline: true }
+                        ],
+                        footer: { text: "ARMY" },
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    const webhook = EXAM_RESULT_WEBHOOKS[department];
+                    if (webhook) {
+                        await sendDiscordEmbed(webhook, resultEmbed);
+                    }
+                    showAlert(alertId, 'Результат отправлен!', 'success');
                     resetForm();
                 } catch(e) {
                     showAlert(alertId, 'Ошибка отправки: ' + e.message, 'error');
@@ -1425,11 +1514,17 @@
                 document.getElementById('fCurrentRank') && (document.getElementById('fCurrentRank').value = '');
                 document.getElementById('fDesiredRank') && (document.getElementById('fDesiredRank').value = '');
                 document.getElementById('fLastProm') && (document.getElementById('fLastProm').value = '');
-            } else {
+            } else if (currentAction === 'exam') {
                 document.getElementById('fFullName') && (document.getElementById('fFullName').value = '');
                 document.getElementById('fExamType') && (document.getElementById('fExamType').value = '');
                 document.getElementById('fDiscord') && (document.getElementById('fDiscord').value = '');
                 document.getElementById('fTime') && (document.getElementById('fTime').value = '');
+            } else if (currentAction === 'examResult') {
+                document.getElementById('rExaminer') && (document.getElementById('rExaminer').value = '');
+                document.getElementById('rStudent') && (document.getElementById('rStudent').value = '');
+                document.getElementById('rDepartment') && (document.getElementById('rDepartment').value = 'ACD');
+                document.getElementById('rResult') && (document.getElementById('rResult').value = 'Сдал');
+                document.getElementById('rScore') && (document.getElementById('rScore').value = '');
             }
         }
         
