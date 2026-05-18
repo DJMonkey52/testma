@@ -897,7 +897,7 @@
                     </div>
                     <button class="submit-btn" id="submitBtn"><i class="fab fa-discord"></i> ОТПРАВИТЬ</button>
                     <div class="footer-signature">
-                        <p><i class="fas fa-code"></i> By Alexandr DeHaus <i class="fas fa-heart"></i></p>
+                        <p><i class="fas fa-code"></i> By Alexandr DeHaus & Evgeny Bauer<i class="fas fa-heart"></i></p>
                     </div>
                 </div>
             </div>
@@ -1364,7 +1364,7 @@
                             { name: "📝 Действия", value: acts.substring(0, 1024) || "Нет" },
                             { name: "⭐ Баллы", value: `${total}`, inline: true }
                         ],
-                        footer: { text: "ARMY" },
+                        footer: { text: "ARMY By Alexandr DeHaus & Evgeny Bauer" },
                         timestamp: new Date().toISOString()
                     };
                     await sendDiscordEmbed(WEBHOOKS.MA.weekly, weeklyEmbed, ROLES_TO_TAG_WEEKLY);
@@ -1407,7 +1407,7 @@
                         title: `⬆️ Запрос на повышение (${currentDept})`,
                         color: 0x4CAF50,
                         fields: fields,
-                        footer: { text: "ARMY" },
+                        footer: { text: "ARMY By Alexandr DeHaus & Evgeny Bauer" },
                         timestamp: new Date().toISOString()
                     };
                     const webhook = WEBHOOKS[currentDept]?.promotion;
@@ -1438,7 +1438,7 @@
                             { name: "💬 Discord", value: discordMention || discordId || "Не указан", inline: true },
                             { name: "⏰ Время", value: time || "Не указано", inline: true }
                         ],
-                        footer: { text: "ARMY" },
+                        footer: { text: "ARMY By Alexandr DeHaus & Evgeny Bauer" },
                         timestamp: new Date().toISOString()
                     };
                     
@@ -1478,7 +1478,7 @@
                             { name: "📊 Результат", value: result, inline: true },
                             { name: "⭐ Баллы", value: score, inline: true }
                         ],
-                        footer: { text: "ARMY" },
+                        footer: { text: "ARMY By Alexandr DeHaus & Evgeny Bauer" },
                         timestamp: new Date().toISOString()
                     };
                     
